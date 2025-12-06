@@ -22,7 +22,6 @@
             color: #333;
         }
 
-        /* SLIDE = FULLSCREEN */
         .slide {
             position: absolute;
             top: 0;
@@ -43,7 +42,6 @@
             opacity: 1;
         }
 
-        /* TITLE */
         h1 {
             font-family: 'Sacramento', cursive;
             font-size: 60px;
@@ -52,7 +50,6 @@
             text-align: center;
         }
 
-        /* MAIN CARD */
         .card {
             background: rgba(255,255,255,0.65);
             padding: 25px;
@@ -69,7 +66,6 @@
             line-height: 1.7;
         }
 
-        /* GRID WRAPPER (SLIDE 2) */
         .mini-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -85,7 +81,6 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             backdrop-filter: blur(6px);
-            text-align: left;
         }
 
         .mini-card p {
@@ -94,9 +89,13 @@
             line-height: 1.5;
         }
 
-        /* BUTTON */
-        .btn-next {
-            margin-top: 20px;
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn {
             padding: 14px 26px;
             border: none;
             border-radius: 12px;
@@ -107,30 +106,14 @@
             transition: 0.3s;
         }
 
-        .btn-next:hover {
+        .btn:hover {
             background: #d81b60;
         }
 
-        /* RESPONSIVE HP */
         @media (max-width: 600px) {
-
-            h1 {
-                font-size: 40px;
-                margin-top: 10px;
-            }
-
-            .card {
-                width: 100%;
-            }
-
-            .mini-grid {
-                grid-template-columns: 1fr;
-                width: 100%;
-            }
-
-            .mini-card p {
-                font-size: 15px;
-            }
+            h1 { font-size: 40px; margin-top: 10px; }
+            .mini-grid { grid-template-columns: 1fr; }
+            .mini-card p { font-size: 15px; }
         }
 
         /* SNOW */
@@ -155,9 +138,33 @@
             opacity: 0.6;
             padding-bottom: 10px;
         }
+
+        /* MUSIC BUTTON */
+        #music-wrapper {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 999;
+        }
+
+        iframe {
+            width: 0;
+            height: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
     </style>
 </head>
 <body>
+
+<!-- MUSIC -->
+<div id="music-wrapper">
+    <iframe 
+        src="https://www.youtube.com/embed/1tng9i-5oxA?autoplay=1&mute=1&loop=1&playlist=1tng9i-5oxA"
+        frameborder="0">
+    </iframe>
+</div>
 
 <!-- SLIDE 1 -->
 <div id="slide1" class="slide active">
@@ -166,11 +173,12 @@
     <div class="card">
         <p>Semoga damai, sukacita, dan terang kasih Tuhan memenuhi harimu.  
         Kiranya semua yang kamu impikan menjadi lebih dekat di tahun yang baru.</p>
-
         <p><strong>Merry Christmas & GBU!</strong></p>
     </div>
 
-    <button class="btn-next" onclick="nextSlide(2)">Lanjut ➜</button>
+    <div class="btn-row">
+        <button class="btn" onclick="nextSlide(2)">Lanjut ➜</button>
+    </div>
 
     <footer>✨ Website ucapan Natal — 2025 ✨</footer>
 </div>
@@ -184,45 +192,39 @@
         <p><strong>Makasi yaa untuk semua kata baik yang pernah kamu berikan kepadaku.</strong></p>
     </div>
 
-    <!-- GRID 2 KOLOM / 1 KOLOM DI HP -->
     <div class="mini-grid">
 
         <div class="mini-card">
             <p><strong>Rabu 3 Desember 2025.</strong><br>
-            bang enjoy the process ya, it will pass. 
-enjoy bukan berarti dibiarkan gitu aja bang, 
-tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung 😭😭
- tapi dibalik itu semua tetap waras ya bang. 
-push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. 
-semangat yaa bang, sehat", God bless u more  💪.</p>
+            bang enjoy the process ya...</p>
         </div>
 
         <div class="mini-card">
             <p><strong>27 November.</strong><br>
-            abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang,
-            manusia emang sering punya perasaan kaya gitu. 
-            tapi jangan sampe perasaan yang kaya gitu ngebuat abang ga percaya diri ya.</p>
+            abang pesimis itu wajar kok...</p>
         </div>
 
         <div class="mini-card">
             <p><strong>3 Desember 2025.</strong><br>
-            bang semangat ya hari inii, harusss terisi full menjalanii hari ini, 
-            apapun yang bakalan terjadi, u know that, u can do it with God 💪.</p>
+            bang semangat ya hari inii...</p>
         </div>
 
         <div class="mini-card">
             <p><strong>lewat gojek.</strong><br>
-            "bang nael jangan malas makan, dijaga kesehatannya, harus saying sama diri sendiri, harus minum air putih yang cukup jugaaa"</p>
+            jangan malas makan...</p>
         </div>
 
         <div class="mini-card">
             <p><strong>etc.</strong><br>
-            nyuruh tidur, makan, dll wkwkk.</p>
+            nyuruh tidur, makan, dll wkwk.</p>
         </div>
 
     </div>
 
-    <button class="btn-next" onclick="nextSlide(3)">Lanjut ➜</button>
+    <div class="btn-row">
+        <button class="btn" onclick="prevSlide(1)">⬅ Kembali</button>
+        <button class="btn" onclick="nextSlide(3)">Lanjut ➜</button>
+    </div>
 
     <footer>✨ Website ucapan Natal — 2025 ✨</footer>
 </div>
@@ -232,11 +234,14 @@ semangat yaa bang, sehat", God bless u more  💪.</p>
     <h1>Pesan Natal untuk Rut 🎁</h1>
 
     <div class="card">
-        <p>Di hari Natal ini, aku berharap kamu dikelilingi oleh sukacita yang hangat dan kedamaian yang lembut.  
-        Semoga setiap langkahmu dipenuhi kekuatan dan kasih Tuhan yang tidak pernah berubah.</p>
+        <p>Di hari Natal ini, aku berharap kamu dikelilingi oleh sukacita
+           dan kedamaian yang lembut...</p>
 
-        <p>Kiranya tahun yang baru membawa berkat, pertumbuhan, dan kebahagiaan yang lebih besar lagi.  
-        <br><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
+        <p><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
+    </div>
+
+    <div class="btn-row">
+        <button class="btn" onclick="prevSlide(2)">⬅ Kembali</button>
     </div>
 
     <footer>✨ Website ucapan Natal — 2025 ✨</footer>
@@ -248,7 +253,12 @@ function nextSlide(num) {
     document.getElementById("slide" + num).classList.add('active');
 }
 
-// Efek salju
+function prevSlide(num) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.getElementById("slide" + num).classList.add('active');
+}
+
+// Snow Effect
 for (let i = 0; i < 40; i++) {
     let snow = document.createElement("div");
     snow.className = "snowflake";

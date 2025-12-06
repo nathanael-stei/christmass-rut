@@ -6,70 +6,74 @@
 <title>Selamat Natal — Untuk Rut</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#ffe6e9,#d6e6ff);color:#222;overflow:hidden;}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+html, body { height:100%; font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#ffe6e9,#d6e6ff); color:#222; overflow:hidden; }
 
 /* ===== Password Overlay ===== */
-#pw-overlay{
-  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.35));
-  z-index:9999;
+#pw-overlay {
+  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.35)); z-index:9999;
 }
-.pw-box{
-  width:min(420px,92%);background:rgba(255,255,255,0.95);backdrop-filter:blur(6px);
-  padding:28px;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,0.25);text-align:center
+.pw-box {
+  width:min(420px,92%); background:rgba(255,255,255,0.95); backdrop-filter:blur(6px);
+  padding:28px; border-radius:14px; box-shadow:0 12px 40px rgba(0,0,0,0.25); text-align:center;
 }
-.pw-box h2{font-family:'Sacramento',cursive;font-size:40px;color:#b71c1c;margin-bottom:8px}
-.pw-box p{color:#444;margin-bottom:14px}
-.pw-input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e0e0e0;font-size:16px;margin-bottom:12px}
-.pw-btn{padding:10px 18px;border-radius:10px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer}
-.pw-error{color:#b71c1c;margin-top:8px;font-size:14px;display:none}
+.pw-box h2 { font-family:'Sacramento',cursive; font-size:40px; color:#b71c1c; margin-bottom:8px; }
+.pw-box p { color:#444; margin-bottom:14px; }
+.pw-input { width:100%; padding:10px 12px; border-radius:10px; border:1px solid #e0e0e0; font-size:16px; margin-bottom:12px; }
+.pw-btn { padding:10px 18px; border-radius:10px; border:none; background:#ad1457; color:#fff; font-weight:600; cursor:pointer; }
+.pw-error { color:#b71c1c; margin-top:8px; font-size:14px; display:none; }
 
 /* ===== Slides ===== */
-.container{position:relative;width:100vw;height:100vh;overflow:hidden}
-.slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;
-padding:20px;overflow-y:auto;justify-content:flex-start;transition:opacity .45s ease,transform .45s ease;transform:scale(1);}
-.slide.active{display:flex;opacity:1}
-.slide.enter{animation: fadeZoom .45s ease both;}
-@keyframes fadeZoom{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+.container { position:relative; width:100vw; height:100vh; overflow:hidden; }
+.slide {
+  position:absolute; inset:0; display:none; flex-direction:column; align-items:center;
+  padding:20px; overflow-y:auto; justify-content:flex-start; transition:opacity .45s ease, transform .45s ease; transform:scale(1);
+}
+.slide.active { display:flex; opacity:1; }
+.slide.enter { animation: fadeZoom .45s ease both; }
+@keyframes fadeZoom { from { opacity:0; transform:scale(.985); } to { opacity:1; transform:scale(1); } }
 
 /* Heading */
-h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20px 0 10px;text-align:center}
+h1.title { font-family:'Sacramento',cursive; font-size:56px; color:#b71c1c; margin:20px 0 10px; text-align:center; }
 
 /* Card */
-.card{width:min(760px,94%);background:rgba(255,255,255,0.75);backdrop-filter:blur(8px);border-radius:16px;padding:22px 24px;margin:8px 0;box-shadow:0 10px 30px rgba(0,0,0,0.08);}
-.card p{font-size:18px;line-height:1.7;color:#222}
+.card { width:min(760px,94%); background:rgba(255,255,255,0.75); backdrop-filter:blur(8px); border-radius:16px; padding:22px 24px; margin:8px 0; box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+.card p { font-size:18px; line-height:1.7; color:#222; }
 
 /* Grid slide2 */
-.mini-grid{width:min(760px,94%);display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
-.mini-card{background:rgba(255,255,255,0.85);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);text-align:left}
-.mini-card p{font-size:15.5px;line-height:1.55;color:#222;margin:0}
+.mini-grid { width:min(760px,94%); display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:14px; }
+.mini-card { background:rgba(255,255,255,0.85); padding:14px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.06); text-align:left; }
+.mini-card p { font-size:15.5px; line-height:1.55; color:#222; margin:0; }
 
 /* Buttons */
-.btn-row{display:flex;gap:12px;margin-top:18px}
-.btn{padding:12px 20px;border-radius:12px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer;font-size:15px}
-.btn.secondary{background:#6b6b6b}
-.btn:active{transform:translateY(1px)}
+.btn-row { display:flex; gap:12px; margin-top:18px; }
+.btn { padding:12px 20px; border-radius:12px; border:none; background:#ad1457; color:#fff; font-weight:600; cursor:pointer; font-size:15px; }
+.btn.secondary { background:#6b6b6b; }
+.btn:active { transform:translateY(1px); }
 
 /* Music control */
-#music-control{position:fixed;right:12px;bottom:12px;background:rgba(255,255,255,0.9);padding:8px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,0.12);z-index:999;display:flex;align-items:center;gap:8px}
-#music-control button{border:none;background:transparent;font-size:18px;cursor:pointer}
+#music-control { position:fixed; right:12px; bottom:12px; background:rgba(255,255,255,0.9); padding:8px; border-radius:999px; box-shadow:0 6px 18px rgba(0,0,0,0.12); z-index:999; display:flex; align-items:center; gap:8px; }
+#music-control button { border:none; background:transparent; font-size:18px; cursor:pointer; }
 
 /* Snow */
-.snowflake{position:fixed;top:-5vh;pointer-events:none;font-size:18px;color:#fff;opacity:0.95;z-index:2}
+.snowflake { position:fixed; top:-5vh; pointer-events:none; font-size:18px; color:#fff; opacity:0.95; z-index:2; }
 
-/* Gift items */
-.gift-item{text-align:center;opacity:0;transform:translateY(0);}
+/* Gift Box */
+#gift-box { width:120px; height:120px; background:red; border-radius:12px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:36px; box-shadow:0 6px 18px rgba(0,0,0,0.3); transition:transform 0.6s ease; }
+.gift-container { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:flex; gap:20px; pointer-events:none; }
+.gift-item { text-align:center; opacity:0; transform:translateY(0); transition:transform 0.8s ease, opacity 0.8s ease; }
 
 /* Responsive */
-@media (max-width:720px){h1.title{font-size:44px}.card p{font-size:16px}.mini-card p{font-size:15px}.mini-grid{grid-template-columns:1fr}}
-@media (max-width:420px){h1.title{font-size:36px}.pw-box h2{font-size:32px}.pw-input{font-size:15px}.pw-btn{font-size:15px}}
+@media (max-width:720px){ h1.title{font-size:44px;} .card p{font-size:16px;} .mini-card p{font-size:15px;} .mini-grid{grid-template-columns:1fr;} }
+@media (max-width:420px){ h1.title{font-size:36px;} .pw-box h2{font-size:32px;} .pw-input{font-size:15px;} .pw-btn{font-size:15px;} }
 </style>
 </head>
 <body>
 
 <!-- Password Overlay -->
-<div id="pw-overlay" aria-hidden="false">
+<div id="pw-overlay">
   <div class="pw-box" role="dialog" aria-labelledby="pw-title">
     <h2 id="pw-title">Selamat Natal</h2>
     <p>Masukkan kata sandi untuk melihat ucapan khusus.</p>
@@ -127,8 +131,8 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
   <section id="slide4" class="slide">
     <h1 class="title">Hadiah Khusus untukmu 🎉</h1>
     <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:350px;">
-      <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:36px;">🎁</div>
-      <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;">
+      <div id="gift-box">🎁</div>
+      <div class="gift-container" id="gifts">
         <div class="gift-item"><img src="eskrim.jpg" style="width:60px"><p>5 Es Krim 🍦</p></div>
         <div class="gift-item"><img src="uang.jpg" style="width:60px"><p>Rp 1,5M 💸</p></div>
         <div class="gift-item"><img src="swiss.jpg" style="width:60px"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
@@ -148,6 +152,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
+
   const slides=['slide1','slide2','slide3','slide4'];
   let current=0;
 
@@ -157,8 +162,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     current=index;
     slides.forEach((id,i)=>{
       const el=document.getElementById(id);
-      if(i===index){el.classList.add('active','enter');el.setAttribute('aria-hidden','false');setTimeout(()=>el.classList.remove('enter'),650);}
-      else{el.classList.remove('active','enter');el.setAttribute('aria-hidden','true');}
+      if(i===index){ el.classList.add('active','enter'); el.setAttribute('aria-hidden','false'); setTimeout(()=>el.classList.remove('enter'),650);}
+      else{ el.classList.remove('active','enter'); el.setAttribute('aria-hidden','true');}
     });
     document.getElementById('music-control').style.display='flex';
   }
@@ -185,21 +190,28 @@ document.addEventListener('DOMContentLoaded',()=>{
       pwError.style.display='none';
       pwOverlay.style.display='none';
       showSlide(0);
-      audio.play();
-      musicControl.style.display='flex';
+      startAudio();
     } else {
       pwError.style.display='block';
       document.querySelector('.pw-box').animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:240});
     }
   }
 
-  // Audio control
+  // Audio
   const audio=document.getElementById('bg-audio');
   const musicToggle=document.getElementById('music-toggle');
   const musicLabel=document.getElementById('music-label');
+
+  function startAudio(){
+    audio.muted=false;
+    audio.volume=0.5;
+    audio.play().then(()=>{ musicToggle.textContent='🔊'; musicLabel.textContent='Musik (on)'; }).catch(err=>console.log(err));
+    document.getElementById('music-control').style.display='flex';
+  }
+
   musicToggle.addEventListener('click',()=>{
-    if(audio.paused){audio.play();musicToggle.textContent='🔊';musicLabel.textContent='Musik (on)';}
-    else{audio.pause();musicToggle.textContent='🔈';musicLabel.textContent='Musik (off)';}
+    if(audio.paused){ audio.play(); musicToggle.textContent='🔊'; musicLabel.textContent='Musik (on)'; }
+    else{ audio.pause(); musicToggle.textContent='🔈'; musicLabel.textContent='Musik (off)'; }
   });
 
   // Snow
@@ -221,18 +233,19 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   }
   makeSnow();
-  window.addEventListener('resize',()=>{document.querySelectorAll('.snowflake').forEach(n=>n.remove()); makeSnow();});
+  window.addEventListener('resize',()=>{ document.querySelectorAll('.snowflake').forEach(n=>n.remove()); makeSnow(); });
 
-  // Gift box
+  // Gift Box
   const giftBox=document.getElementById('gift-box');
   const gifts=document.querySelectorAll('.gift-item');
+
   giftBox.addEventListener('click',()=>{
     gifts.forEach((el,i)=>{
       el.style.opacity=1;
       el.style.transform='translateY(-150px)';
       el.style.transition=`transform 0.8s ease ${i*0.2}s, opacity 0.8s ease ${i*0.2}s`;
     });
-    giftBox.style.transform='scale(0)';
+    giftBox.style.transform='scale(0) rotate(-45deg)';
     giftBox.style.transition='transform 0.6s ease';
   });
 

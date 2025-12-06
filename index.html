@@ -12,32 +12,34 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             margin: 0;
             padding: 0;
+            height: 100%;
+            overflow: hidden;
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #ffe6e9, #d6e6ff);
             color: #333;
-            text-align: center;
-            overflow: hidden;
-            height: 100vh;
         }
 
-        /* SLIDE FULLSCREEN */
+        /* SLIDE = FULLSCREEN */
         .slide {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 40px 20px;
+            width: 100vw;
+            height: 100vh;
+            padding: 20px;
             display: none;
+            flex-direction: column;
+            align-items: center;
             opacity: 0;
-            transition: opacity 0.8s;
+            transition: opacity 0.6s ease;
+            overflow-y: auto;
         }
 
         .slide.active {
-            display: block;
+            display: flex;
             opacity: 1;
         }
 
@@ -45,19 +47,20 @@
         h1 {
             font-family: 'Sacramento', cursive;
             font-size: 60px;
-            margin-top: 40px;
             color: #b71c1c;
+            margin: 20px 0 10px;
+            text-align: center;
         }
 
         /* MAIN CARD */
         .card {
             background: rgba(255,255,255,0.65);
-            backdrop-filter: blur(8px);
-            padding: 30px;
-            margin: 25px auto;
+            padding: 25px;
+            margin-top: 10px;
             border-radius: 20px;
             width: 90%;
             max-width: 700px;
+            backdrop-filter: blur(8px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
@@ -66,30 +69,32 @@
             line-height: 1.7;
         }
 
-        /* MINI CARD */
-        .mini-wrapper {
-            display: flex;
-            flex-direction: column;
+        /* GRID WRAPPER (SLIDE 2) */
+        .mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin: 20px 0;
+            width: 100%;
+            max-width: 700px;
+            margin-top: 15px;
         }
 
         .mini-card {
             background: rgba(255,255,255,0.75);
-            backdrop-filter: blur(6px);
             padding: 18px 20px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            backdrop-filter: blur(6px);
             text-align: left;
         }
 
         .mini-card p {
             margin: 0;
-            font-size: 17px;
-            line-height: 1.6;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
-        /* BUTTON Lanjut */
+        /* BUTTON */
         .btn-next {
             margin-top: 20px;
             padding: 14px 26px;
@@ -106,12 +111,34 @@
             background: #d81b60;
         }
 
+        /* RESPONSIVE HP */
+        @media (max-width: 600px) {
+
+            h1 {
+                font-size: 40px;
+                margin-top: 10px;
+            }
+
+            .card {
+                width: 100%;
+            }
+
+            .mini-grid {
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+
+            .mini-card p {
+                font-size: 15px;
+            }
+        }
+
         /* SNOW */
         .snowflake {
             position: fixed;
             top: -10px;
             font-size: 18px;
-            color: #ffffff;
+            color: white;
             opacity: 0.8;
             animation: fall linear infinite;
             pointer-events: none;
@@ -123,36 +150,11 @@
         }
 
         footer {
-            position: absolute;
-            bottom: 12px;
-            width: 100%;
+            margin-top: auto;
             font-size: 13px;
             opacity: 0.6;
+            padding-bottom: 10px;
         }
-
-        /* -------------------- RESPONSIVE DESIGN -------------------- */
-
-        /* Smartphone (≤480px) */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 40px;
-                margin-top: 25px;
-            }
-
-            .card {
-                padding: 20px;
-            }
-
-            .card p, .mini-card p {
-                font-size: 15px;
-            }
-
-            .btn-next {
-                padding: 12px 20px;
-                font-size: 15px;
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -169,6 +171,8 @@
     </div>
 
     <button class="btn-next" onclick="nextSlide(2)">Lanjut ➜</button>
+
+    <footer>✨ Website ucapan Natal — 2025 ✨</footer>
 </div>
 
 <!-- SLIDE 2 -->
@@ -177,32 +181,37 @@
 
     <div class="card">
         <p>Aku cuma mau bilang…</p>
-
         <p><strong>Terima kasih untuk semua kata baik yang pernah kamu berikan kepadaku.</strong></p>
+    </div>
 
-        <div class="mini-wrapper">
+    <!-- GRID 2 KOLOM / 1 KOLOM DI HP -->
+    <div class="mini-grid">
 
-            <div class="mini-card">
-                <p><strong>Untuk kata-kata yang membuatku kuat.</strong><br>
-                Kata-katamu memberi kekuatan di saat aku paling membutuhkannya.</p>
-            </div>
-
-            <div class="mini-card">
-                <p><strong>Untuk perhatian kecil yang kamu beri tanpa sadar.</strong><br>
-                Hal-hal kecil itu justru paling membekas dan berarti banyak.</p>
-            </div>
-
-            <div class="mini-card">
-                <p><strong>Untuk kalimat positifmu yang tidak pernah aku lupa.</strong><br>
-                Kata-katamu masih menjadi penyemangatku sampai sekarang.</p>
-            </div>
-
+        <div class="mini-card">
+            <p><strong>Kata-kata yang membuatku kuat.</strong><br>
+            Kata-katamu menguatkan ketika aku paling membutuhkannya.</p>
         </div>
 
-        <p>Kamu lebih berdampak daripada yang kamu kira.</p>
+        <div class="mini-card">
+            <p><strong>Perhatian kecilmu.</strong><br>
+            Hal-hal sederhana darimu justru yang paling membekas.</p>
+        </div>
+
+        <div class="mini-card">
+            <p><strong>Kalimat positifmu.</strong><br>
+            Kata-katamu masih jadi penyemangat sampai sekarang.</p>
+        </div>
+
+        <div class="mini-card">
+            <p><strong>Dukunganmu yang tulus.</strong><br>
+            Kamu memberi pengaruh lebih besar daripada yang kamu kira.</p>
+        </div>
+
     </div>
 
     <button class="btn-next" onclick="nextSlide(3)">Lanjut ➜</button>
+
+    <footer>✨ Website ucapan Natal — 2025 ✨</footer>
 </div>
 
 <!-- SLIDE 3 -->
@@ -216,6 +225,8 @@
         <p>Kiranya tahun yang baru membawa berkat, pertumbuhan, dan kebahagiaan yang lebih besar lagi.  
         <br><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
     </div>
+
+    <footer>✨ Website ucapan Natal — 2025 ✨</footer>
 </div>
 
 <script>
@@ -235,10 +246,6 @@ for (let i = 0; i < 40; i++) {
     document.body.appendChild(snow);
 }
 </script>
-
-<footer>
-    ✨ Website ucapan Natal — 2025 ✨
-</footer>
 
 </body>
 </html>

@@ -1,274 +1,362 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Natal Untukmu 🎄</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Selamat Natal — Untuk Rut</title>
+<style>
+/* =========== Fonts & Resets =========== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#ffe6e9,#d6e6ff);color:#222;overflow:hidden}
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap');
+/* =========== Password Overlay =========== */
+#pw-overlay{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.35));
+  z-index:9999;
+}
+.pw-box{
+  width:min(420px,92%);background:rgba(255,255,255,0.95);backdrop-filter:blur(6px);
+  padding:28px;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,0.25);text-align:center
+}
+.pw-box h2{font-family:'Sacramento',cursive;font-size:40px;color:#b71c1c;margin-bottom:8px}
+.pw-box p{color:#444;margin-bottom:14px}
+.pw-input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e0e0e0;font-size:16px;margin-bottom:12px}
+.pw-btn{padding:10px 18px;border-radius:10px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer}
+.pw-error{color:#b71c1c;margin-top:8px;font-size:14px;display:none}
 
-        * {
-            box-sizing: border-box;
-        }
+/* =========== Slide container (full-screen) =========== */
+.container{position:relative;width:100vw;height:100vh;overflow:hidden}
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffe6e9, #d6e6ff);
-            color: #333;
-        }
+/* each slide fills viewport */
+.slide{
+  position:absolute;inset:0;display:none;flex-direction:column;align-items:center;
+  padding:20px;overflow-y:auto; -webkit-overflow-scrolling:touch;
+  justify-content:flex-start;
+  transition:opacity .45s ease,transform .45s ease;
+  transform:scale(1);
+}
 
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            padding: 20px;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            overflow-y: auto;
-        }
+/* active slide */
+.slide.active{display:flex;opacity:1}
 
-        .slide.active {
-            display: flex;
-            opacity: 1;
-        }
+/* enter animation (fade + zoom-in) */
+.slide.enter{
+  animation: fadeZoom .45s ease both;
+}
+@keyframes fadeZoom{
+  from{opacity:0;transform:scale(.985)}
+  to{opacity:1;transform:scale(1)}
+}
 
-        h1 {
-            font-family: 'Sacramento', cursive;
-            font-size: 60px;
-            color: #b71c1c;
-            margin: 20px 0 10px;
-            text-align: center;
-        }
+/* heading */
+h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20px 0 10px;text-align:center}
 
-        .card {
-            background: rgba(255,255,255,0.65);
-            padding: 25px;
-            margin-top: 10px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 700px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
+/* card style */
+.card{
+  width:min(760px,94%);background:rgba(255,255,255,0.75);backdrop-filter:blur(8px);
+  border-radius:16px;padding:22px 24px;margin:8px 0;box-shadow:0 10px 30px rgba(0,0,0,0.08)
+}
+.card p{font-size:18px;line-height:1.7;color:#222}
 
-        .card p {
-            font-size: 18px;
-            line-height: 1.7;
-        }
+/* grid for slide 2: 2 columns desktop, 1 column mobile */
+.mini-grid{width:min(760px,94%);display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.mini-card{background:rgba(255,255,255,0.85);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);text-align:left}
+.mini-card p{font-size:15.5px;line-height:1.55;color:#222;margin:0}
 
-        .mini-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width: 100%;
-            max-width: 700px;
-            margin-top: 15px;
-        }
+/* buttons row */
+.btn-row{display:flex;gap:12px;margin-top:18px}
+.btn{padding:12px 20px;border-radius:12px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer;font-size:15px}
+.btn.secondary{background:#6b6b6b}
+.btn:active{transform:translateY(1px)}
 
-        .mini-card {
-            background: rgba(255,255,255,0.75);
-            padding: 18px 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            backdrop-filter: blur(6px);
-        }
+/* footer small */
+.footer{position:fixed;bottom:12px;width:100%;text-align:center;font-size:13px;color:rgba(0,0,0,0.55)}
 
-        .mini-card p {
-            margin: 0;
-            font-size: 16px;
-            line-height: 1.5;
-        }
+/* snowflake style (z-index low) */
+.snowflake{position:fixed;top:-5vh;pointer-events:none;font-size:18px;color:#fff;opacity:0.95;z-index:2}
 
-        .btn-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 25px;
-        }
+/* music control (floating) */
+#music-control{position:fixed;right:12px;bottom:12px;background:rgba(255,255,255,0.9);padding:8px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,0.12);z-index:999;display:flex;align-items:center;gap:8px}
+#music-control button{border:none;background:transparent;font-size:18px;cursor:pointer}
 
-        .btn {
-            padding: 14px 26px;
-            border: none;
-            border-radius: 12px;
-            background: #ad1457;
-            color: white;
-            font-size: 17px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background: #d81b60;
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 40px; margin-top: 10px; }
-            .mini-grid { grid-template-columns: 1fr; }
-            .mini-card p { font-size: 15px; }
-        }
-
-        /* SNOW */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            font-size: 18px;
-            color: white;
-            opacity: 0.8;
-            animation: fall linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-10vh); }
-            100% { transform: translateY(110vh); }
-        }
-
-        footer {
-            margin-top: auto;
-            font-size: 13px;
-            opacity: 0.6;
-            padding-bottom: 10px;
-        }
-
-        /* MUSIC BUTTON */
-        #music-wrapper {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            z-index: 999;
-        }
-
-        iframe {
-            width: 0;
-            height: 0;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-    </style>
+/* responsive tweaks */
+@media (max-width:720px){
+  h1.title{font-size:44px}
+  .card p{font-size:16px}
+  .mini-card p{font-size:15px}
+  .mini-grid{grid-template-columns:1fr}
+}
+@media (max-width:420px){
+  h1.title{font-size:36px}
+  .pw-box h2{font-size:32px}
+  .pw-input{font-size:15px}
+  .pw-btn{font-size:15px}
+}
+</style>
 </head>
 <body>
 
-<!-- MUSIC -->
-<div id="music-wrapper">
-    <iframe 
-        src="https://www.youtube.com/embed/1tng9i-5oxA?autoplay=1&mute=1&loop=1&playlist=1tng9i-5oxA"
-        frameborder="0">
-    </iframe>
+<!-- ======== Password Overlay ======== -->
+<div id="pw-overlay" aria-hidden="false">
+  <div class="pw-box" role="dialog" aria-labelledby="pw-title">
+    <h2 id="pw-title">Selamat Natal</h2>
+    <p>Masukkan kata sandi untuk melihat ucapan khusus.</p>
+    <input id="pw-input" class="pw-input" placeholder="masukkan kata sandi.." autocomplete="off" />
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button id="pw-submit" class="pw-btn">Buka</button>
+      <button id="pw-demo" class="pw-btn" style="background:#6b6b6b">Demo</button>
+    </div>
+    <div id="pw-error" class="pw-error">Password salah — coba lagi.</div>
+    <div style="margin-top:10px;font-size:13px;color:#666">Tip: password default <strong>rut2025</strong> (boleh diubah di kode)</div>
+  </div>
 </div>
 
-<!-- SLIDE 1 -->
-<div id="slide1" class="slide active">
-    <h1>Selamat Natal Rut 🎄✨</h1>
+<!-- ======== Main container with slides ======== -->
+<div class="container" id="app">
 
+  <!-- SLIDE 1 -->
+  <section id="slide1" class="slide" aria-hidden="true">
+    <h1 class="title">Selamat Natal Rut 🎄✨</h1>
     <div class="card">
-        <p>Semoga damai, sukacita, dan terang kasih Tuhan memenuhi harimu.  
-        Kiranya semua yang kamu impikan menjadi lebih dekat di tahun yang baru.</p>
-        <p><strong>Merry Christmas & GBU!</strong></p>
+      <p>Semoga damai, sukacita, dan terang kasih Tuhan memenuhi harimu. Kiranya semua yang kamu impikan menjadi lebih dekat di tahun yang baru.</p>
+      <p><strong>Merry Christmas & GBU!</strong></p>
     </div>
 
     <div class="btn-row">
-        <button class="btn" onclick="nextSlide(2)">Lanjut ➜</button>
+      <button class="btn" id="to2">Lanjut ➜</button>
     </div>
+  </section>
 
-    <footer>✨ Website ucapan Natal — 2025 ✨</footer>
-</div>
-
-<!-- SLIDE 2 -->
-<div id="slide2" class="slide">
-    <h1>Terima Kasih ✨</h1>
+  <!-- SLIDE 2 -->
+  <section id="slide2" class="slide" aria-hidden="true">
+    <h1 class="title">Terima Kasih ✨</h1>
 
     <div class="card">
-        <p>Btw…</p>
-        <p><strong>Makasi yaa untuk semua kata baik yang pernah kamu berikan kepadaku.</strong></p>
+      <p>Btw…</p>
+      <p><strong>Makasi yaa untuk semua kata baik yang pernah kamu berikan kepadaku.</strong></p>
     </div>
 
-    <div class="mini-grid">
+    <div class="mini-grid" id="miniGrid">
+      <!-- mini-cards (isi sudah kamu sediakan) -->
+      <div class="mini-card">
+        <p><strong>Rabu 3 Desember 2025.</strong><br>bang enjoy the process ya, it will pass. enjoy bukan berarti dibiarkan gitu aja, tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung 😭😭 tapi dibalik itu semua tetap waras ya bang. push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. semangat yaa bang, sehat, God bless u more 💪.</p>
+      </div>
 
-        <div class="mini-card">
-            <p><strong>Rabu 3 Desember 2025.</strong><br>
-            bang enjoy the process ya...</p>
-        </div>
+      <div class="mini-card">
+        <p><strong>27 November.</strong><br>abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang, manusia emang sering punya perasaan kaya gitu. tapi jangan sampe perasaan yang kaya gitu ngebuat abang ga percaya diri ya.</p>
+      </div>
 
-        <div class="mini-card">
-            <p><strong>27 November.</strong><br>
-            abang pesimis itu wajar kok...</p>
-        </div>
+      <div class="mini-card">
+        <p><strong>3 Desember 2025.</strong><br>bang semangat ya hari inii, harusss terisi full menjalanii hari ini, apapun yang bakalan terjadi, u know that, u can do it with God 💪.</p>
+      </div>
 
-        <div class="mini-card">
-            <p><strong>3 Desember 2025.</strong><br>
-            bang semangat ya hari inii...</p>
-        </div>
+      <div class="mini-card">
+        <p><strong>lewat gojek.</strong><br>"bang nael jangan malas makan, dijaga kesehatannya, harus saying sama diri sendiri, harus minum air putih yang cukup jugaaa"</p>
+      </div>
 
-        <div class="mini-card">
-            <p><strong>lewat gojek.</strong><br>
-            jangan malas makan...</p>
-        </div>
-
-        <div class="mini-card">
-            <p><strong>etc.</strong><br>
-            nyuruh tidur, makan, dll wkwk.</p>
-        </div>
-
+      <div class="mini-card">
+        <p><strong>etc.</strong><br>nyuruh tidur, makan, dll wkwkk.</p>
+      </div>
     </div>
 
     <div class="btn-row">
-        <button class="btn" onclick="prevSlide(1)">⬅ Kembali</button>
-        <button class="btn" onclick="nextSlide(3)">Lanjut ➜</button>
+      <button class="btn secondary" id="backTo1">⬅ Kembali</button>
+      <button class="btn" id="to3">Lanjut ➜</button>
     </div>
+  </section>
 
-    <footer>✨ Website ucapan Natal — 2025 ✨</footer>
-</div>
-
-<!-- SLIDE 3 -->
-<div id="slide3" class="slide">
-    <h1>Pesan Natal untuk Rut 🎁</h1>
-
+  <!-- SLIDE 3 -->
+  <section id="slide3" class="slide" aria-hidden="true">
+    <h1 class="title">Pesan Natal untuk Rut 🎁</h1>
     <div class="card">
-        <p>Di hari Natal ini, aku berharap kamu dikelilingi oleh sukacita
-           dan kedamaian yang lembut...</p>
-
-        <p><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
+      <p>Di hari Natal ini, aku berharap kamu dikelilingi oleh sukacita yang hangat dan kedamaian yang lembut. Semoga setiap langkahmu dipenuhi kekuatan dan kasih Tuhan yang tidak pernah berubah.</p>
+      <p>Kiranya tahun yang baru membawa berkat, pertumbuhan, dan kebahagiaan yang lebih besar lagi. <br><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
     </div>
 
     <div class="btn-row">
-        <button class="btn" onclick="prevSlide(2)">⬅ Kembali</button>
+      <button class="btn secondary" id="backTo2">⬅ Kembali</button>
     </div>
+  </section>
 
-    <footer>✨ Website ucapan Natal — 2025 ✨</footer>
 </div>
 
+<!-- Music control & audio element (audio file lagu.mp3 MUST be in same repo root if you want offline audio) -->
+<div id="music-control" aria-hidden="true" style="display:none">
+  <button id="music-toggle" title="Mute / Unmute">🔈</button>
+  <span id="music-label" style="font-size:13px;color:#333">Musik</span>
+</div>
+
+<audio id="bg-audio" src="lagu.mp3" loop preload="auto"></audio>
+
+<!-- Snow container (we create snow elements via JS) -->
 <script>
-function nextSlide(num) {
-    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-    document.getElementById("slide" + num).classList.add('active');
+/* ====================== Configuration ====================== */
+/* ubah password di sini jika mau */
+const PASSWORD = 'rut2025'; // default - ubah bila perlu
+
+/* ====================== Helper / UI logic ====================== */
+const pwOverlay = document.getElementById('pw-overlay');
+const pwInput = document.getElementById('pw-input');
+const pwSubmit = document.getElementById('pw-submit');
+const pwError = document.getElementById('pw-error');
+const pwDemo = document.getElementById('pw-demo');
+
+const slides = ['slide1','slide2','slide3'];
+let current = 0;
+
+function showSlide(index){
+  // bounds
+  if(index < 0) index = 0;
+  if(index >= slides.length) index = slides.length - 1;
+  current = index;
+
+  slides.forEach((id,i)=>{
+    const el = document.getElementById(id);
+    if(i === index){
+      el.classList.add('active','enter');
+      el.setAttribute('aria-hidden', 'false');
+      // remove enter class after animation so it can re-trigger on next show
+      setTimeout(()=> el.classList.remove('enter'), 650);
+    } else {
+      el.classList.remove('active','enter');
+      el.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  // show music control when user in site
+  document.getElementById('music-control').style.display = 'flex';
 }
 
-function prevSlide(num) {
-    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-    document.getElementById("slide" + num).classList.add('active');
+/* Next/Prev buttons */
+document.getElementById('to2').addEventListener('click', ()=> showSlide(1));
+document.getElementById('to3').addEventListener('click', ()=> showSlide(2));
+document.getElementById('backTo1').addEventListener('click', ()=> showSlide(0));
+document.getElementById('backTo2').addEventListener('click', ()=> showSlide(1));
+
+/* ========== Password Submit logic ========== */
+pwSubmit.addEventListener('click', tryPassword);
+pwInput.addEventListener('keypress', function(e){ if(e.key === 'Enter') tryPassword(); });
+
+// Demo button: entry without checking password (for quick preview)
+pwDemo.addEventListener('click', ()=> {
+  pwOverlay.style.display='none';
+  pwOverlay.setAttribute('aria-hidden','true');
+  // show slide 1 and start audio
+  showSlide(0);
+  startAudioAfterInteraction();
+});
+
+function tryPassword(){
+  const v = pwInput.value.trim();
+  if(v === PASSWORD){
+    pwError.style.display = 'none';
+    pwOverlay.style.display='none';
+    pwOverlay.setAttribute('aria-hidden','true');
+    showSlide(0);
+    // start audio because user interacted
+    startAudioAfterInteraction();
+  } else {
+    pwError.style.display = 'block';
+    // small shake animation
+    const box = document.querySelector('.pw-box');
+    box.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:240});
+  }
 }
 
-// Snow Effect
-for (let i = 0; i < 40; i++) {
-    let snow = document.createElement("div");
-    snow.className = "snowflake";
-    snow.innerHTML = "❄";
-    snow.style.left = Math.random() * 100 + "vw";
-    snow.style.animationDuration = 4 + Math.random() * 6 + "s";
-    snow.style.fontSize = (16 + Math.random() * 12) + "px";
-    document.body.appendChild(snow);
+/* ========== Audio controls ========== */
+const audio = document.getElementById('bg-audio');
+const musicControl = document.getElementById('music-control');
+const musicToggle = document.getElementById('music-toggle');
+const musicLabel = document.getElementById('music-label');
+
+let audioAvailable = false;
+
+// Try to detect whether lagu.mp3 exists: attempt to load metadata
+audio.addEventListener('loadedmetadata', ()=> { audioAvailable = true; });
+audio.addEventListener('error', ()=> { audioAvailable = false; });
+
+// Called once user interacted (password submit) so play is allowed by browsers
+function startAudioAfterInteraction(){
+  // display music control
+  musicControl.style.display = 'flex';
+  // try to play audio if present
+  audio.play().then(()=>{
+    audioAvailable = true;
+    audio.muted = false;
+    musicToggle.textContent = '🔊';
+    musicLabel.textContent = 'Musik (on)';
+  }).catch((err)=>{
+    // autoplay failed (file missing or blocked) — keep control visible so user can manually play
+    audioAvailable = false;
+    musicToggle.textContent = '🔈';
+    musicLabel.textContent = 'Musik';
+    console.log('Audio auto-play failed or lagu.mp3 tidak tersedia:', err);
+  });
 }
+
+// Toggle music on/off by user
+musicToggle.addEventListener('click', ()=>{
+  if(audioAvailable){
+    if(audio.paused){
+      audio.play();
+      musicToggle.textContent = '🔊';
+      musicLabel.textContent = 'Musik (on)';
+    } else {
+      audio.pause();
+      musicToggle.textContent = '🔈';
+      musicLabel.textContent = 'Musik (off)';
+    }
+  } else {
+    // fallback: try to play (maybe user manually wants to)
+    audio.play().then(()=>{
+      audioAvailable = true;
+      musicToggle.textContent = '🔊';
+      musicLabel.textContent = 'Musik (on)';
+    }).catch(()=> {
+      alert('Musik tidak tersedia (file lagu.mp3 tidak ditemukan). Jika mau, upload lagu.mp3 ke repo yang sama dengan index.html.');
+    });
+  }
+});
+
+/* ========== Snow effect (improved) ========== */
+function makeSnow(){
+  const count = Math.min(Math.round(window.innerWidth / 12), 80); // scale with width
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'snowflake';
+    s.style.left = Math.random() * 100 + 'vw';
+    const size = 8 + Math.random()*16;
+    s.style.fontSize = size + 'px';
+    s.style.opacity = 0.4 + Math.random()*0.8;
+    const duration = 6 + Math.random()*8;
+    s.style.animationDuration = duration + 's';
+    s.style.transform = `translateY(-10vh) rotate(${Math.random()*360}deg)`;
+    s.textContent = '❄';
+    document.body.appendChild(s);
+    // random horizontal drift animation via keyframes (per element)
+    s.animate([
+      { transform: `translateY(-10vh) translateX(0px)` },
+      { transform: `translateY(110vh) translateX(${(Math.random()*200-100).toFixed(0)}px)` }
+    ], { duration: duration*1000, iterations: Infinity, easing:'linear', delay: Math.random()*1000 });
+  }
+}
+makeSnow();
+
+/* handle resize: remove old snow and redraw */
+let snowResetTimer;
+window.addEventListener('resize', ()=>{
+  clearTimeout(snowResetTimer);
+  snowResetTimer = setTimeout(()=>{
+    document.querySelectorAll('.snowflake').forEach(n=>n.remove());
+    makeSnow();
+  },200);
+});
+
+/* accessibility: focus pw input on load */
+pwInput.focus();
+
 </script>
-
 </body>
 </html>

@@ -28,7 +28,10 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:linear-gradien
 /* ===== Slides ===== */
 .container{position:relative;width:100vw;height:100vh;overflow:hidden}
 .slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;
-padding:20px;overflow-y:auto;justify-content:flex-start;transition:opacity .45s ease,transform .45s ease;transform:scale(1);}
+padding:20px;overflow-y:auto;justify-content:flex-start;transition:opacity .45s ease,transform .45s ease;transform:scale(1);
+min-height:100vh; /* pastikan tinggi slide penuh layar */
+padding-bottom:100px; /* agar tombol tidak terpotong */
+}
 .slide.active{display:flex;opacity:1}
 .slide.enter{animation: fadeZoom .45s ease both;}
 @keyframes fadeZoom{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
@@ -46,7 +49,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 .mini-card p{font-size:15.5px;line-height:1.55;color:#222;margin:0}
 
 /* Buttons */
-.btn-row{display:flex;gap:12px;margin-top:18px}
+.btn-row{display:flex;gap:12px;margin-top:18px;flex-shrink:0;}
 .btn{padding:12px 20px;border-radius:12px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer;font-size:15px}
 .btn.secondary{background:#6b6b6b}
 .btn:active{transform:translateY(1px)}
@@ -63,7 +66,14 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 
 /* Responsive */
 @media (max-width:720px){h1.title{font-size:44px}.card p{font-size:16px}.mini-card p{font-size:15px}.mini-grid{grid-template-columns:1fr}}
-@media (max-width:420px){h1.title{font-size:36px}.pw-box h2{font-size:32px}.pw-input{font-size:15px}.pw-btn{font-size:15px}}
+@media (max-width:420px){
+  h1.title{font-size:36px}
+  .pw-box h2{font-size:32px}
+  .pw-input{font-size:15px}
+  .pw-btn{font-size:15px}
+  .slide{padding-bottom:120px;} /* lebih aman untuk tombol di layar kecil */
+  .btn-row{flex-wrap:wrap; justify-content:center;}
+}
 </style>
 </head>
 <body>
@@ -101,9 +111,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
     <div class="card"><p>Btw…</p><p><strong>Makasi yaa untuk semua kata baik yang pernah kamu berikan kepadaku.</strong></p></div>
     <div class="mini-grid">
       <div class="mini-card"><p><strong>27 November 2025.</strong><br>abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang, manusia emang sering punya perasaan kaya gitu. tapi jangan sampe perasaan yang kaya gitu ngebuat abang ga percaya diri ya</p></div>
-      <div class="mini-card"><p><strong>3 Desember 2025</strong><br>bang enjoy the process ya, it will pass. 
-enjoy bukan berarti dibiarkan gitu aja bang, tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung 😭😭 tapi dibalik itu semua tetap waras ya bang. push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. semangat yaa bang, sehat", God bless u more  💪💪
-</p></div>
+      <div class="mini-card"><p><strong>3 Desember 2025</strong><br>bang enjoy the process ya, it will pass. enjoy bukan berarti dibiarkan gitu aja bang, tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung 😭😭 tapi dibalik itu semua tetap waras ya bang. push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. semangat yaa bang, sehat", God bless u more 💪💪</p></div>
       <div class="mini-card"><p><strong>lewat gojek wkwk.</strong><br>bang nael jangan malas makan, dijaga kesehatannya, harus sayang sama diri sendiri, harus minum air putih yang cukup jugaaa</p></div>
     </div>
     <div class="btn-row">

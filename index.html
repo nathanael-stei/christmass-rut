@@ -49,7 +49,7 @@
             color: #b71c1c;
         }
 
-        /* CARD */
+        /* MAIN CARD */
         .card {
             background: rgba(255,255,255,0.65);
             backdrop-filter: blur(8px);
@@ -64,6 +64,29 @@
         .card p {
             font-size: 18px;
             line-height: 1.7;
+        }
+
+        /* MINI CARD */
+        .mini-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .mini-card {
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(6px);
+            padding: 18px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: left;
+        }
+
+        .mini-card p {
+            margin: 0;
+            font-size: 17px;
+            line-height: 1.6;
         }
 
         /* BUTTON Lanjut */
@@ -120,8 +143,8 @@
                 padding: 20px;
             }
 
-            .card p {
-                font-size: 16px;
+            .card p, .mini-card p {
+                font-size: 15px;
             }
 
             .btn-next {
@@ -130,21 +153,6 @@
             }
         }
 
-        /* Tablet (481px – 900px) */
-        @media (max-width: 900px) {
-            h1 {
-                font-size: 48px;
-            }
-
-            .card {
-                width: 90%;
-                padding: 25px;
-            }
-
-            .card p {
-                font-size: 17px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -172,11 +180,24 @@
 
         <p><strong>Terima kasih untuk semua kata baik yang pernah kamu berikan kepadaku.</strong></p>
 
-        <p>
-            • untuk kata-kata yang membuatku kuat,<br>
-            • perhatian kecil yang kamu beri tanpa sadar,<br>
-            • dan kalimat positifmu yang tidak pernah aku lupa.
-        </p>
+        <div class="mini-wrapper">
+
+            <div class="mini-card">
+                <p><strong>Untuk kata-kata yang membuatku kuat.</strong><br>
+                Kata-katamu memberi kekuatan di saat aku paling membutuhkannya.</p>
+            </div>
+
+            <div class="mini-card">
+                <p><strong>Untuk perhatian kecil yang kamu beri tanpa sadar.</strong><br>
+                Hal-hal kecil itu justru paling membekas dan berarti banyak.</p>
+            </div>
+
+            <div class="mini-card">
+                <p><strong>Untuk kalimat positifmu yang tidak pernah aku lupa.</strong><br>
+                Kata-katamu masih menjadi penyemangatku sampai sekarang.</p>
+            </div>
+
+        </div>
 
         <p>Kamu lebih berdampak daripada yang kamu kira.</p>
     </div>
@@ -198,7 +219,6 @@
 </div>
 
 <script>
-// Pindah slide
 function nextSlide(num) {
     document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
     document.getElementById("slide" + num).classList.add('active');

@@ -84,6 +84,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 
 <!-- Slides -->
 <div class="container" id="app">
+
   <!-- Slide 1 -->
   <section id="slide1" class="slide">
     <h1 class="title">Selamat Natal Rut 🎄✨</h1>
@@ -129,12 +130,13 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
       <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:36px;">🎁</div>
       <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;">
         <div class="gift-item"><img src="eskrim.jpg" style="width:100px"><p>5 Es Krim 🍦</p></div>
-        <div class="gift-item"><img src="uang.jpg" style="width:100px"><p>Rp 1,5M 💸</p></div>
+        <div class="gift-item"><img src="uang.jpg" style="width:100x"><p>Rp 1,5M 💸</p></div>
         <div class="gift-item"><img src="swiss.jpg" style="width:100px"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
       </div>
     </div>
     <div class="btn-row"><button class="btn secondary" id="backTo3">⬅ Kembali</button></div>
   </section>
+
 </div>
 
 <!-- Music control -->
@@ -142,18 +144,14 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
   <button id="music-toggle">🔈</button>
   <span id="music-label" style="font-size:13px;color:#333">Musik</span>
 </div>
-<audio id="bg-audio" loop preload="auto">
-  <source src="lagu.mp3" type="audio/mpeg">
-  <source src="lagu.ogg" type="audio/ogg">
-  Browsermu tidak mendukung audio.
-</audio>
+<audio id="bg-audio" src="lagu.mp3" loop preload="auto"></audio>
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
 
   const slides=['slide1','slide2','slide3','slide4'];
   let current=0;
-  const audio=document.getElementById('bg-audio');
+  const audio = document.getElementById('bg-audio');
 
   function showSlide(index){
     if(index<0) index=0;
@@ -191,10 +189,10 @@ document.addEventListener('DOMContentLoaded',()=>{
       pwOverlay.style.display='none';
       showSlide(0);
 
-      // langsung play musik tanpa klik unmute
+      // audio autoplay (after user click)
       audio.muted=false;
       audio.volume=0.5;
-      audio.play().catch(err=>console.log('Audio play error:',err));
+      audio.play().catch(err=>console.log(err));
 
     }else{
       pwError.style.display='block';

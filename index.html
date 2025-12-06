@@ -59,7 +59,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 .snowflake{position:fixed;top:-5vh;pointer-events:none;font-size:18px;color:#fff;opacity:0.95;z-index:2}
 
 /* Gift items */
-.gift-item{text-align:center;opacity:0;transform:translateY(0);transition:transform 0.8s ease,opacity 0.8s ease;}
+.gift-item{text-align:center;opacity:0;transform:translateY(0);}
 
 /* Responsive */
 @media (max-width:720px){h1.title{font-size:44px}.card p{font-size:16px}.mini-card p{font-size:15px}.mini-grid{grid-template-columns:1fr}}
@@ -129,9 +129,9 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
     <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:350px;">
       <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:36px;">🎁</div>
       <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;">
-        <div class="gift-item"><img src="eskrim.jpg" style="width:100px"><p>5 Es Krim 🍦</p></div>
-        <div class="gift-item"><img src="uang.jpg" style="width:100x"><p>Rp 1,5M 💸</p></div>
-        <div class="gift-item"><img src="swiss.jpg" style="width:100px"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
+        <div class="gift-item"><img src="eskrim.jpg" style="width:60px"><p>5 Es Krim 🍦</p></div>
+        <div class="gift-item"><img src="uang.jpg" style="width:60px"><p>Rp 1,5M 💸</p></div>
+        <div class="gift-item"><img src="swiss.jpg" style="width:60px"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
       </div>
     </div>
     <div class="btn-row"><button class="btn secondary" id="backTo3">⬅ Kembali</button></div>
@@ -148,10 +148,8 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-
   const slides=['slide1','slide2','slide3','slide4'];
   let current=0;
-  const audio = document.getElementById('bg-audio');
 
   function showSlide(index){
     if(index<0) index=0;
@@ -165,7 +163,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('music-control').style.display='flex';
   }
 
-  // Button slide
+  // Buttons
   document.getElementById('to2').addEventListener('click',()=>showSlide(1));
   document.getElementById('to3').addEventListener('click',()=>showSlide(2));
   document.getElementById('to4').addEventListener('click',()=>showSlide(3));
@@ -181,26 +179,22 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   pwSubmit.addEventListener('click',tryPassword);
   pwInput.addEventListener('keypress',e=>{if(e.key==='Enter') tryPassword();});
-
   function tryPassword(){
     const v=pwInput.value.trim();
     if(v==='akukerenbgt'){
       pwError.style.display='none';
       pwOverlay.style.display='none';
       showSlide(0);
-
-      // audio autoplay (after user click)
-      audio.muted=false;
-      audio.volume=0.5;
-      audio.play().catch(err=>console.log(err));
-
-    }else{
+      audio.play();
+      musicControl.style.display='flex';
+    } else {
       pwError.style.display='block';
       document.querySelector('.pw-box').animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:240});
     }
   }
 
-  // Audio toggle
+  // Audio control
+  const audio=document.getElementById('bg-audio');
   const musicToggle=document.getElementById('music-toggle');
   const musicLabel=document.getElementById('music-label');
   musicToggle.addEventListener('click',()=>{
@@ -229,19 +223,17 @@ document.addEventListener('DOMContentLoaded',()=>{
   makeSnow();
   window.addEventListener('resize',()=>{document.querySelectorAll('.snowflake').forEach(n=>n.remove()); makeSnow();});
 
-  // Gift box animation
+  // Gift box
   const giftBox=document.getElementById('gift-box');
   const gifts=document.querySelectorAll('.gift-item');
-
   giftBox.addEventListener('click',()=>{
-    giftBox.style.transform='scale(0)';
-    giftBox.style.transition='transform 0.4s ease';
     gifts.forEach((el,i)=>{
-      setTimeout(()=>{
-        el.style.opacity=1;
-        el.style.transform='translateY(-150px) rotate('+ (Math.random()*720-360) +'deg)';
-      }, i*200);
+      el.style.opacity=1;
+      el.style.transform='translateY(-150px)';
+      el.style.transition=`transform 0.8s ease ${i*0.2}s, opacity 0.8s ease ${i*0.2}s`;
     });
+    giftBox.style.transform='scale(0)';
+    giftBox.style.transition='transform 0.6s ease';
   });
 
 });

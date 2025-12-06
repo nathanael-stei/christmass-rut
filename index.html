@@ -75,6 +75,10 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 #music-control{position:fixed;right:12px;bottom:12px;background:rgba(255,255,255,0.9);padding:8px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,0.12);z-index:999;display:flex;align-items:center;gap:8px}
 #music-control button{border:none;background:transparent;font-size:18px;cursor:pointer}
 
+/* gift animation */
+.gift-item{opacity:0;transform:translateY(0);transition:all 1s ease;text-align:center;}
+.gift-item img{width:60px;margin-bottom:4px;}
+
 /* responsive tweaks */
 @media (max-width:720px){
   h1.title{font-size:44px}
@@ -102,7 +106,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
       <button id="pw-submit" class="pw-btn">Buka</button>
     </div>
     <div id="pw-error" class="pw-error">Password salah — coba lagi.</div>
-    <div style="margin-top:10px;font-size:13px;color:#666">Tip: masukkan password <strong>akukerenbgt</strong> (boleh diubah di kode)</div>
+    <div style="margin-top:10px;font-size:13px;color:#666">Tip: password default <strong>akukerenbgt</strong></div>
   </div>
 </div>
 
@@ -130,19 +134,19 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
     </div>
     <div class="mini-grid" id="miniGrid">
       <div class="mini-card">
-        <p><strong>Rabu 3 Desember 2025.</strong><br>bang enjoy the process ya, it will pass. enjoy bukan berarti dibiarkan gitu aja, tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung 😭😭 tapi dibalik itu semua tetap waras ya bang. push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. semangat yaa bang, sehat, God bless u more 💪.</p>
+        <p><strong>Rabu 3 Desember 2025.</strong><br>bang enjoy the process ya, it will pass. tetap semangat & sehat 💪</p>
       </div>
       <div class="mini-card">
-        <p><strong>27 November.</strong><br>abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang, manusia emang sering punya perasaan kaya gitu. tapi jangan sampe perasaan yang kaya gitu ngebuat abang ga percaya diri ya.</p>
+        <p><strong>27 November.</strong><br>Jangan sampai perasaan pesimis ngerusak kepercayaan diri ya.</p>
       </div>
       <div class="mini-card">
-        <p><strong>3 Desember 2025.</strong><br>bang semangat ya hari inii, harusss terisi full menjalanii hari ini, apapun yang bakalan terjadi, u know that, u can do it with God 💪.</p>
+        <p><strong>3 Desember 2025.</strong><br>Semangat menjalani hari ini, u can do it with God 💪.</p>
       </div>
       <div class="mini-card">
-        <p><strong>lewat gojek.</strong><br>"bang nael jangan malas makan, dijaga kesehatannya, harus saying sama diri sendiri, harus minum air putih yang cukup jugaaa"</p>
+        <p><strong>lewat gojek.</strong><br>"Jangan malas makan, dijaga kesehatan, minum air putih cukup"</p>
       </div>
       <div class="mini-card">
-        <p><strong>etc.</strong><br>nyuruh tidur, makan, dll wkwkk.</p>
+        <p><strong>etc.</strong><br>Nyuruh tidur, makan, dll wkwkk.</p>
       </div>
     </div>
     <div class="btn-row">
@@ -155,8 +159,8 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
   <section id="slide3" class="slide" aria-hidden="true">
     <h1 class="title">Pesan Natal untuk Rut 🎁</h1>
     <div class="card">
-      <p>Di hari Natal ini, aku berharap kamu dikelilingi oleh sukacita yang hangat dan kedamaian yang lembut. Semoga setiap langkahmu dipenuhi kekuatan dan kasih Tuhan yang tidak pernah berubah.</p>
-      <p>Kiranya tahun yang baru membawa berkat, pertumbuhan, dan kebahagiaan yang lebih besar lagi. <br><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
+      <p>Di hari Natal ini, aku berharap kamu dikelilingi oleh sukacita yang hangat dan kedamaian yang lembut.</p>
+      <p>Kiranya tahun yang baru membawa berkat, pertumbuhan, dan kebahagiaan lebih besar. <br><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
     </div>
     <div class="btn-row">
       <button class="btn secondary" id="backTo2">⬅ Kembali</button>
@@ -171,15 +175,15 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
       <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);">
         <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:16px;">🎁</div>
       </div>
-      <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;opacity:0;">
-        <div class="gift-item" style="text-align:center;transform:translateY(0);transition:all 1s ease;">
-          <img src="eskrim.jpg" style="width:60px;"><p>5 Es Krim 🍦</p>
+      <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;">
+        <div class="gift-item">
+          <img src="eskrim.jpg"><p>5 Es Krim 🍦</p>
         </div>
-        <div class="gift-item" style="text-align:center;transform:translateY(0);transition:all 1s ease;">
-          <img src="uang.jpg" style="width:60px;"><p>Rp 1,5M 💸</p>
+        <div class="gift-item">
+          <img src="uang.jpg"><p>Rp 1,5M 💸</p>
         </div>
-        <div class="gift-item" style="text-align:center;transform:translateY(0);transition:all 1s ease;">
-          <img src="swiss.jpg" style="width:60px;"><p>Tiket ke Swiss 🇨🇭✈️</p>
+        <div class="gift-item">
+          <img src="swiss.jpg"><p>Tiket ke Swiss 🇨🇭✈️</p>
         </div>
       </div>
     </div>
@@ -197,7 +201,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 </div>
 <audio id="bg-audio" src="lagu.mp3" loop preload="auto"></audio>
 
-<!-- Snow container & JS -->
+<!-- JS -->
 <script>
 const PASSWORD = 'akukerenbgt';
 
@@ -308,4 +312,18 @@ window.addEventListener('resize',()=>{
 });
 
 /* Gift animation */
-const giftBox=document.getElementById
+const giftBox = document.getElementById('gift-box');
+const gifts = document.querySelectorAll('.gift-item');
+giftBox.addEventListener('click',()=>{
+  gifts.forEach((g,i)=>{
+    setTimeout(()=>{
+      g.style.opacity='1';
+      g.style.transform='translateY(-80px)';
+    }, i*300);
+  });
+});
+
+pwInput.focus();
+</script>
+</body>
+</html>

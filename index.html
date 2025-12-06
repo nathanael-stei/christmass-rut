@@ -60,7 +60,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 }
 .card p{font-size:18px;line-height:1.7;color:#222}
 
-/* grid for slide 2: 2 columns desktop, 1 column mobile */
+/* grid for slide 2 & hadiah: 2 columns desktop, 1 column mobile */
 .mini-grid{width:min(760px,94%);display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
 .mini-card{background:rgba(255,255,255,0.85);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);text-align:left}
 .mini-card p{font-size:15.5px;line-height:1.55;color:#222;margin:0}
@@ -139,25 +139,24 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
     </div>
 
     <div class="mini-grid" id="miniGrid">
-      <!-- mini-cards (isi sudah kamu sediakan) -->
       <div class="mini-card">
-        <p><strong>Rabu 3 Desember 2025.</strong><br>bang enjoy the process ya, it will pass. enjoy bukan berarti dibiarkan gitu aja, tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung 😭😭 tapi dibalik itu semua tetap waras ya bang. push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. semangat yaa bang, sehat, God bless u more 💪.</p>
+        <p><strong>Rabu 3 Desember 2025.</strong><br>bang enjoy the process ya, it will pass. tetap dikerjakan walaupun bingung 😭 tapi jangan lupa jaga kesehatan. Semangat ya bang! 💪</p>
       </div>
 
       <div class="mini-card">
-        <p><strong>27 November.</strong><br>abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang, manusia emang sering punya perasaan kaya gitu. tapi jangan sampe perasaan yang kaya gitu ngebuat abang ga percaya diri ya.</p>
+        <p><strong>27 November.</strong><br>Kadang merasa ga cukup wajar kok bang, jangan biarin itu bikin kurang percaya diri.</p>
       </div>
 
       <div class="mini-card">
-        <p><strong>3 Desember 2025.</strong><br>bang semangat ya hari inii, harusss terisi full menjalanii hari ini, apapun yang bakalan terjadi, u know that, u can do it with God 💪.</p>
+        <p><strong>3 Desember 2025.</strong><br>Bang semangat ya hari ini, jalani hari sepenuhnya, u know that, u can do it with God 💪.</p>
       </div>
 
       <div class="mini-card">
-        <p><strong>lewat gojek.</strong><br>"bang nael jangan malas makan, dijaga kesehatannya, harus saying sama diri sendiri, harus minum air putih yang cukup jugaaa"</p>
+        <p><strong>lewat gojek.</strong><br>"Bang nael jangan malas makan, dijaga kesehatan, harus sayang sama diri sendiri, minum air cukup jugaaa"</p>
       </div>
 
       <div class="mini-card">
-        <p><strong>etc.</strong><br>nyuruh tidur, makan, dll wkwkk.</p>
+        <p><strong>etc.</strong><br>Nyuruh tidur, makan, dll wkwkk.</p>
       </div>
     </div>
 
@@ -175,6 +174,27 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
       <p>Kiranya tahun yang baru membawa berkat, pertumbuhan, dan kebahagiaan yang lebih besar lagi. <br><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
     </div>
 
+    <!-- Hadiah imajinatif -->
+    <h2 style="margin-top:16px;text-align:center;color:#b71c1c;font-family:'Sacramento',cursive;">Hadiah Khusus untukmu 🎉</h2>
+    <div class="mini-grid" style="margin-top:12px;">
+      <div class="mini-card" style="text-align:center;">
+        <img src="eskrim.png" alt="Es Krim" style="width:80px;margin-bottom:6px;">
+        <p>5 Es Krim 🍦🍦🍦🍦🍦</p>
+      </div>
+      <div class="mini-card" style="text-align:center;">
+        <img src="truk.png" alt="Truk" style="width:80px;margin-bottom:6px;">
+        <p>5 Truk Mainan 🚚🚚🚚🚚🚚</p>
+      </div>
+      <div class="mini-card" style="text-align:center;">
+        <img src="uang.png" alt="Uang" style="width:80px;margin-bottom:6px;">
+        <p>Rp 1,5M 💸</p>
+      </div>
+      <div class="mini-card" style="text-align:center;">
+        <img src="swiss.png" alt="Tiket Swiss" style="width:80px;margin-bottom:6px;">
+        <p>Tiket Liburan ke Swiss 🇨🇭✈️</p>
+      </div>
+    </div>
+
     <div class="btn-row">
       <button class="btn secondary" id="backTo2">⬅ Kembali</button>
     </div>
@@ -182,7 +202,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 
 </div>
 
-<!-- Music control & audio element (audio file lagu.mp3 MUST be in same repo root if you want offline audio) -->
+<!-- Music control & audio -->
 <div id="music-control" aria-hidden="true" style="display:none">
   <button id="music-toggle" title="Mute / Unmute">🔈</button>
   <span id="music-label" style="font-size:13px;color:#333">Musik</span>
@@ -190,152 +210,116 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 
 <audio id="bg-audio" src="lagu.mp3" loop preload="auto"></audio>
 
-<!-- Snow container (we create snow elements via JS) -->
+<!-- Snow effect & script -->
 <script>
-/* ====================== Configuration ====================== */
-/* ubah password di sini jika mau */
-const PASSWORD = 'rut2025'; // default - ubah bila perlu
-
-/* ====================== Helper / UI logic ====================== */
+const PASSWORD = 'rut2025';
 const pwOverlay = document.getElementById('pw-overlay');
 const pwInput = document.getElementById('pw-input');
 const pwSubmit = document.getElementById('pw-submit');
 const pwError = document.getElementById('pw-error');
 const pwDemo = document.getElementById('pw-demo');
-
 const slides = ['slide1','slide2','slide3'];
 let current = 0;
 
 function showSlide(index){
-  // bounds
   if(index < 0) index = 0;
   if(index >= slides.length) index = slides.length - 1;
   current = index;
-
   slides.forEach((id,i)=>{
     const el = document.getElementById(id);
-    if(i === index){
+    if(i===index){
       el.classList.add('active','enter');
-      el.setAttribute('aria-hidden', 'false');
-      // remove enter class after animation so it can re-trigger on next show
-      setTimeout(()=> el.classList.remove('enter'), 650);
+      el.setAttribute('aria-hidden','false');
+      setTimeout(()=>el.classList.remove('enter'),650);
     } else {
       el.classList.remove('active','enter');
-      el.setAttribute('aria-hidden', 'true');
+      el.setAttribute('aria-hidden','true');
     }
   });
-
-  // show music control when user in site
-  document.getElementById('music-control').style.display = 'flex';
+  document.getElementById('music-control').style.display='flex';
 }
 
-/* Next/Prev buttons */
 document.getElementById('to2').addEventListener('click', ()=> showSlide(1));
 document.getElementById('to3').addEventListener('click', ()=> showSlide(2));
 document.getElementById('backTo1').addEventListener('click', ()=> showSlide(0));
 document.getElementById('backTo2').addEventListener('click', ()=> showSlide(1));
 
-/* ========== Password Submit logic ========== */
 pwSubmit.addEventListener('click', tryPassword);
-pwInput.addEventListener('keypress', function(e){ if(e.key === 'Enter') tryPassword(); });
-
-// Demo button: entry without checking password (for quick preview)
-pwDemo.addEventListener('click', ()=> {
+pwInput.addEventListener('keypress', e=>{ if(e.key==='Enter') tryPassword(); });
+pwDemo.addEventListener('click', ()=>{
   pwOverlay.style.display='none';
   pwOverlay.setAttribute('aria-hidden','true');
-  // show slide 1 and start audio
   showSlide(0);
   startAudioAfterInteraction();
 });
 
 function tryPassword(){
   const v = pwInput.value.trim();
-  if(v === PASSWORD){
-    pwError.style.display = 'none';
+  if(v===PASSWORD){
+    pwError.style.display='none';
     pwOverlay.style.display='none';
     pwOverlay.setAttribute('aria-hidden','true');
     showSlide(0);
-    // start audio because user interacted
     startAudioAfterInteraction();
   } else {
-    pwError.style.display = 'block';
-    // small shake animation
-    const box = document.querySelector('.pw-box');
+    pwError.style.display='block';
+    const box=document.querySelector('.pw-box');
     box.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:240});
   }
 }
 
-/* ========== Audio controls ========== */
-const audio = document.getElementById('bg-audio');
-const musicControl = document.getElementById('music-control');
-const musicToggle = document.getElementById('music-toggle');
-const musicLabel = document.getElementById('music-label');
+const audio=document.getElementById('bg-audio');
+const musicControl=document.getElementById('music-control');
+const musicToggle=document.getElementById('music-toggle');
+const musicLabel=document.getElementById('music-label');
+let audioAvailable=false;
 
-let audioAvailable = false;
+audio.addEventListener('loadedmetadata',()=>{audioAvailable=true;});
+audio.addEventListener('error',()=>{audioAvailable=false;});
 
-// Try to detect whether lagu.mp3 exists: attempt to load metadata
-audio.addEventListener('loadedmetadata', ()=> { audioAvailable = true; });
-audio.addEventListener('error', ()=> { audioAvailable = false; });
-
-// Called once user interacted (password submit) so play is allowed by browsers
 function startAudioAfterInteraction(){
-  // display music control
-  musicControl.style.display = 'flex';
-  // try to play audio if present
+  musicControl.style.display='flex';
   audio.play().then(()=>{
-    audioAvailable = true;
-    audio.muted = false;
-    musicToggle.textContent = '🔊';
-    musicLabel.textContent = 'Musik (on)';
-  }).catch((err)=>{
-    // autoplay failed (file missing or blocked) — keep control visible so user can manually play
-    audioAvailable = false;
-    musicToggle.textContent = '🔈';
-    musicLabel.textContent = 'Musik';
-    console.log('Audio auto-play failed or lagu.mp3 tidak tersedia:', err);
+    audioAvailable=true;
+    audio.muted=false;
+    musicToggle.textContent='🔊';
+    musicLabel.textContent='Musik (on)';
+  }).catch(err=>{
+    audioAvailable=false;
+    musicToggle.textContent='🔈';
+    musicLabel.textContent='Musik';
+    console.log('Audio auto-play failed:',err);
   });
 }
 
-// Toggle music on/off by user
-musicToggle.addEventListener('click', ()=>{
+musicToggle.addEventListener('click',()=>{
   if(audioAvailable){
     if(audio.paused){
-      audio.play();
-      musicToggle.textContent = '🔊';
-      musicLabel.textContent = 'Musik (on)';
+      audio.play(); musicToggle.textContent='🔊'; musicLabel.textContent='Musik (on)';
     } else {
-      audio.pause();
-      musicToggle.textContent = '🔈';
-      musicLabel.textContent = 'Musik (off)';
+      audio.pause(); musicToggle.textContent='🔈'; musicLabel.textContent='Musik (off)';
     }
   } else {
-    // fallback: try to play (maybe user manually wants to)
-    audio.play().then(()=>{
-      audioAvailable = true;
-      musicToggle.textContent = '🔊';
-      musicLabel.textContent = 'Musik (on)';
-    }).catch(()=> {
-      alert('Musik tidak tersedia (file lagu.mp3 tidak ditemukan). Jika mau, upload lagu.mp3 ke repo yang sama dengan index.html.');
-    });
+    audio.play().then(()=>{audioAvailable=true; musicToggle.textContent='🔊'; musicLabel.textContent='Musik (on)';})
+    .catch(()=>{alert('Musik tidak tersedia. Upload lagu.mp3 ke folder yang sama.');});
   }
 });
 
-/* ========== Snow effect (improved) ========== */
+/* Snow effect */
 function makeSnow(){
-  const count = Math.min(Math.round(window.innerWidth / 12), 80); // scale with width
+  const count=Math.min(Math.round(window.innerWidth/12),80);
   for(let i=0;i<count;i++){
-    const s = document.createElement('div');
-    s.className = 'snowflake';
-    s.style.left = Math.random() * 100 + 'vw';
-    const size = 8 + Math.random()*16;
-    s.style.fontSize = size + 'px';
-    s.style.opacity = 0.4 + Math.random()*0.8;
-    const duration = 6 + Math.random()*8;
-    s.style.animationDuration = duration + 's';
-    s.style.transform = `translateY(-10vh) rotate(${Math.random()*360}deg)`;
-    s.textContent = '❄';
+    const s=document.createElement('div');
+    s.className='snowflake';
+    s.style.left=Math.random()*100+'vw';
+    const size=8+Math.random()*16;
+    s.style.fontSize=size+'px';
+    s.style.opacity=0.4+Math.random()*0.8;
+    const duration=6+Math.random()*8;
+    s.style.animationDuration=duration+'s';
+    s.style.transform=`translateY(-10vh) rotate(${Math.random()*360}deg)`;
+    s.textContent='❄';
     document.body.appendChild(s);
-    // random horizontal drift animation via keyframes (per element)
     s.animate([
       { transform: `translateY(-10vh) translateX(0px)` },
       { transform: `translateY(110vh) translateX(${(Math.random()*200-100).toFixed(0)}px)` }
@@ -343,20 +327,16 @@ function makeSnow(){
   }
 }
 makeSnow();
-
-/* handle resize: remove old snow and redraw */
 let snowResetTimer;
-window.addEventListener('resize', ()=>{
+window.addEventListener('resize',()=>{
   clearTimeout(snowResetTimer);
-  snowResetTimer = setTimeout(()=>{
+  snowResetTimer=setTimeout(()=>{
     document.querySelectorAll('.snowflake').forEach(n=>n.remove());
     makeSnow();
   },200);
 });
 
-/* accessibility: focus pw input on load */
 pwInput.focus();
-
 </script>
 </body>
 </html>

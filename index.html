@@ -127,12 +127,18 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
   <section id="slide4" class="slide">
     <h1 class="title">Hadiah Khusus untukmu 🎉</h1>
     <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:350px;">
-      <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:36px;">🎁</div>
+      
+      <!-- Wrapper klik lebih luas -->
+      <div id="gift-box-wrapper" style="width:220px;height:220px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:36px;">🎁</div>
+      </div>
+
       <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;">
         <div class="gift-item"><img src="eskrim.jpg" style="width:100px"><p>5 Es Krim 🍦</p></div>
-        <div class="gift-item"><img src="uang.jpg" style="width:100x"><p>Rp 1,5M 💸</p></div>
+        <div class="gift-item"><img src="uang.jpg" style="width:100px"><p>Rp 1,5M 💸</p></div>
         <div class="gift-item"><img src="swiss.jpg" style="width:100px"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
       </div>
+
     </div>
     <div class="btn-row"><button class="btn secondary" id="backTo3">⬅ Kembali</button></div>
   </section>
@@ -159,8 +165,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     current=index;
     slides.forEach((id,i)=>{
       const el=document.getElementById(id);
-      if(i===index){el.classList.add('active','enter');el.setAttribute('aria-hidden','false');setTimeout(()=>el.classList.remove('enter'),650);}
-      else{el.classList.remove('active','enter');el.setAttribute('aria-hidden','true');}
+      if(i===index){
+        el.classList.add('active','enter');
+        el.setAttribute('aria-hidden','false');
+        setTimeout(()=>el.classList.remove('enter'),650);
+      }else{
+        el.classList.remove('active','enter');
+        el.setAttribute('aria-hidden','true');
+      }
     });
     document.getElementById('music-control').style.display='flex';
   }
@@ -189,7 +201,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       pwOverlay.style.display='none';
       showSlide(0);
 
-      // audio autoplay (after user click)
+      // audio autoplay
       audio.muted=false;
       audio.volume=0.5;
       audio.play().catch(err=>console.log(err));
@@ -230,10 +242,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   window.addEventListener('resize',()=>{document.querySelectorAll('.snowflake').forEach(n=>n.remove()); makeSnow();});
 
   // Gift box animation
-  const giftBox=document.getElementById('gift-box');
-  const gifts=document.querySelectorAll('.gift-item');
+  const giftBoxWrapper = document.getElementById('gift-box-wrapper');
+  const gifts = document.querySelectorAll('.gift-item');
 
-  giftBox.addEventListener('click',()=>{
+  giftBoxWrapper.addEventListener('click',()=>{
+    const giftBox = document.getElementById('gift-box');
     giftBox.style.transform='scale(0)';
     giftBox.style.transition='transform 0.4s ease';
     gifts.forEach((el,i)=>{

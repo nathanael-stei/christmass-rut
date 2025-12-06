@@ -67,6 +67,10 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 /* Snow */
 .snowflake{position:fixed;top:-5vh;pointer-events:none;font-size:18px;color:#fff;opacity:0.95;z-index:2}
 
+/* Gift Box */
+#gift-box{z-index:5;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.gift-item{opacity:0;transform:translateY(0);text-align:center;transition:transform 0.8s ease, opacity 0.8s ease}
+
 /* Responsive */
 @media (max-width:720px){
   h1.title{font-size:44px}
@@ -143,13 +147,13 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
   <section id="slide4" class="slide" aria-hidden="true">
     <h1 class="title">Hadiah Khusus untukmu 🎉</h1>
     <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:350px;">
-      <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);">
+      <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.3);">
         <div style="font-size:36px;">🎁</div>
       </div>
-      <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;opacity:0;">
-        <div class="gift-item" style="text-align:center;opacity:0;transform:translateY(0);"><img src="eskrim.jpg" style="width:60px;"><p>5 Es Krim 🍦</p></div>
-        <div class="gift-item" style="text-align:center;opacity:0;transform:translateY(0);"><img src="uang.jpg" style="width:60px;"><p>Rp 1,5M 💸</p></div>
-        <div class="gift-item" style="text-align:center;opacity:0;transform:translateY(0);"><img src="swiss.jpg" style="width:60px;"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
+      <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;">
+        <div class="gift-item"><img src="eskrim.jpg" style="width:60px;"><p>5 Es Krim 🍦</p></div>
+        <div class="gift-item"><img src="uang.jpg" style="width:60px;"><p>Rp 1,5M 💸</p></div>
+        <div class="gift-item"><img src="swiss.jpg" style="width:60px;"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
       </div>
     </div>
     <div class="btn-row"><button class="btn secondary" id="backTo3">⬅ Kembali</button></div>
@@ -202,9 +206,17 @@ const pwOverlay=document.getElementById('pw-overlay');
 const pwInput=document.getElementById('pw-input');
 const pwSubmit=document.getElementById('pw-submit');
 const pwError=document.getElementById('pw-error');
+const audio=document.getElementById('bg-audio');
+const musicControl=document.getElementById('music-control');
+const musicToggle=document.getElementById('music-toggle');
+const musicLabel=document.getElementById('music-label');
 
-pwSubmit.addEventListener('click',tryPassword);
-pwInput.addEventListener('keypress',e=>{if(e.key==='Enter') tryPassword();});
+pwSubmit.addEventListener('click', ()=>{
+    tryPassword();
+    audio.play().catch(()=>{}); // pastikan play dari klik
+});
+pwInput.addEventListener('keypress',e=>{if(e.key==='Enter'){tryPassword(); audio.play().catch(()=>{});}});
+
 function tryPassword(){
   const v = pwInput.value.trim();
   if(v==='akukerenbgt'){
@@ -212,7 +224,7 @@ function tryPassword(){
     pwOverlay.style.display='none';
     pwOverlay.inert=true;
     showSlide(0);
-    startAudioAfterInteraction();
+    startAudio();
   }else{
     pwError.style.display='block';
     const box=document.querySelector('.pw-box');
@@ -221,35 +233,19 @@ function tryPassword(){
 }
 
 /* Audio */
-const audio = document.getElementById('bg-audio');
-const musicControl = document.getElementById('music-control');
-const musicToggle = document.getElementById('music-toggle');
-const musicLabel = document.getElementById('music-label');
 let audioAvailable=false;
-
 audio.addEventListener('loadedmetadata',()=>{audioAvailable=true;});
 audio.addEventListener('error',()=>{audioAvailable=false;});
 
-function startAudioAfterInteraction(){
-  audio.play().then(()=>{
-    audioAvailable=true;
-    audio.muted=false;
-    musicToggle.textContent='🔊';
-    musicLabel.textContent='Musik (on)';
-  }).catch(()=>{
-    audioAvailable=false;
-    musicToggle.textContent='🔈';
-    musicLabel.textContent='Musik';
-  });
+function startAudio(){
+    audio.play().then(()=>{audioAvailable=true; audio.muted=false; musicToggle.textContent='🔊'; musicLabel.textContent='Musik (on)';}).catch(()=>{audioAvailable=false;});
 }
 
-musicToggle.addEventListener('click',()=>{
-  if(audioAvailable){
-    if(audio.paused){audio.play();musicToggle.textContent='🔊';musicLabel.textContent='Musik (on)';}
-    else{audio.pause();musicToggle.textContent='🔈';musicLabel.textContent='Musik (off)';}
-  }else{
-    audio.play().then(()=>{audioAvailable=true;musicToggle.textContent='🔊';musicLabel.textContent='Musik (on)';}).catch(()=>alert('Musik tidak tersedia.'));
-  }
+musicToggle.addEventListener('click', ()=>{
+    if(audioAvailable){
+        if(audio.paused){audio.play(); musicToggle.textContent='🔊'; musicLabel.textContent='Musik (on)';}
+        else{audio.pause(); musicToggle.textContent='🔈'; musicLabel.textContent='Musik (off)';}
+    }
 });
 
 /* Snow */
@@ -288,7 +284,7 @@ giftBox.addEventListener('click',()=>{
   const items=gifts.querySelectorAll('.gift-item');
   items.forEach((el,i)=>{
     el.style.transform='translateY(-150px)';
-    el.style.transition=`transform 0.8s ease ${(i*0.2)}s, opacity 0.8s ease ${(i*0.2)}s`;
+    el.style.transition=`transform 0.8s ease ${i*0.2}s, opacity 0.8s ease ${i*0.2}s`;
     el.style.opacity=1;
   });
   giftBox.style.transform='scale(0)';

@@ -7,22 +7,18 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;}
 html,body{
   height:100%;
   font-family:'Poppins',sans-serif;
   background:linear-gradient(135deg,#ffe6e9,#d6e6ff);
-  color:#222;
   overflow:hidden;
 }
 
-/* PASSWORD */
+/* ===== PASSWORD ===== */
 #pw-overlay{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  position:fixed;inset:0;
+  display:flex;align-items:center;justify-content:center;
   background:rgba(0,0,0,.45);
   z-index:9999;
 }
@@ -31,60 +27,36 @@ html,body{
   background:#fff;
   padding:28px;
   border-radius:14px;
-  box-shadow:0 12px 40px rgba(0,0,0,.3);
   text-align:center;
 }
-.pw-box h2{
-  font-family:'Sacramento',cursive;
-  font-size:40px;
-  color:#b71c1c
-}
-.pw-input{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  margin:12px 0
-}
-.pw-btn{
-  padding:10px 18px;
-  border-radius:10px;
-  border:none;
-  background:#ad1457;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer
-}
-.pw-error{
-  display:none;
-  color:#b71c1c;
-  font-size:14px
-}
+.pw-box h2{font-family:'Sacramento',cursive;font-size:40px;color:#b71c1c}
+.pw-input{width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin:12px 0}
+.pw-btn{padding:10px 18px;border-radius:10px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer}
+.pw-error{display:none;color:#b71c1c;font-size:14px}
 
-/* SLIDES */
-.container{width:100vw;height:100vh}
+/* ===== SLIDES ===== */
+.container{width:100vw;height:100vh;position:relative}
 .slide{
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   display:none;
   flex-direction:column;
   align-items:center;
   padding:20px;
   overflow-y:auto;
+  z-index:1;
 }
 .slide.active{display:flex}
 
 h1.title{
   font-family:'Sacramento',cursive;
-  font-size:54px;
+  font-size:52px;
   color:#b71c1c;
-  text-align:center;
   margin:20px 0;
 }
 
 .card{
   width:min(760px,94%);
-  background:rgba(255,255,255,.85);
+  background:rgba(255,255,255,.9);
   padding:22px;
   border-radius:16px;
   box-shadow:0 10px 30px rgba(0,0,0,.1);
@@ -94,33 +66,26 @@ h1.title{
 .btn-row{display:flex;gap:12px;margin:20px}
 .btn{
   padding:12px 20px;
-  border:none;
-  border-radius:12px;
-  background:#ad1457;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer
+  border:none;border-radius:12px;
+  background:#ad1457;color:#fff;
+  font-weight:600;cursor:pointer
 }
 .btn.secondary{background:#777}
 
-/* CHAT */
+/* ===== CHAT ===== */
 #chat-toggle{
   position:fixed;
-  left:14px;
-  bottom:14px;
-  background:#ad1457;
-  color:#fff;
-  border:none;
-  border-radius:999px;
-  padding:12px 16px;
-  font-weight:600;
+  left:14px;bottom:14px;
+  background:#ad1457;color:#fff;
+  border:none;border-radius:999px;
+  padding:12px 16px;font-weight:600;
   cursor:pointer;
-  z-index:999;
+  z-index:1000;
+  display:none;
 }
 #chat-box{
   position:fixed;
-  left:14px;
-  bottom:70px;
+  left:14px;bottom:70px;
   width:min(340px,92%);
   height:420px;
   background:#fff;
@@ -129,22 +94,16 @@ h1.title{
   display:none;
   flex-direction:column;
   overflow:hidden;
-  z-index:999;
+  z-index:1000;
 }
 #chat-header{
-  background:#ad1457;
-  color:#fff;
-  padding:12px;
-  font-weight:600;
-  text-align:center;
+  background:#ad1457;color:#fff;
+  padding:12px;font-weight:600;text-align:center;
 }
 #chat-messages{
-  flex:1;
-  padding:12px;
+  flex:1;padding:12px;
   overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+  display:flex;flex-direction:column;gap:8px;
 }
 .chat-msg{
   max-width:80%;
@@ -152,34 +111,21 @@ h1.title{
   border-radius:12px;
   font-size:14px;
 }
-.chat-msg.me{
-  align-self:flex-end;
-  background:#ad1457;
-  color:#fff;
-}
-.chat-msg.you{
-  align-self:flex-start;
-  background:#f1f1f1;
-}
+.chat-msg.me{align-self:flex-end;background:#ad1457;color:#fff}
+.chat-msg.you{align-self:flex-start;background:#f1f1f1}
+
 #chat-input-area{
-  display:flex;
-  gap:6px;
-  padding:10px;
-  border-top:1px solid #eee;
+  display:flex;gap:6px;
+  padding:10px;border-top:1px solid #eee;
 }
 #chat-input{
-  flex:1;
-  padding:8px;
-  border-radius:10px;
-  border:1px solid #ddd;
+  flex:1;padding:8px;
+  border-radius:10px;border:1px solid #ddd;
 }
 #chat-send{
-  background:#ad1457;
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  padding:8px 12px;
-  font-weight:600;
+  background:#ad1457;color:#fff;
+  border:none;border-radius:10px;
+  padding:8px 12px;font-weight:600;
 }
 </style>
 </head>
@@ -202,40 +148,38 @@ h1.title{
 
 <!-- SLIDES -->
 <div class="container">
+  <section class="slide" id="s1">
+    <h1 class="title">Selamat Natal Rut 🎄</h1>
+    <div class="card">
+      <p>Semoga damai dan sukacita Natal selalu menyertaimu.</p>
+      <p><b>Merry Christmas & God Bless You ✨</b></p>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="go(1)">Lanjut ➜</button>
+    </div>
+  </section>
 
-<section class="slide" id="s1">
-  <h1 class="title">Selamat Natal Rut 🎄</h1>
-  <div class="card">
-    <p>Semoga damai dan sukacita Natal selalu menyertaimu.</p>
-    <p><b>Merry Christmas & God Bless You ✨</b></p>
-  </div>
-  <div class="btn-row">
-    <button class="btn" onclick="go(1)">Lanjut ➜</button>
-  </div>
-</section>
+  <section class="slide" id="s2">
+    <h1 class="title">Terima Kasih ✨</h1>
+    <div class="card">
+      <p>Terima kasih untuk setiap perhatian, doa, dan kata baikmu.</p>
+    </div>
+    <div class="btn-row">
+      <button class="btn secondary" onclick="go(0)">⬅ Kembali</button>
+      <button class="btn" onclick="go(2)">Lanjut ➜</button>
+    </div>
+  </section>
 
-<section class="slide" id="s2">
-  <h1 class="title">Terima Kasih ✨</h1>
-  <div class="card">
-    <p>Terima kasih untuk setiap perhatian, doa, dan kata baikmu.</p>
-  </div>
-  <div class="btn-row">
-    <button class="btn secondary" onclick="go(0)">⬅ Kembali</button>
-    <button class="btn" onclick="go(2)">Lanjut ➜</button>
-  </div>
-</section>
-
-<section class="slide" id="s3">
-  <h1 class="title">Pesan Natal 🎁</h1>
-  <div class="card">
-    <p>Tuhan melihat hatimu yang tulus. Jangan lelah menjadi baik.</p>
-    <p><b>Tuhan memberkati selalu ✨</b></p>
-  </div>
-  <div class="btn-row">
-    <button class="btn secondary" onclick="go(1)">⬅ Kembali</button>
-  </div>
-</section>
-
+  <section class="slide" id="s3">
+    <h1 class="title">Pesan Natal 🎁</h1>
+    <div class="card">
+      <p>Tuhan melihat hatimu yang tulus. Jangan lelah menjadi baik.</p>
+      <p><b>Tuhan memberkati selalu ✨</b></p>
+    </div>
+    <div class="btn-row">
+      <button class="btn secondary" onclick="go(1)">⬅ Kembali</button>
+    </div>
+  </section>
 </div>
 
 <!-- CHAT -->
@@ -249,7 +193,21 @@ h1.title{
   </div>
 </div>
 
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
 <script>
+/* ===== GANTI DENGAN FIREBASE KAMU ===== */
+firebase.initializeApp({
+  apiKey: "API_KEY_KAMU",
+  authDomain: "PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://PROJECT_ID.firebaseio.com",
+  projectId: "PROJECT_ID"
+});
+const db = firebase.database();
+const chatRef = db.ref("chat-natal-rut");
+
 /* ===== SLIDE ===== */
 const slides=document.querySelectorAll('.slide');
 function go(i){
@@ -257,59 +215,45 @@ function go(i){
   slides[i].classList.add('active');
 }
 
-/* ===== PASSWORD (FIXED) ===== */
-const pwInput=document.getElementById('pw-input');
-const pwSubmit=document.getElementById('pw-submit');
-const pwOverlay=document.getElementById('pw-overlay');
-const pwError=document.getElementById('pw-error');
-
-pwSubmit.addEventListener('click',()=>{
-  if(pwInput.value.trim()==='akukerenbgt'){
+/* ===== PASSWORD ===== */
+pwSubmit.onclick=()=>{
+  if(pwInput.value==='akukerenbgt'){
     pwOverlay.style.display='none';
     go(0);
-  }else{
-    pwError.style.display='block';
-  }
-});
-
-/* ===== CHAT ===== */
-const chatToggle=document.getElementById('chat-toggle');
-const chatBox=document.getElementById('chat-box');
-const chatMessages=document.getElementById('chat-messages');
-const chatInput=document.getElementById('chat-input');
-const chatSend=document.getElementById('chat-send');
-
-chatToggle.onclick=()=>{
-  chatBox.style.display=chatBox.style.display==='flex'?'none':'flex';
-};
-
-let chat=JSON.parse(localStorage.getItem('chatNatal')||'[]');
-
-function renderChat(){
-  chatMessages.innerHTML='';
-  chat.forEach(m=>{
-    const d=document.createElement('div');
-    d.className='chat-msg '+m.from;
-    d.textContent=m.text;
-    chatMessages.appendChild(d);
-  });
-  chatMessages.scrollTop=chatMessages.scrollHeight;
+    chatToggle.style.display='block';
+  }else pwError.style.display='block';
 }
-renderChat();
 
-chatSend.onclick=()=>{
-  if(!chatInput.value.trim())return;
-  chat.push({from:'me',text:chatInput.value});
-  localStorage.setItem('chatNatal',JSON.stringify(chat));
-  chatInput.value='';
-  renderChat();
-
-  setTimeout(()=>{
-    chat.push({from:'you',text:'🎄 Pesanmu sudah aku baca 😊'});
-    localStorage.setItem('chatNatal',JSON.stringify(chat));
-    renderChat();
-  },800);
+/* ===== CHAT TOGGLE ===== */
+chatToggle.onclick=()=>{
+  chatBox.style.display =
+    chatBox.style.display==='flex'?'none':'flex';
 };
+
+/* ===== CHAT REALTIME ===== */
+const username = prompt("Nama kamu?") || "Anonim";
+
+chatSend.onclick = sendMsg;
+chatInput.onkeypress = e => { if(e.key==="Enter") sendMsg(); };
+
+function sendMsg(){
+  if(!chatInput.value.trim()) return;
+  chatRef.push({
+    user: username,
+    text: chatInput.value,
+    time: Date.now()
+  });
+  chatInput.value="";
+}
+
+chatRef.limitToLast(50).on("child_added",snap=>{
+  const d=snap.val();
+  const div=document.createElement("div");
+  div.className="chat-msg "+(d.user===username?"me":"you");
+  div.textContent = d.user+": "+d.text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop=chatMessages.scrollHeight;
+});
 </script>
 
 </body>

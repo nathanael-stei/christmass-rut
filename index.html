@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Selamat Natal — Untuk Rut</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;}
+
+*{box-sizing:border-box;margin:0;padding:0}
 html,body{
   height:100%;
   font-family:'Poppins',sans-serif;
@@ -15,39 +16,68 @@ html,body{
   overflow:hidden;
 }
 
-/* ===== PASSWORD ===== */
+/* PASSWORD */
 #pw-overlay{
-  position:fixed;inset:0;
-  display:flex;align-items:center;justify-content:center;
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   background:rgba(0,0,0,.45);
   z-index:9999;
 }
 .pw-box{
-  width:min(420px,92%);
+  width:min(420px,90%);
   background:#fff;
   padding:28px;
   border-radius:14px;
   text-align:center;
 }
-.pw-box h2{font-family:'Sacramento',cursive;font-size:40px;color:#b71c1c}
-.pw-input{width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin:12px 0}
-.pw-btn{padding:10px 18px;border-radius:10px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer}
-.pw-error{display:none;color:#b71c1c;font-size:14px}
+.pw-box h2{
+  font-family:'Sacramento',cursive;
+  font-size:40px;
+  color:#b71c1c;
+}
+.pw-input{
+  width:100%;
+  padding:10px;
+  margin:12px 0;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+.pw-btn{
+  padding:10px 18px;
+  border:none;
+  border-radius:10px;
+  background:#ad1457;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+.pw-error{
+  display:none;
+  color:#b71c1c;
+  font-size:14px;
+}
 
-/* ===== SLIDES ===== */
-.container{width:100vw;height:100vh;position:relative}
+/* SLIDE */
+.container{
+  width:100%;
+  height:100%;
+  position:relative;
+}
 .slide{
-  position:absolute;inset:0;
+  position:absolute;
+  inset:0;
   display:none;
   flex-direction:column;
   align-items:center;
   padding:20px;
   overflow-y:auto;
-  z-index:1;
 }
 .slide.active{display:flex}
 
-h1.title{
+.title{
   font-family:'Sacramento',cursive;
   font-size:52px;
   color:#b71c1c;
@@ -59,34 +89,48 @@ h1.title{
   background:rgba(255,255,255,.9);
   padding:22px;
   border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.1);
 }
-.card p{font-size:18px;line-height:1.7}
+.card p{
+  font-size:18px;
+  line-height:1.7;
+}
 
-.btn-row{display:flex;gap:12px;margin:20px}
+.btn-row{
+  display:flex;
+  gap:12px;
+  margin:20px;
+}
 .btn{
   padding:12px 20px;
-  border:none;border-radius:12px;
-  background:#ad1457;color:#fff;
-  font-weight:600;cursor:pointer
+  border:none;
+  border-radius:12px;
+  background:#ad1457;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
 }
 .btn.secondary{background:#777}
 
-/* ===== CHAT ===== */
+/* CHAT */
 #chat-toggle{
   position:fixed;
-  left:14px;bottom:14px;
-  background:#ad1457;color:#fff;
-  border:none;border-radius:999px;
-  padding:12px 16px;font-weight:600;
-  cursor:pointer;
-  z-index:1000;
+  left:16px;
+  bottom:16px;
+  background:#ad1457;
+  color:#fff;
+  border:none;
+  border-radius:999px;
+  padding:12px 16px;
+  font-weight:600;
   display:none;
+  cursor:pointer;
 }
+
 #chat-box{
   position:fixed;
-  left:14px;bottom:70px;
-  width:min(340px,92%);
+  left:16px;
+  bottom:72px;
+  width:320px;
   height:420px;
   background:#fff;
   border-radius:16px;
@@ -94,16 +138,22 @@ h1.title{
   display:none;
   flex-direction:column;
   overflow:hidden;
-  z-index:1000;
 }
+
 #chat-header{
-  background:#ad1457;color:#fff;
-  padding:12px;font-weight:600;text-align:center;
+  background:#ad1457;
+  color:#fff;
+  padding:12px;
+  text-align:center;
+  font-weight:600;
 }
 #chat-messages{
-  flex:1;padding:12px;
+  flex:1;
+  padding:12px;
   overflow-y:auto;
-  display:flex;flex-direction:column;gap:8px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 .chat-msg{
   max-width:80%;
@@ -111,21 +161,35 @@ h1.title{
   border-radius:12px;
   font-size:14px;
 }
-.chat-msg.me{align-self:flex-end;background:#ad1457;color:#fff}
-.chat-msg.you{align-self:flex-start;background:#f1f1f1}
+.chat-msg.me{
+  align-self:flex-end;
+  background:#ad1457;
+  color:#fff;
+}
+.chat-msg.you{
+  align-self:flex-start;
+  background:#f1f1f1;
+}
 
 #chat-input-area{
-  display:flex;gap:6px;
-  padding:10px;border-top:1px solid #eee;
+  display:flex;
+  gap:6px;
+  padding:10px;
+  border-top:1px solid #eee;
 }
 #chat-input{
-  flex:1;padding:8px;
-  border-radius:10px;border:1px solid #ddd;
+  flex:1;
+  padding:8px;
+  border-radius:10px;
+  border:1px solid #ddd;
 }
 #chat-send{
-  background:#ad1457;color:#fff;
-  border:none;border-radius:10px;
-  padding:8px 12px;font-weight:600;
+  background:#ad1457;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  padding:8px 12px;
+  font-weight:600;
 }
 </style>
 </head>
@@ -148,6 +212,7 @@ h1.title{
 
 <!-- SLIDES -->
 <div class="container">
+
   <section class="slide" id="s1">
     <h1 class="title">Selamat Natal Rut 🎄</h1>
     <div class="card">
@@ -155,18 +220,18 @@ h1.title{
       <p><b>Merry Christmas & God Bless You ✨</b></p>
     </div>
     <div class="btn-row">
-      <button class="btn" onclick="go(1)">Lanjut ➜</button>
+      <button class="btn" onclick="goSlide(1)">Lanjut ➜</button>
     </div>
   </section>
 
   <section class="slide" id="s2">
     <h1 class="title">Terima Kasih ✨</h1>
     <div class="card">
-      <p>Terima kasih untuk setiap perhatian, doa, dan kata baikmu.</p>
+      <p>Terima kasih untuk setiap perhatian dan doa.</p>
     </div>
     <div class="btn-row">
-      <button class="btn secondary" onclick="go(0)">⬅ Kembali</button>
-      <button class="btn" onclick="go(2)">Lanjut ➜</button>
+      <button class="btn secondary" onclick="goSlide(0)">⬅ Kembali</button>
+      <button class="btn" onclick="goSlide(2)">Lanjut ➜</button>
     </div>
   </section>
 
@@ -174,12 +239,12 @@ h1.title{
     <h1 class="title">Pesan Natal 🎁</h1>
     <div class="card">
       <p>Tuhan melihat hatimu yang tulus. Jangan lelah menjadi baik.</p>
-      <p><b>Tuhan memberkati selalu ✨</b></p>
     </div>
     <div class="btn-row">
-      <button class="btn secondary" onclick="go(1)">⬅ Kembali</button>
+      <button class="btn secondary" onclick="goSlide(1)">⬅ Kembali</button>
     </div>
   </section>
+
 </div>
 
 <!-- CHAT -->
@@ -198,43 +263,52 @@ h1.title{
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
 <script>
-/* ===== GANTI DENGAN FIREBASE KAMU ===== */
+/* === FIREBASE CONFIG (ISI SENDIRI) === */
 firebase.initializeApp({
-  apiKey: "API_KEY_KAMU",
+  apiKey: "API_KEY",
   authDomain: "PROJECT_ID.firebaseapp.com",
   databaseURL: "https://PROJECT_ID.firebaseio.com",
   projectId: "PROJECT_ID"
 });
-const db = firebase.database();
-const chatRef = db.ref("chat-natal-rut");
 
-/* ===== SLIDE ===== */
-const slides=document.querySelectorAll('.slide');
-function go(i){
+const chatRef = firebase.database().ref("chat-natal");
+
+/* PASSWORD */
+const pwOverlay = document.getElementById('pw-overlay');
+const pwInput = document.getElementById('pw-input');
+const pwError = document.getElementById('pw-error');
+
+document.getElementById('pw-submit').onclick = () => {
+  if(pwInput.value.trim() === 'akukerenbgt'){
+    pwOverlay.style.display = 'none';
+    showSlide(0);
+    document.getElementById('chat-toggle').style.display = 'block';
+  } else {
+    pwError.style.display = 'block';
+  }
+};
+
+/* SLIDE */
+const slides = document.querySelectorAll('.slide');
+function showSlide(i){
   slides.forEach(s=>s.classList.remove('active'));
   slides[i].classList.add('active');
 }
+function goSlide(i){ showSlide(i); }
 
-/* ===== PASSWORD ===== */
-pwSubmit.onclick=()=>{
-  if(pwInput.value==='akukerenbgt'){
-    pwOverlay.style.display='none';
-    go(0);
-    chatToggle.style.display='block';
-  }else pwError.style.display='block';
-}
+/* CHAT */
+const username = prompt("Nama kamu?") || "Anonim";
+const chatBox = document.getElementById('chat-box');
+const chatToggle = document.getElementById('chat-toggle');
+const chatMessages = document.getElementById('chat-messages');
+const chatInput = document.getElementById('chat-input');
 
-/* ===== CHAT TOGGLE ===== */
-chatToggle.onclick=()=>{
-  chatBox.style.display =
-    chatBox.style.display==='flex'?'none':'flex';
+chatToggle.onclick = () => {
+  chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
 };
 
-/* ===== CHAT REALTIME ===== */
-const username = prompt("Nama kamu?") || "Anonim";
-
-chatSend.onclick = sendMsg;
-chatInput.onkeypress = e => { if(e.key==="Enter") sendMsg(); };
+document.getElementById('chat-send').onclick = sendMsg;
+chatInput.addEventListener('keypress',e=>{ if(e.key==='Enter') sendMsg(); });
 
 function sendMsg(){
   if(!chatInput.value.trim()) return;
@@ -243,16 +317,16 @@ function sendMsg(){
     text: chatInput.value,
     time: Date.now()
   });
-  chatInput.value="";
+  chatInput.value='';
 }
 
-chatRef.limitToLast(50).on("child_added",snap=>{
-  const d=snap.val();
-  const div=document.createElement("div");
-  div.className="chat-msg "+(d.user===username?"me":"you");
-  div.textContent = d.user+": "+d.text;
+chatRef.limitToLast(50).on('child_added',snap=>{
+  const d = snap.val();
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + (d.user===username?'me':'you');
+  div.textContent = d.user + ': ' + d.text;
   chatMessages.appendChild(div);
-  chatMessages.scrollTop=chatMessages.scrollHeight;
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 </script>
 

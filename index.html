@@ -1,334 +1,276 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Selamat Natal — Untuk Rut</title>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#ffe6e9,#d6e6ff);color:#222;overflow:hidden;}
 
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{
-  height:100%;
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ffe6e9,#d6e6ff);
-  overflow:hidden;
-}
-
-/* PASSWORD */
+/* ===== Password Overlay ===== */
 #pw-overlay{
-  position:fixed;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:rgba(0,0,0,.45);
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.35));
   z-index:9999;
 }
 .pw-box{
-  width:min(420px,90%);
-  background:#fff;
-  padding:28px;
-  border-radius:14px;
-  text-align:center;
+  width:min(420px,92%);background:rgba(255,255,255,0.95);backdrop-filter:blur(6px);
+  padding:28px;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,0.25);text-align:center
 }
-.pw-box h2{
-  font-family:'Sacramento',cursive;
-  font-size:40px;
-  color:#b71c1c;
-}
-.pw-input{
-  width:100%;
-  padding:10px;
-  margin:12px 0;
-  border-radius:10px;
-  border:1px solid #ddd;
-}
-.pw-btn{
-  padding:10px 18px;
-  border:none;
-  border-radius:10px;
-  background:#ad1457;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
-}
-.pw-error{
-  display:none;
-  color:#b71c1c;
-  font-size:14px;
-}
+.pw-box h2{font-family:'Sacramento',cursive;font-size:40px;color:#b71c1c;margin-bottom:8px}
+.pw-box p{color:#444;margin-bottom:14px}
+.pw-input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e0e0e0;font-size:16px;margin-bottom:12px}
+.pw-btn{padding:10px 18px;border-radius:10px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer}
+.pw-error{color:#b71c1c;margin-top:8px;font-size:14px;display:none}
 
-/* SLIDE */
-.container{
-  width:100%;
-  height:100%;
-  position:relative;
+/* ===== Slides ===== */
+.container{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;
+padding:20px;overflow-y:auto;justify-content:flex-start;transition:opacity .45s ease,transform .45s ease;transform:scale(1);
+min-height:100vh; /* pastikan tinggi slide penuh layar */
+padding-bottom:100px; /* agar tombol tidak terpotong */
 }
-.slide{
-  position:absolute;
-  inset:0;
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  padding:20px;
-  overflow-y:auto;
-}
-.slide.active{display:flex}
+.slide.active{display:flex;opacity:1}
+.slide.enter{animation: fadeZoom .45s ease both;}
+@keyframes fadeZoom{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 
-.title{
-  font-family:'Sacramento',cursive;
-  font-size:52px;
-  color:#b71c1c;
-  margin:20px 0;
-}
+/* Heading */
+h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20px 0 10px;text-align:center}
 
-.card{
-  width:min(760px,94%);
-  background:rgba(255,255,255,.9);
-  padding:22px;
-  border-radius:16px;
-}
-.card p{
-  font-size:18px;
-  line-height:1.7;
-}
+/* Card */
+.card{width:min(760px,94%);background:rgba(255,255,255,0.75);backdrop-filter:blur(8px);border-radius:16px;padding:22px 24px;margin:8px 0;box-shadow:0 10px 30px rgba(0,0,0,0.08);}
+.card p{font-size:18px;line-height:1.7;color:#222}
 
-.btn-row{
-  display:flex;
-  gap:12px;
-  margin:20px;
-}
-.btn{
-  padding:12px 20px;
-  border:none;
-  border-radius:12px;
-  background:#ad1457;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
-}
-.btn.secondary{background:#777}
+/* Grid slide2 */
+.mini-grid{width:min(760px,94%);display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.mini-card{background:rgba(255,255,255,0.85);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);text-align:left}
+.mini-card p{font-size:15.5px;line-height:1.55;color:#222;margin:0}
 
-/* CHAT */
-#chat-toggle{
-  position:fixed;
-  left:16px;
-  bottom:16px;
-  background:#ad1457;
-  color:#fff;
-  border:none;
-  border-radius:999px;
-  padding:12px 16px;
-  font-weight:600;
-  display:none;
-  cursor:pointer;
-}
+/* Buttons */
+.btn-row{display:flex;gap:12px;margin-top:18px;flex-shrink:0;}
+.btn{padding:12px 20px;border-radius:12px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer;font-size:15px}
+.btn.secondary{background:#6b6b6b}
+.btn:active{transform:translateY(1px)}
 
-#chat-box{
-  position:fixed;
-  left:16px;
-  bottom:72px;
-  width:320px;
-  height:420px;
-  background:#fff;
-  border-radius:16px;
-  box-shadow:0 12px 30px rgba(0,0,0,.25);
-  display:none;
-  flex-direction:column;
-  overflow:hidden;
-}
+/* Music control */
+#music-control{position:fixed;right:12px;bottom:12px;background:rgba(255,255,255,0.9);padding:8px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,0.12);z-index:999;display:flex;align-items:center;gap:8px}
+#music-control button{border:none;background:transparent;font-size:18px;cursor:pointer}
 
-#chat-header{
-  background:#ad1457;
-  color:#fff;
-  padding:12px;
-  text-align:center;
-  font-weight:600;
-}
-#chat-messages{
-  flex:1;
-  padding:12px;
-  overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.chat-msg{
-  max-width:80%;
-  padding:8px 12px;
-  border-radius:12px;
-  font-size:14px;
-}
-.chat-msg.me{
-  align-self:flex-end;
-  background:#ad1457;
-  color:#fff;
-}
-.chat-msg.you{
-  align-self:flex-start;
-  background:#f1f1f1;
-}
+/* Snow */
+.snowflake{position:fixed;top:-5vh;pointer-events:none;font-size:18px;color:#fff;opacity:0.95;z-index:2}
 
-#chat-input-area{
-  display:flex;
-  gap:6px;
-  padding:10px;
-  border-top:1px solid #eee;
-}
-#chat-input{
-  flex:1;
-  padding:8px;
-  border-radius:10px;
-  border:1px solid #ddd;
-}
-#chat-send{
-  background:#ad1457;
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  padding:8px 12px;
-  font-weight:600;
+/* Gift items */
+.gift-item{text-align:center;opacity:0;transform:translateY(0);transition:transform 0.8s ease,opacity 0.8s ease;}
+
+/* Responsive */
+@media (max-width:720px){h1.title{font-size:44px}.card p{font-size:16px}.mini-card p{font-size:15px}.mini-grid{grid-template-columns:1fr}}
+@media (max-width:420px){
+  h1.title{font-size:36px}
+  .pw-box h2{font-size:32px}
+  .pw-input{font-size:15px}
+  .pw-btn{font-size:15px}
+  .slide{padding-bottom:120px;} /* lebih aman untuk tombol di layar kecil */
+  .btn-row{flex-wrap:wrap; justify-content:center;}
 }
 </style>
 </head>
-
 <body>
 
-<!-- PASSWORD -->
-<div id="pw-overlay">
-  <div class="pw-box">
-    <h2>Selamat Natal</h2>
-    <p>Masukkan password</p>
-    <input id="pw-input" class="pw-input" placeholder="password...">
-    <button id="pw-submit" class="pw-btn">Buka</button>
-    <div id="pw-error" class="pw-error">Password salah</div>
-    <div style="font-size:13px;margin-top:8px;color:#666">
-      Hint: <b>akukerenbgt</b>
+<!-- Password Overlay -->
+<div id="pw-overlay" aria-hidden="false">
+  <div class="pw-box" role="dialog" aria-labelledby="pw-title">
+    <h2 id="pw-title">Selamat Natal</h2>
+    <p>Masukkan kata sandi untuk melihat ucapan khusus.</p>
+    <input id="pw-input" class="pw-input" placeholder="masukkan kata sandi.." autocomplete="off">
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button id="pw-submit" class="pw-btn">Buka</button>
     </div>
+    <div id="pw-error" class="pw-error">Password salah — coba lagi.</div>
+    <div style="margin-top:10px;font-size:13px;color:#666">Tip: masukkan password <strong>akukerenbgt</strong></div>
   </div>
 </div>
 
-<!-- SLIDES -->
-<div class="container">
+<!-- Slides -->
+<div class="container" id="app">
 
-  <section class="slide" id="s1">
-    <h1 class="title">Selamat Natal Rut 🎄</h1>
+  <!-- Slide 1 -->
+  <section id="slide1" class="slide">
+    <h1 class="title">Selamat Natal Rut Philia Sijabat🎄✨</h1>
     <div class="card">
-      <p>Semoga damai dan sukacita Natal selalu menyertaimu.</p>
-      <p><b>Merry Christmas & God Bless You ✨</b></p>
+      <p>Semoga damai, sukacita, dan terang kasih Tuhan memenuhi harimu. Kiranya semua yang kamu impikan menjadi lebih dekat di tahun yang baru.</p>
+      <p><strong>Merry Christmas & GBU!</strong></p>
     </div>
-    <div class="btn-row">
-      <button class="btn" onclick="goSlide(1)">Lanjut ➜</button>
-    </div>
+    <div class="btn-row"><button class="btn" id="to2">Lanjut ➜</button></div>
   </section>
 
-  <section class="slide" id="s2">
+  <!-- Slide 2 -->
+  <section id="slide2" class="slide">
     <h1 class="title">Terima Kasih ✨</h1>
-    <div class="card">
-      <p>Terima kasih untuk setiap perhatian dan doa.</p>
+    <div class="card"><p>Btw…</p><p><strong>Makasi yaa untuk semua kata baik yang pernah kamu berikan kepadaku.</strong></p></div>
+    <div class="mini-grid">
+      <div class="mini-card"><p><strong>27 November 2025.</strong><br>abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang, manusia emang sering punya perasaan kaya gitu. tapi jangan sampe perasaan yang kaya gitu ngebuat abang ga percaya diri ya</p></div>
+      <div class="mini-card"><p><strong>3 Desember 2025</strong><br>bang enjoy the process ya, it will pass. enjoy bukan berarti dibiarkan gitu aja bang, tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung 😭😭 tapi dibalik itu semua tetap waras ya bang. push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. semangat yaa bang, sehat", God bless u more 💪💪</p></div>
+      <div class="mini-card"><p><strong>lewat gojek wkwk.</strong><br>bang nael jangan malas makan, dijaga kesehatannya, harus sayang sama diri sendiri, harus minum air putih yang cukup jugaaa</p></div>
+      <div class="mini-card"><p><strong>etc.</strong><br>nyuruh makan, tidur, dll. sorry wkwkk agak susah scroll tiktok sampe ke atas masih byk lagi.</p></div>    
     </div>
     <div class="btn-row">
-      <button class="btn secondary" onclick="goSlide(0)">⬅ Kembali</button>
-      <button class="btn" onclick="goSlide(2)">Lanjut ➜</button>
+      <button class="btn secondary" id="backTo1">⬅ Kembali</button>
+      <button class="btn" id="to3">Lanjut ➜</button>
     </div>
   </section>
 
-  <section class="slide" id="s3">
-    <h1 class="title">Pesan Natal 🎁</h1>
+  <!-- Slide 3 -->
+  <section id="slide3" class="slide">
+    <h1 class="title">Pesan Natal untuk Rut 🎁</h1>
     <div class="card">
-      <p>Tuhan melihat hatimu yang tulus. Jangan lelah menjadi baik.</p>
+      <p>Di hari Natal ini, aku berharap kamu dikelilingi oleh sukacita. Kalau kamu lagi ada pergumulan aku gabisa merasakan apa yang kamu rasakan, tapi Tuhan Yesus yang lahir ke dunia ini bisa merasakannya, ingat itu ya. Kalau kamu mendapat perlakuan tidak adil,
+        aku gabisa menolong kamu, ingat Tuhan juga sudah merasakannya. Tuhan bisa kok lihat hati kamu yang tulus mengasihi orang lain, setidaknya aku dan mungkin teman-teman kamu yang lain bisa merasakannya.Semoga natal ini bisa menjadi kekuatan baru bagi kamu ya
+     </p>
+      <p><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
     </div>
     <div class="btn-row">
-      <button class="btn secondary" onclick="goSlide(1)">⬅ Kembali</button>
+      <button class="btn secondary" id="backTo2">⬅ Kembali</button>
+      <button class="btn" id="to4">Lanjut ➜</button>
     </div>
+  </section>
+
+  <!-- Slide 4 -->
+  <section id="slide4" class="slide">
+    <h1 class="title">Hadiah Khusus untukmu 🎉</h1>
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:350px;">
+      
+      <!-- Wrapper klik lebih luas -->
+      <div id="gift-box-wrapper" style="width:220px;height:220px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:36px;">🎁</div>
+      </div>
+
+      <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;">
+        <div class="gift-item"><img src="eskrim.jpg" style="width:100px"><p>5 Es Krim 🍦</p></div>
+        <div class="gift-item"><img src="uang.jpg" style="width:100px"><p>Rp 1,5M 💸</p></div>
+        <div class="gift-item"><img src="swiss.jpg" style="width:100px"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
+      </div>
+
+    </div>
+    <div class="btn-row"><button class="btn secondary" id="backTo3">⬅ Kembali</button></div>
   </section>
 
 </div>
 
-<!-- CHAT -->
-<button id="chat-toggle">💬 Chat</button>
-<div id="chat-box">
-  <div id="chat-header">Chat Natal 🎄</div>
-  <div id="chat-messages"></div>
-  <div id="chat-input-area">
-    <input id="chat-input" placeholder="Tulis pesan...">
-    <button id="chat-send">Kirim</button>
-  </div>
+<!-- Music control -->
+<div id="music-control" style="display:none;">
+  <button id="music-toggle">🔈</button>
+  <span id="music-label" style="font-size:13px;color:#333">Musik</span>
 </div>
-
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<audio id="bg-audio" src="noel.mp3" loop preload="auto"></audio>
 
 <script>
-/* === FIREBASE CONFIG (ISI SENDIRI) === */
-firebase.initializeApp({
-  apiKey: "API_KEY",
-  authDomain: "PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://PROJECT_ID.firebaseio.com",
-  projectId: "PROJECT_ID"
-});
+document.addEventListener('DOMContentLoaded',()=>{
 
-const chatRef = firebase.database().ref("chat-natal");
+  const slides=['slide1','slide2','slide3','slide4'];
+  let current=0;
+  const audio = document.getElementById('bg-audio');
 
-/* PASSWORD */
-const pwOverlay = document.getElementById('pw-overlay');
-const pwInput = document.getElementById('pw-input');
-const pwError = document.getElementById('pw-error');
-
-document.getElementById('pw-submit').onclick = () => {
-  if(pwInput.value.trim() === 'akukerenbgt'){
-    pwOverlay.style.display = 'none';
-    showSlide(0);
-    document.getElementById('chat-toggle').style.display = 'block';
-  } else {
-    pwError.style.display = 'block';
+  function showSlide(index){
+    if(index<0) index=0;
+    if(index>=slides.length) index=slides.length-1;
+    current=index;
+    slides.forEach((id,i)=>{
+      const el=document.getElementById(id);
+      if(i===index){
+        el.classList.add('active','enter');
+        el.setAttribute('aria-hidden','false');
+        setTimeout(()=>el.classList.remove('enter'),650);
+      }else{
+        el.classList.remove('active','enter');
+        el.setAttribute('aria-hidden','true');
+      }
+    });
+    document.getElementById('music-control').style.display='flex';
   }
-};
 
-/* SLIDE */
-const slides = document.querySelectorAll('.slide');
-function showSlide(i){
-  slides.forEach(s=>s.classList.remove('active'));
-  slides[i].classList.add('active');
-}
-function goSlide(i){ showSlide(i); }
+  // Button slide
+  document.getElementById('to2').addEventListener('click',()=>showSlide(1));
+  document.getElementById('to3').addEventListener('click',()=>showSlide(2));
+  document.getElementById('to4').addEventListener('click',()=>showSlide(3));
+  document.getElementById('backTo1').addEventListener('click',()=>showSlide(0));
+  document.getElementById('backTo2').addEventListener('click',()=>showSlide(1));
+  document.getElementById('backTo3').addEventListener('click',()=>showSlide(2));
 
-/* CHAT */
-const username = prompt("Nama kamu?") || "Anonim";
-const chatBox = document.getElementById('chat-box');
-const chatToggle = document.getElementById('chat-toggle');
-const chatMessages = document.getElementById('chat-messages');
-const chatInput = document.getElementById('chat-input');
+  // Password
+  const pwOverlay=document.getElementById('pw-overlay');
+  const pwInput=document.getElementById('pw-input');
+  const pwSubmit=document.getElementById('pw-submit');
+  const pwError=document.getElementById('pw-error');
 
-chatToggle.onclick = () => {
-  chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
-};
+  pwSubmit.addEventListener('click',tryPassword);
+  pwInput.addEventListener('keypress',e=>{if(e.key==='Enter') tryPassword();});
 
-document.getElementById('chat-send').onclick = sendMsg;
-chatInput.addEventListener('keypress',e=>{ if(e.key==='Enter') sendMsg(); });
+  function tryPassword(){
+    const v=pwInput.value.trim();
+    if(v==='akukerenbgt'){
+      pwError.style.display='none';
+      pwOverlay.style.display='none';
+      showSlide(0);
 
-function sendMsg(){
-  if(!chatInput.value.trim()) return;
-  chatRef.push({
-    user: username,
-    text: chatInput.value,
-    time: Date.now()
+      // audio autoplay
+      audio.muted=false;
+      audio.volume=0.5;
+      audio.play().catch(err=>console.log(err));
+
+    }else{
+      pwError.style.display='block';
+      document.querySelector('.pw-box').animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:240});
+    }
+  }
+
+  // Audio toggle
+  const musicToggle=document.getElementById('music-toggle');
+  const musicLabel=document.getElementById('music-label');
+  musicToggle.addEventListener('click',()=>{
+    if(audio.paused){audio.play();musicToggle.textContent='🔊';musicLabel.textContent='Musik (on)';}
+    else{audio.pause();musicToggle.textContent='🔈';musicLabel.textContent='Musik (off)';}
   });
-  chatInput.value='';
-}
 
-chatRef.limitToLast(50).on('child_added',snap=>{
-  const d = snap.val();
-  const div = document.createElement('div');
-  div.className = 'chat-msg ' + (d.user===username?'me':'you');
-  div.textContent = d.user + ': ' + d.text;
-  chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  // Snow
+  function makeSnow(){
+    const count=Math.min(Math.round(window.innerWidth/12),80);
+    for(let i=0;i<count;i++){
+      const s=document.createElement('div');
+      s.className='snowflake';
+      s.style.left=Math.random()*100+'vw';
+      const size=8+Math.random()*16;
+      s.style.fontSize=size+'px';
+      s.style.opacity=0.4+Math.random()*0.8;
+      const duration=6+Math.random()*8;
+      s.style.animationDuration=duration+'s';
+      s.style.transform=`translateY(-10vh) rotate(${Math.random()*360}deg)`;
+      s.textContent='❄';
+      document.body.appendChild(s);
+      s.animate([{transform:`translateY(-10vh) translateX(0px)`},{transform:`translateY(110vh) translateX(${(Math.random()*200-100).toFixed(0)}px)`}],{duration:duration*1000,iterations:Infinity,easing:'linear',delay:Math.random()*1000});
+    }
+  }
+  makeSnow();
+  window.addEventListener('resize',()=>{document.querySelectorAll('.snowflake').forEach(n=>n.remove()); makeSnow();});
+
+  // Gift box animation
+  const giftBoxWrapper = document.getElementById('gift-box-wrapper');
+  const gifts = document.querySelectorAll('.gift-item');
+
+  giftBoxWrapper.addEventListener('click',()=>{
+    const giftBox = document.getElementById('gift-box');
+    giftBox.style.transform='scale(0)';
+    giftBox.style.transition='transform 0.4s ease';
+    gifts.forEach((el,i)=>{
+      setTimeout(()=>{
+        el.style.opacity=1;
+        el.style.transform='translateY(-150px) rotate('+ (Math.random()*720-360) +'deg)';
+      }, i*200);
+    });
+  });
+
 });
 </script>
-
 </body>
 </html>

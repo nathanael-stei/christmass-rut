@@ -3,92 +3,292 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Selamat Natal — Untuk Rut</title>
+<title>Selamat Ulang Tahun, Rut</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#ffe6e9,#d6e6ff);color:#222;overflow:hidden;}
 
-/* ===== Password Overlay ===== */
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  height:100%;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffdbe7,#ffe9c7,#d9ecff);
+  color:#222;
+  overflow:hidden;
+}
+
+/* Password Overlay */
 #pw-overlay{
-  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.35));
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.30));
   z-index:9999;
 }
 .pw-box{
-  width:min(420px,92%);background:rgba(255,255,255,0.95);backdrop-filter:blur(6px);
-  padding:28px;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,0.25);text-align:center
+  width:min(420px,92%);
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(6px);
+  padding:28px;
+  border-radius:16px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.25);
+  text-align:center;
 }
-.pw-box h2{font-family:'Sacramento',cursive;font-size:40px;color:#b71c1c;margin-bottom:8px}
-.pw-box p{color:#444;margin-bottom:14px}
-.pw-input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e0e0e0;font-size:16px;margin-bottom:12px}
-.pw-btn{padding:10px 18px;border-radius:10px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer}
-.pw-error{color:#b71c1c;margin-top:8px;font-size:14px;display:none}
+.pw-box h2{
+  font-family:'Sacramento',cursive;
+  font-size:42px;
+  color:#d81b60;
+  margin-bottom:8px;
+}
+.pw-box p{
+  color:#444;
+  margin-bottom:14px;
+}
+.pw-input{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid #e0e0e0;
+  font-size:16px;
+  margin-bottom:12px;
+}
+.pw-btn{
+  padding:10px 18px;
+  border-radius:10px;
+  border:none;
+  background:#d81b60;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+.pw-error{
+  color:#b71c1c;
+  margin-top:8px;
+  font-size:14px;
+  display:none;
+}
 
-/* ===== Slides ===== */
-.container{position:relative;width:100vw;height:100vh;overflow:hidden}
-.slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;
-padding:20px;overflow-y:auto;justify-content:flex-start;transition:opacity .45s ease,transform .45s ease;transform:scale(1);
-min-height:100vh; /* pastikan tinggi slide penuh layar */
-padding-bottom:100px; /* agar tombol tidak terpotong */
+/* Slides */
+.container{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
 }
-.slide.active{display:flex;opacity:1}
-.slide.enter{animation: fadeZoom .45s ease both;}
-@keyframes fadeZoom{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+.slide{
+  position:absolute;
+  inset:0;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:20px;
+  padding-bottom:100px;
+  overflow-y:auto;
+  min-height:100vh;
+  transition:opacity .45s ease,transform .45s ease;
+  transform:scale(1);
+}
+.slide.active{
+  display:flex;
+  opacity:1;
+}
+.slide.enter{
+  animation:fadeZoom .45s ease both;
+}
+@keyframes fadeZoom{
+  from{opacity:0;transform:scale(.985)}
+  to{opacity:1;transform:scale(1)}
+}
 
 /* Heading */
-h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20px 0 10px;text-align:center}
+h1.title{
+  font-family:'Sacramento',cursive;
+  font-size:58px;
+  color:#d81b60;
+  margin:20px 0 10px;
+  text-align:center;
+}
+
+/* Subtitle */
+.subtitle{
+  font-size:16px;
+  color:#6b6b6b;
+  margin-bottom:10px;
+  text-align:center;
+}
 
 /* Card */
-.card{width:min(760px,94%);background:rgba(255,255,255,0.75);backdrop-filter:blur(8px);border-radius:16px;padding:22px 24px;margin:8px 0;box-shadow:0 10px 30px rgba(0,0,0,0.08);}
-.card p{font-size:18px;line-height:1.7;color:#222}
+.card{
+  width:min(760px,94%);
+  background:rgba(255,255,255,0.78);
+  backdrop-filter:blur(8px);
+  border-radius:16px;
+  padding:22px 24px;
+  margin:8px 0;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+.card p{
+  font-size:18px;
+  line-height:1.7;
+  color:#222;
+  margin-bottom:10px;
+}
+.card p:last-child{
+  margin-bottom:0;
+}
 
-/* Grid slide2 */
-.mini-grid{width:min(760px,94%);display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
-.mini-card{background:rgba(255,255,255,0.85);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);text-align:left}
-.mini-card p{font-size:15.5px;line-height:1.55;color:#222;margin:0}
+/* Grid */
+.mini-grid{
+  width:min(760px,94%);
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:14px;
+}
+.mini-card{
+  background:rgba(255,255,255,0.86);
+  padding:14px;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  text-align:left;
+}
+.mini-card p{
+  font-size:15.5px;
+  line-height:1.55;
+  color:#222;
+  margin:0;
+}
 
 /* Buttons */
-.btn-row{display:flex;gap:12px;margin-top:18px;flex-shrink:0;}
-.btn{padding:12px 20px;border-radius:12px;border:none;background:#ad1457;color:#fff;font-weight:600;cursor:pointer;font-size:15px}
-.btn.secondary{background:#6b6b6b}
-.btn:active{transform:translateY(1px)}
+.btn-row{
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+  flex-shrink:0;
+}
+.btn{
+  padding:12px 20px;
+  border-radius:12px;
+  border:none;
+  background:#d81b60;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+  font-size:15px;
+}
+.btn.secondary{
+  background:#6b6b6b;
+}
+.btn:active{
+  transform:translateY(1px);
+}
 
 /* Music control */
-#music-control{position:fixed;right:12px;bottom:12px;background:rgba(255,255,255,0.9);padding:8px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,0.12);z-index:999;display:flex;align-items:center;gap:8px}
-#music-control button{border:none;background:transparent;font-size:18px;cursor:pointer}
+#music-control{
+  position:fixed;
+  right:12px;
+  bottom:12px;
+  background:rgba(255,255,255,0.92);
+  padding:8px 12px;
+  border-radius:999px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+  z-index:999;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+#music-control button{
+  border:none;
+  background:transparent;
+  font-size:18px;
+  cursor:pointer;
+}
 
-/* Snow */
-.snowflake{position:fixed;top:-5vh;pointer-events:none;font-size:18px;color:#fff;opacity:0.95;z-index:2}
+/* Floating confetti */
+.confetti{
+  position:fixed;
+  top:-10vh;
+  pointer-events:none;
+  z-index:2;
+  opacity:.9;
+  border-radius:4px;
+}
+
+/* Balloon decor */
+.balloon-wrap{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+.balloon{
+  position:absolute;
+  width:42px;
+  height:54px;
+  border-radius:50% 50% 45% 45%;
+  opacity:.75;
+  animation:floaty 4s ease-in-out infinite;
+}
+.balloon::after{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:52px;
+  width:1.5px;
+  height:60px;
+  background:rgba(80,80,80,.35);
+}
+@keyframes floaty{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
 
 /* Gift items */
-.gift-item{text-align:center;opacity:0;transform:translateY(0);transition:transform 0.8s ease,opacity 0.8s ease;}
+.gift-item{
+  text-align:center;
+  opacity:0;
+  transform:translateY(0);
+  transition:transform 0.8s ease,opacity 0.8s ease;
+}
 
 /* Responsive */
-@media (max-width:720px){h1.title{font-size:44px}.card p{font-size:16px}.mini-card p{font-size:15px}.mini-grid{grid-template-columns:1fr}}
+@media (max-width:720px){
+  h1.title{font-size:44px}
+  .card p{font-size:16px}
+  .mini-card p{font-size:15px}
+  .mini-grid{grid-template-columns:1fr}
+}
 @media (max-width:420px){
   h1.title{font-size:36px}
   .pw-box h2{font-size:32px}
   .pw-input{font-size:15px}
   .pw-btn{font-size:15px}
-  .slide{padding-bottom:120px;} /* lebih aman untuk tombol di layar kecil */
-  .btn-row{flex-wrap:wrap; justify-content:center;}
+  .slide{padding-bottom:120px;}
+  .btn-row{flex-wrap:wrap;justify-content:center;}
 }
 </style>
 </head>
 <body>
 
+<div class="balloon-wrap" aria-hidden="true">
+  <div class="balloon" style="left:6%;top:12%;background:#ff8fab;"></div>
+  <div class="balloon" style="left:16%;top:7%;background:#ffd166;animation-delay:.7s;"></div>
+  <div class="balloon" style="right:12%;top:10%;background:#90caf9;animation-delay:1.2s;"></div>
+  <div class="balloon" style="right:4%;top:18%;background:#c3f0ca;animation-delay:.3s;"></div>
+</div>
+
 <!-- Password Overlay -->
 <div id="pw-overlay" aria-hidden="false">
   <div class="pw-box" role="dialog" aria-labelledby="pw-title">
-    <h2 id="pw-title">Selamat Natal</h2>
-    <p>Masukkan kata sandi untuk melihat ucapan khusus.</p>
+    <h2 id="pw-title">Happy Birthday</h2>
+    <p>Masukkan kata sandi untuk membuka ucapan spesial ini.</p>
     <input id="pw-input" class="pw-input" placeholder="masukkan kata sandi.." autocomplete="off">
     <div style="display:flex;gap:10px;justify-content:center">
       <button id="pw-submit" class="pw-btn">Buka</button>
     </div>
-    <div id="pw-error" class="pw-error">Password salah — coba lagi.</div>
-    <div style="margin-top:10px;font-size:13px;color:#666">Tip: masukkan password <strong>akukerenbgt</strong></div>
+    <div id="pw-error" class="pw-error">Password salah, coba lagi ya.</div>
   </div>
 </div>
 
@@ -97,24 +297,41 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 
   <!-- Slide 1 -->
   <section id="slide1" class="slide">
-    <h1 class="title">Selamat Natal Rut Philia Sijabat🎄✨</h1>
+    <h1 class="title">Selamat Ulang Tahun, Rut 🎂✨</h1>
+    <div class="subtitle">Hari ini tentang kamu</div>
     <div class="card">
-      <p>Semoga damai, sukacita, dan terang kasih Tuhan memenuhi harimu. Kiranya semua yang kamu impikan menjadi lebih dekat di tahun yang baru.</p>
-      <p><strong>Merry Christmas & GBU!</strong></p>
+      <p>Selamat bertambah usia yaa. Semoga di umur yang baru ini, kamu dipenuhi banyak hal baik, hati yang lebih tenang, langkah yang lebih ringan, dan hari-hari yang lebih membahagiakan.</p>
+      <p>Semoga semua hal yang sedang kamu usahakan pelan-pelan menemukan jalannya. Semoga kamu tetap sehat, tetap kuat, dan tetap jadi pribadi yang hangat seperti yang selama ini orang lain rasakan dari kamu.</p>
+      <p><strong>Happy Birthday, Rut. Wish you all the best. 🤍</strong></p>
     </div>
-    <div class="btn-row"><button class="btn" id="to2">Lanjut ➜</button></div>
+    <div class="btn-row">
+      <button class="btn" id="to2">Lanjut ➜</button>
+    </div>
   </section>
 
   <!-- Slide 2 -->
   <section id="slide2" class="slide">
-    <h1 class="title">Terima Kasih ✨</h1>
-    <div class="card"><p>Btw…</p><p><strong>Makasi yaa untuk semua kata baik yang pernah kamu berikan kepadaku.</strong></p></div>
-    <div class="mini-grid">
-      <div class="mini-card"><p><strong>27 November 2025.</strong><br>abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang, manusia emang sering punya perasaan kaya gitu. tapi jangan sampe perasaan yang kaya gitu ngebuat abang ga percaya diri ya</p></div>
-      <div class="mini-card"><p><strong>3 Desember 2025</strong><br>bang enjoy the process ya, it will pass. enjoy bukan berarti dibiarkan gitu aja bang, tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung 😭😭 tapi dibalik itu semua tetap waras ya bang. push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. semangat yaa bang, sehat", God bless u more 💪💪</p></div>
-      <div class="mini-card"><p><strong>lewat gojek wkwk.</strong><br>bang nael jangan malas makan, dijaga kesehatannya, harus sayang sama diri sendiri, harus minum air putih yang cukup jugaaa</p></div>
-      <div class="mini-card"><p><strong>etc.</strong><br>nyuruh makan, tidur, dll. sorry wkwkk agak susah scroll tiktok sampe ke atas masih byk lagi.</p></div>    
+    <h1 class="title">Terima Kasih, yaa 💐</h1>
+    <div class="card">
+      <p>Aku mau pakai hari spesial ini buat bilang kalau kehadiran kamu, kata-kata kamu, dan perhatian kecil yang kamu kasih itu selalu punya arti.</p>
+      <p>Ada banyak hal yang mungkin terlihat sederhana, tapi tetap tersimpan baik sampai sekarang.</p>
     </div>
+
+    <div class="mini-grid">
+      <div class="mini-card">
+        <p><strong>27 November 2025</strong><br>abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang, manusia emang sering punya perasaan kaya gitu. tapi jangan sampe perasaan yang kaya gitu ngebuat abang ga percaya diri ya</p>
+      </div>
+      <div class="mini-card">
+        <p><strong>3 Desember 2025</strong><br>bang enjoy the process ya, it will pass. enjoy bukan berarti dibiarkan gitu aja bang, tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung. tapi dibalik itu semua tetap waras ya bang. push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. semangat yaa bang, sehat. God bless u more 💪</p>
+      </div>
+      <div class="mini-card">
+        <p><strong>Lewat gojek wkwk</strong><br>bang nael jangan malas makan, dijaga kesehatannya, harus sayang sama diri sendiri, harus minum air putih yang cukup jugaaa</p>
+      </div>
+      <div class="mini-card">
+        <p><strong>Dan masih banyak lagi</strong><br>hal-hal kecil seperti nyuruh makan, tidur yang cukup, dan perhatian lain yang mungkin terlihat sederhana, tapi tetap terasa.</p>
+      </div>
+    </div>
+
     <div class="btn-row">
       <button class="btn secondary" id="backTo1">⬅ Kembali</button>
       <button class="btn" id="to3">Lanjut ➜</button>
@@ -123,12 +340,12 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
 
   <!-- Slide 3 -->
   <section id="slide3" class="slide">
-    <h1 class="title">Pesan Natal untuk Rut 🎁</h1>
+    <h1 class="title">Doa Baik untukmu 🌷</h1>
     <div class="card">
-      <p>Di hari Natal ini, aku berharap kamu dikelilingi oleh sukacita. Kalau kamu lagi ada pergumulan aku gabisa merasakan apa yang kamu rasakan, tapi Tuhan Yesus yang lahir ke dunia ini bisa merasakannya, ingat itu ya. Kalau kamu mendapat perlakuan tidak adil,
-        aku gabisa menolong kamu, ingat Tuhan juga sudah merasakannya. Tuhan bisa kok lihat hati kamu yang tulus mengasihi orang lain, setidaknya aku dan mungkin teman-teman kamu yang lain bisa merasakannya.Semoga natal ini bisa menjadi kekuatan baru bagi kamu ya
-     </p>
-      <p><strong>Merry Christmas, Rut. Tuhan memberkati selalu. ✨</strong></p>
+      <p>Di usia yang baru ini, aku berharap kamu selalu dikelilingi orang-orang yang tulus, diberi kekuatan saat capek, dan diberi ketenangan saat pikiran lagi penuh.</p>
+      <p>Kalau suatu hari kamu merasa lelah, semoga kamu selalu ingat kalau kamu sudah berjalan sejauh ini dan itu bukan hal kecil. Semoga kamu tetap percaya bahwa akan ada banyak hal baik yang menunggu kamu di depan.</p>
+      <p>Semoga kamu semakin bertumbuh, semakin bahagia, dan semakin dekat dengan semua hal yang kamu doakan selama ini.</p>
+      <p><strong>Once again, happy birthday ya, Rut. Semoga tahun ini baik sekali ke kamu. ✨</strong></p>
     </div>
     <div class="btn-row">
       <button class="btn secondary" id="backTo2">⬅ Kembali</button>
@@ -140,8 +357,7 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
   <section id="slide4" class="slide">
     <h1 class="title">Hadiah Khusus untukmu 🎉</h1>
     <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:350px;">
-      
-      <!-- Wrapper klik lebih luas -->
+
       <div id="gift-box-wrapper" style="width:220px;height:220px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
         <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:36px;">🎁</div>
       </div>
@@ -153,7 +369,9 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
       </div>
 
     </div>
-    <div class="btn-row"><button class="btn secondary" id="backTo3">⬅ Kembali</button></div>
+    <div class="btn-row">
+      <button class="btn secondary" id="backTo3">⬅ Kembali</button>
+    </div>
   </section>
 
 </div>
@@ -163,19 +381,21 @@ h1.title{font-family:'Sacramento',cursive;font-size:56px;color:#b71c1c;margin:20
   <button id="music-toggle">🔈</button>
   <span id="music-label" style="font-size:13px;color:#333">Musik</span>
 </div>
-<audio id="bg-audio" src="noel.mp3" loop preload="auto"></audio>
+
+<audio id="bg-audio" src="natal.mp3" loop preload="auto"></audio>
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
 
   const slides=['slide1','slide2','slide3','slide4'];
   let current=0;
-  const audio = document.getElementById('bg-audio');
+  const audio=document.getElementById('bg-audio');
 
   function showSlide(index){
     if(index<0) index=0;
     if(index>=slides.length) index=slides.length-1;
     current=index;
+
     slides.forEach((id,i)=>{
       const el=document.getElementById(id);
       if(i===index){
@@ -187,10 +407,15 @@ document.addEventListener('DOMContentLoaded',()=>{
         el.setAttribute('aria-hidden','true');
       }
     });
+
     document.getElementById('music-control').style.display='flex';
+
+    if(index===0){
+      burstConfetti(20);
+    }
   }
 
-  // Button slide
+  // Button navigation
   document.getElementById('to2').addEventListener('click',()=>showSlide(1));
   document.getElementById('to3').addEventListener('click',()=>showSlide(2));
   document.getElementById('to4').addEventListener('click',()=>showSlide(3));
@@ -205,7 +430,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   const pwError=document.getElementById('pw-error');
 
   pwSubmit.addEventListener('click',tryPassword);
-  pwInput.addEventListener('keypress',e=>{if(e.key==='Enter') tryPassword();});
+  pwInput.addEventListener('keypress',e=>{
+    if(e.key==='Enter') tryPassword();
+  });
 
   function tryPassword(){
     const v=pwInput.value.trim();
@@ -214,60 +441,126 @@ document.addEventListener('DOMContentLoaded',()=>{
       pwOverlay.style.display='none';
       showSlide(0);
 
-      // audio autoplay
       audio.muted=false;
       audio.volume=0.5;
       audio.play().catch(err=>console.log(err));
-
     }else{
       pwError.style.display='block';
-      document.querySelector('.pw-box').animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:240});
+      document.querySelector('.pw-box').animate(
+        [
+          {transform:'translateX(-6px)'},
+          {transform:'translateX(6px)'},
+          {transform:'translateX(0)'}
+        ],
+        {duration:240}
+      );
     }
   }
 
   // Audio toggle
   const musicToggle=document.getElementById('music-toggle');
   const musicLabel=document.getElementById('music-label');
+
   musicToggle.addEventListener('click',()=>{
-    if(audio.paused){audio.play();musicToggle.textContent='🔊';musicLabel.textContent='Musik (on)';}
-    else{audio.pause();musicToggle.textContent='🔈';musicLabel.textContent='Musik (off)';}
+    if(audio.paused){
+      audio.play();
+      musicToggle.textContent='🔊';
+      musicLabel.textContent='Musik (on)';
+    }else{
+      audio.pause();
+      musicToggle.textContent='🔈';
+      musicLabel.textContent='Musik (off)';
+    }
   });
 
-  // Snow
-  function makeSnow(){
-    const count=Math.min(Math.round(window.innerWidth/12),80);
+  // Confetti
+  const confettiColors=['#ff6b6b','#ffd166','#06d6a0','#4cc9f0','#f72585','#bdb2ff'];
+
+  function makeConfetti(){
+    const count=Math.min(Math.round(window.innerWidth/14),90);
     for(let i=0;i<count;i++){
-      const s=document.createElement('div');
-      s.className='snowflake';
-      s.style.left=Math.random()*100+'vw';
-      const size=8+Math.random()*16;
-      s.style.fontSize=size+'px';
-      s.style.opacity=0.4+Math.random()*0.8;
-      const duration=6+Math.random()*8;
-      s.style.animationDuration=duration+'s';
-      s.style.transform=`translateY(-10vh) rotate(${Math.random()*360}deg)`;
-      s.textContent='❄';
-      document.body.appendChild(s);
-      s.animate([{transform:`translateY(-10vh) translateX(0px)`},{transform:`translateY(110vh) translateX(${(Math.random()*200-100).toFixed(0)}px)`}],{duration:duration*1000,iterations:Infinity,easing:'linear',delay:Math.random()*1000});
+      const c=document.createElement('div');
+      c.className='confetti';
+      const size=8+Math.random()*10;
+      c.style.width=size+'px';
+      c.style.height=(size*1.4)+'px';
+      c.style.left=Math.random()*100+'vw';
+      c.style.background=confettiColors[Math.floor(Math.random()*confettiColors.length)];
+      c.style.transform='rotate('+Math.random()*360+'deg)';
+      document.body.appendChild(c);
+
+      const duration=5+Math.random()*6;
+      c.animate(
+        [
+          {transform:'translateY(-10vh) rotate(0deg)',opacity:1},
+          {transform:'translateY(110vh) translateX('+(Math.random()*200-100).toFixed(0)+'px) rotate(720deg)',opacity:.9}
+        ],
+        {
+          duration:duration*1000,
+          iterations:Infinity,
+          easing:'linear',
+          delay:Math.random()*1200
+        }
+      );
     }
   }
-  makeSnow();
-  window.addEventListener('resize',()=>{document.querySelectorAll('.snowflake').forEach(n=>n.remove()); makeSnow();});
+
+  function burstConfetti(amount=16){
+    for(let i=0;i<amount;i++){
+      const c=document.createElement('div');
+      c.className='confetti';
+      const size=8+Math.random()*10;
+      c.style.width=size+'px';
+      c.style.height=(size*1.2)+'px';
+      c.style.left=(45+Math.random()*10)+'vw';
+      c.style.top='28vh';
+      c.style.background=confettiColors[Math.floor(Math.random()*confettiColors.length)];
+      document.body.appendChild(c);
+
+      const x=(Math.random()*300-150).toFixed(0);
+      const y=(120+Math.random()*220).toFixed(0);
+      const r=(Math.random()*900-450).toFixed(0);
+
+      c.animate(
+        [
+          {transform:'translate(0,0) rotate(0deg)',opacity:1},
+          {transform:`translate(${x}px, ${y}px) rotate(${r}deg)`,opacity:0}
+        ],
+        {
+          duration:1400,
+          easing:'cubic-bezier(.2,.8,.2,1)',
+          fill:'forwards'
+        }
+      );
+
+      setTimeout(()=>c.remove(),1500);
+    }
+  }
+
+  makeConfetti();
+
+  window.addEventListener('resize',()=>{
+    document.querySelectorAll('.confetti').forEach(n=>n.remove());
+    makeConfetti();
+  });
 
   // Gift box animation
-  const giftBoxWrapper = document.getElementById('gift-box-wrapper');
-  const gifts = document.querySelectorAll('.gift-item');
+  const giftBoxWrapper=document.getElementById('gift-box-wrapper');
+  const gifts=document.querySelectorAll('.gift-item');
 
   giftBoxWrapper.addEventListener('click',()=>{
-    const giftBox = document.getElementById('gift-box');
+    const giftBox=document.getElementById('gift-box');
     giftBox.style.transform='scale(0)';
     giftBox.style.transition='transform 0.4s ease';
+
     gifts.forEach((el,i)=>{
       setTimeout(()=>{
         el.style.opacity=1;
-        el.style.transform='translateY(-150px) rotate('+ (Math.random()*720-360) +'deg)';
-      }, i*200);
+        el.style.transform='translateY(-150px) rotate('+(Math.random()*720-360)+'deg)';
+      },i*200);
     });
+
+    burstConfetti(24);
   });
 
 });

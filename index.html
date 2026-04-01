@@ -7,7 +7,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap');
 
-*{box-sizing:border-box;margin:0;padding:0;}
+*{box-sizing:border-box;margin:0;padding:0}
 html,body{
   height:100%;
   font-family:'Poppins',sans-serif;
@@ -16,23 +16,22 @@ html,body{
   overflow:hidden;
 }
 
-/* Password Overlay */
 #pw-overlay{
   position:fixed;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.30));
+  background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.30));
   z-index:9999;
 }
 .pw-box{
   width:min(420px,92%);
-  background:rgba(255,255,255,0.95);
+  background:rgba(255,255,255,.95);
   backdrop-filter:blur(6px);
   padding:28px;
   border-radius:16px;
-  box-shadow:0 12px 40px rgba(0,0,0,0.25);
+  box-shadow:0 12px 40px rgba(0,0,0,.25);
   text-align:center;
 }
 .pw-box h2{
@@ -41,10 +40,7 @@ html,body{
   color:#d81b60;
   margin-bottom:8px;
 }
-.pw-box p{
-  color:#444;
-  margin-bottom:14px;
-}
+.pw-box p{color:#444;margin-bottom:14px}
 .pw-input{
   width:100%;
   padding:10px 12px;
@@ -69,7 +65,6 @@ html,body{
   display:none;
 }
 
-/* Slides */
 .container{
   position:relative;
   width:100vw;
@@ -84,7 +79,7 @@ html,body{
   align-items:center;
   justify-content:flex-start;
   padding:20px;
-  padding-bottom:100px;
+  padding-bottom:110px;
   overflow-y:auto;
   min-height:100vh;
   transition:opacity .45s ease,transform .45s ease;
@@ -102,7 +97,6 @@ html,body{
   to{opacity:1;transform:scale(1)}
 }
 
-/* Heading */
 h1.title{
   font-family:'Sacramento',cursive;
   font-size:58px;
@@ -110,8 +104,6 @@ h1.title{
   margin:20px 0 10px;
   text-align:center;
 }
-
-/* Subtitle */
 .subtitle{
   font-size:16px;
   color:#6b6b6b;
@@ -119,15 +111,14 @@ h1.title{
   text-align:center;
 }
 
-/* Card */
 .card{
-  width:min(760px,94%);
-  background:rgba(255,255,255,0.78);
+  width:min(820px,94%);
+  background:rgba(255,255,255,.80);
   backdrop-filter:blur(8px);
   border-radius:16px;
   padding:22px 24px;
   margin:8px 0;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 .card p{
   font-size:18px;
@@ -135,23 +126,20 @@ h1.title{
   color:#222;
   margin-bottom:10px;
 }
-.card p:last-child{
-  margin-bottom:0;
-}
+.card p:last-child{margin-bottom:0}
 
-/* Grid */
 .mini-grid{
-  width:min(760px,94%);
+  width:min(820px,94%);
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:14px;
   margin-top:14px;
 }
 .mini-card{
-  background:rgba(255,255,255,0.86);
+  background:rgba(255,255,255,.86);
   padding:14px;
   border-radius:12px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
   text-align:left;
 }
 .mini-card p{
@@ -161,12 +149,12 @@ h1.title{
   margin:0;
 }
 
-/* Buttons */
 .btn-row{
   display:flex;
   gap:12px;
   margin-top:18px;
-  flex-shrink:0;
+  flex-wrap:wrap;
+  justify-content:center;
 }
 .btn{
   padding:12px 20px;
@@ -178,22 +166,19 @@ h1.title{
   cursor:pointer;
   font-size:15px;
 }
-.btn.secondary{
-  background:#6b6b6b;
-}
-.btn:active{
-  transform:translateY(1px);
-}
+.btn.secondary{background:#6b6b6b}
+.btn.alt{background:#ff9800}
+.btn.green{background:#2e7d32}
+.btn:active{transform:translateY(1px)}
 
-/* Music control */
 #music-control{
   position:fixed;
   right:12px;
   bottom:12px;
-  background:rgba(255,255,255,0.92);
+  background:rgba(255,255,255,.92);
   padding:8px 12px;
   border-radius:999px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
   z-index:999;
   display:flex;
   align-items:center;
@@ -206,7 +191,6 @@ h1.title{
   cursor:pointer;
 }
 
-/* Floating confetti */
 .confetti{
   position:fixed;
   top:-10vh;
@@ -216,7 +200,6 @@ h1.title{
   border-radius:4px;
 }
 
-/* Balloon decor */
 .balloon-wrap{
   position:fixed;
   inset:0;
@@ -245,15 +228,115 @@ h1.title{
   50%{transform:translateY(-10px)}
 }
 
-/* Gift items */
 .gift-item{
   text-align:center;
   opacity:0;
   transform:translateY(0);
-  transition:transform 0.8s ease,opacity 0.8s ease;
+  transition:transform .8s ease,opacity .8s ease;
+}
+.gift-item p{
+  margin-top:8px;
+  font-weight:600;
 }
 
-/* Responsive */
+.twibbon-layout{
+  width:min(980px,96%);
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:20px;
+  align-items:start;
+}
+.tool-box{
+  background:rgba(255,255,255,.86);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 8px 22px rgba(0,0,0,.08);
+}
+.tool-box h3{
+  margin-bottom:12px;
+  color:#d81b60;
+  font-size:20px;
+}
+.tool-box p{
+  font-size:14px;
+  color:#555;
+  line-height:1.6;
+  margin-bottom:10px;
+}
+.tool-box label{
+  display:block;
+  font-size:14px;
+  margin:10px 0 6px;
+  font-weight:600;
+}
+.tool-box input[type="range"]{
+  width:100%;
+}
+.tool-box input[type="file"]{
+  width:100%;
+  padding:10px;
+  background:#fff;
+  border-radius:10px;
+  border:1px solid #eee;
+}
+
+.preview-box{
+  background:rgba(255,255,255,.86);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 8px 22px rgba(0,0,0,.08);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.preview-box h3{
+  margin-bottom:12px;
+  color:#d81b60;
+  font-size:20px;
+}
+.canvas-wrap{
+  width:min(100%,620px);
+  aspect-ratio:1/1;
+  background:#f7f7f7;
+  border-radius:14px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px dashed #ddd;
+  position:relative;
+}
+#twibbonCanvas{
+  width:100%;
+  height:100%;
+  display:block;
+  background:#fafafa;
+}
+.camera-wrap{
+  width:100%;
+  margin-top:14px;
+  display:none;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+}
+#cameraVideo{
+  width:min(100%,380px);
+  border-radius:14px;
+  background:#000;
+}
+.note{
+  font-size:13px;
+  color:#666;
+  text-align:center;
+  margin-top:8px;
+}
+
+@media (max-width:900px){
+  .twibbon-layout{
+    grid-template-columns:1fr;
+  }
+}
 @media (max-width:720px){
   h1.title{font-size:44px}
   .card p{font-size:16px}
@@ -265,8 +348,7 @@ h1.title{
   .pw-box h2{font-size:32px}
   .pw-input{font-size:15px}
   .pw-btn{font-size:15px}
-  .slide{padding-bottom:120px;}
-  .btn-row{flex-wrap:wrap;justify-content:center;}
+  .slide{padding-bottom:130px}
 }
 </style>
 </head>
@@ -279,7 +361,6 @@ h1.title{
   <div class="balloon" style="right:4%;top:18%;background:#c3f0ca;animation-delay:.3s;"></div>
 </div>
 
-<!-- Password Overlay -->
 <div id="pw-overlay" aria-hidden="false">
   <div class="pw-box" role="dialog" aria-labelledby="pw-title">
     <h2 id="pw-title">Happy Birthday</h2>
@@ -292,10 +373,8 @@ h1.title{
   </div>
 </div>
 
-<!-- Slides -->
 <div class="container" id="app">
 
-  <!-- Slide 1 -->
   <section id="slide1" class="slide">
     <h1 class="title">Selamat Ulang Tahun, Rut 🎂✨</h1>
     <div class="subtitle">Hari ini tentang kamu</div>
@@ -309,7 +388,6 @@ h1.title{
     </div>
   </section>
 
-  <!-- Slide 2 -->
   <section id="slide2" class="slide">
     <h1 class="title">Terima Kasih, yaa 💐</h1>
     <div class="card">
@@ -338,7 +416,6 @@ h1.title{
     </div>
   </section>
 
-  <!-- Slide 3 -->
   <section id="slide3" class="slide">
     <h1 class="title">Doa Baik untukmu 🌷</h1>
     <div class="card">
@@ -353,30 +430,80 @@ h1.title{
     </div>
   </section>
 
-  <!-- Slide 4 -->
   <section id="slide4" class="slide">
     <h1 class="title">Hadiah Khusus untukmu 🎉</h1>
     <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:350px;">
-
       <div id="gift-box-wrapper" style="width:220px;height:220px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
         <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:36px;">🎁</div>
       </div>
 
-      <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;">
+      <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;flex-wrap:wrap;justify-content:center;">
         <div class="gift-item"><img src="eskrim.jpg" style="width:100px"><p>5 Es Krim 🍦</p></div>
         <div class="gift-item"><img src="uang.jpg" style="width:100px"><p>Rp 1,5M 💸</p></div>
         <div class="gift-item"><img src="swiss.jpg" style="width:100px"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
       </div>
-
     </div>
     <div class="btn-row">
       <button class="btn secondary" id="backTo3">⬅ Kembali</button>
+      <button class="btn" id="to5">Bikin Foto Twibbon ➜</button>
+    </div>
+  </section>
+
+  <section id="slide5" class="slide">
+    <h1 class="title">Birthday Twibbon 📸</h1>
+    <div class="subtitle">Upload foto atau ambil langsung dari kamera</div>
+
+    <div class="twibbon-layout">
+      <div class="tool-box">
+        <h3>Kontrol</h3>
+        <p>Pilih salah satu cara. Upload foto dari galeri atau ambil foto langsung dari kamera.</p>
+
+        <label for="uploadPhoto">Upload foto</label>
+        <input type="file" id="uploadPhoto" accept="image/*">
+
+        <div class="btn-row" style="justify-content:flex-start;margin-top:14px;">
+          <button class="btn alt" id="openCameraBtn">Buka Kamera</button>
+          <button class="btn secondary" id="closeCameraBtn" style="display:none;">Tutup Kamera</button>
+        </div>
+
+        <div class="camera-wrap" id="cameraWrap">
+          <video id="cameraVideo" autoplay playsinline></video>
+          <button class="btn" id="captureBtn">Ambil Foto</button>
+        </div>
+
+        <label for="scaleRange">Zoom foto</label>
+        <input type="range" id="scaleRange" min="0.5" max="3" step="0.01" value="1">
+
+        <label for="xRange">Geser kiri kanan</label>
+        <input type="range" id="xRange" min="-400" max="400" step="1" value="0">
+
+        <label for="yRange">Geser atas bawah</label>
+        <input type="range" id="yRange" min="-400" max="400" step="1" value="0">
+
+        <div class="btn-row" style="justify-content:flex-start;">
+          <button class="btn green" id="downloadBtn">Download Hasil</button>
+          <button class="btn secondary" id="resetBtn">Reset Posisi</button>
+        </div>
+
+        <div class="note">Kalau twibbon tidak muncul, cek apakah file twibbon.png sudah ada di folder yang sama dengan index.html.</div>
+      </div>
+
+      <div class="preview-box">
+        <h3>Preview</h3>
+        <div class="canvas-wrap">
+          <canvas id="twibbonCanvas" width="1080" height="1080"></canvas>
+        </div>
+        <div class="note">Anda juga bisa geser foto langsung dengan klik dan tarik pada preview.</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn secondary" id="backTo4">⬅ Kembali</button>
     </div>
   </section>
 
 </div>
 
-<!-- Music control -->
 <div id="music-control" style="display:none;">
   <button id="music-toggle">🔈</button>
   <span id="music-label" style="font-size:13px;color:#333">Musik</span>
@@ -387,9 +514,9 @@ h1.title{
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
 
-  const slides=['slide1','slide2','slide3','slide4'];
-  let current=0;
+  const slides=['slide1','slide2','slide3','slide4','slide5'];
   const audio=document.getElementById('bg-audio');
+  let current=0;
 
   function showSlide(index){
     if(index<0) index=0;
@@ -415,15 +542,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   }
 
-  // Button navigation
   document.getElementById('to2').addEventListener('click',()=>showSlide(1));
   document.getElementById('to3').addEventListener('click',()=>showSlide(2));
   document.getElementById('to4').addEventListener('click',()=>showSlide(3));
+  document.getElementById('to5').addEventListener('click',()=>showSlide(4));
   document.getElementById('backTo1').addEventListener('click',()=>showSlide(0));
   document.getElementById('backTo2').addEventListener('click',()=>showSlide(1));
   document.getElementById('backTo3').addEventListener('click',()=>showSlide(2));
+  document.getElementById('backTo4').addEventListener('click',()=>showSlide(3));
 
-  // Password
   const pwOverlay=document.getElementById('pw-overlay');
   const pwInput=document.getElementById('pw-input');
   const pwSubmit=document.getElementById('pw-submit');
@@ -440,7 +567,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       pwError.style.display='none';
       pwOverlay.style.display='none';
       showSlide(0);
-
       audio.muted=false;
       audio.volume=0.5;
       audio.play().catch(err=>console.log(err));
@@ -457,7 +583,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   }
 
-  // Audio toggle
   const musicToggle=document.getElementById('music-toggle');
   const musicLabel=document.getElementById('music-label');
 
@@ -473,7 +598,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   });
 
-  // Confetti
   const confettiColors=['#ff6b6b','#ffd166','#06d6a0','#4cc9f0','#f72585','#bdb2ff'];
 
   function makeConfetti(){
@@ -544,14 +668,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     makeConfetti();
   });
 
-  // Gift box animation
   const giftBoxWrapper=document.getElementById('gift-box-wrapper');
   const gifts=document.querySelectorAll('.gift-item');
 
   giftBoxWrapper.addEventListener('click',()=>{
     const giftBox=document.getElementById('gift-box');
     giftBox.style.transform='scale(0)';
-    giftBox.style.transition='transform 0.4s ease';
+    giftBox.style.transition='transform .4s ease';
 
     gifts.forEach((el,i)=>{
       setTimeout(()=>{
@@ -562,6 +685,264 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     burstConfetti(24);
   });
+
+  const canvas=document.getElementById('twibbonCanvas');
+  const ctx=canvas.getContext('2d');
+
+  const uploadPhoto=document.getElementById('uploadPhoto');
+  const openCameraBtn=document.getElementById('openCameraBtn');
+  const closeCameraBtn=document.getElementById('closeCameraBtn');
+  const captureBtn=document.getElementById('captureBtn');
+  const cameraWrap=document.getElementById('cameraWrap');
+  const cameraVideo=document.getElementById('cameraVideo');
+  const downloadBtn=document.getElementById('downloadBtn');
+  const resetBtn=document.getElementById('resetBtn');
+
+  const scaleRange=document.getElementById('scaleRange');
+  const xRange=document.getElementById('xRange');
+  const yRange=document.getElementById('yRange');
+
+  let userImage=new Image();
+  let twibbonImage=new Image();
+  let hasUserImage=false;
+  let stream=null;
+
+  let state={
+    scale:1,
+    x:0,
+    y:0,
+    dragging:false,
+    lastX:0,
+    lastY:0
+  };
+
+  twibbonImage.src='twibbon.png';
+  twibbonImage.onload=drawCanvas;
+  twibbonImage.onerror=drawCanvas;
+
+  function drawPlaceholder(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='#f8f8f8';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    const gradient=ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+    gradient.addColorStop(0,'#ffe3ec');
+    gradient.addColorStop(1,'#e3f2fd');
+    ctx.fillStyle=gradient;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle='rgba(0,0,0,.08)';
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2 - 50, 150, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle='#ffffff';
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2 - 90, 110, 0, Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle='#d81b60';
+    ctx.font='bold 48px Poppins';
+    ctx.textAlign='center';
+    ctx.fillText('Pilih foto dulu', canvas.width/2, canvas.height/2 + 80);
+
+    ctx.fillStyle='#666';
+    ctx.font='32px Poppins';
+    ctx.fillText('Upload foto atau buka kamera', canvas.width/2, canvas.height/2 + 140);
+  }
+
+  function drawCanvas(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle='#ffffff';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    if(hasUserImage){
+      const img=userImage;
+      const iw=img.width;
+      const ih=img.height;
+
+      const baseScale=Math.max(canvas.width/iw, canvas.height/ih);
+      const finalScale=baseScale*state.scale;
+
+      const drawW=iw*finalScale;
+      const drawH=ih*finalScale;
+
+      const x=(canvas.width-drawW)/2 + state.x;
+      const y=(canvas.height-drawH)/2 + state.y;
+
+      ctx.drawImage(img,x,y,drawW,drawH);
+    }else{
+      drawPlaceholder();
+    }
+
+    if(twibbonImage.complete && twibbonImage.naturalWidth>0){
+      ctx.drawImage(twibbonImage,0,0,canvas.width,canvas.height);
+    }else{
+      ctx.strokeStyle='rgba(216,27,96,.35)';
+      ctx.lineWidth=24;
+      ctx.strokeRect(12,12,canvas.width-24,canvas.height-24);
+      ctx.fillStyle='rgba(216,27,96,.15)';
+      ctx.fillRect(0,canvas.height-140,canvas.width,140);
+      ctx.fillStyle='#d81b60';
+      ctx.font='bold 54px Poppins';
+      ctx.textAlign='center';
+      ctx.fillText('Birthday Frame', canvas.width/2, canvas.height-60);
+    }
+  }
+
+  function loadUserImage(src){
+    userImage=new Image();
+    userImage.onload=()=>{
+      hasUserImage=true;
+      drawCanvas();
+    };
+    userImage.src=src;
+  }
+
+  uploadPhoto.addEventListener('change',e=>{
+    const file=e.target.files[0];
+    if(!file) return;
+
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      loadUserImage(ev.target.result);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  openCameraBtn.addEventListener('click',async()=>{
+    try{
+      stream=await navigator.mediaDevices.getUserMedia({
+        video:{
+          facingMode:'user',
+          width:{ideal:1080},
+          height:{ideal:1080}
+        },
+        audio:false
+      });
+
+      cameraVideo.srcObject=stream;
+      cameraWrap.style.display='flex';
+      closeCameraBtn.style.display='inline-block';
+      openCameraBtn.style.display='none';
+    }catch(err){
+      alert('Kamera tidak bisa dibuka. Pastikan izin kamera sudah diberikan dan website dibuka lewat browser yang mendukung.');
+      console.error(err);
+    }
+  });
+
+  closeCameraBtn.addEventListener('click',()=>{
+    stopCamera();
+  });
+
+  function stopCamera(){
+    if(stream){
+      stream.getTracks().forEach(track=>track.stop());
+      stream=null;
+    }
+    cameraVideo.srcObject=null;
+    cameraWrap.style.display='none';
+    closeCameraBtn.style.display='none';
+    openCameraBtn.style.display='inline-block';
+  }
+
+  captureBtn.addEventListener('click',()=>{
+    if(!cameraVideo.videoWidth || !cameraVideo.videoHeight) return;
+
+    const tempCanvas=document.createElement('canvas');
+    tempCanvas.width=cameraVideo.videoWidth;
+    tempCanvas.height=cameraVideo.videoHeight;
+    const tempCtx=tempCanvas.getContext('2d');
+    tempCtx.drawImage(cameraVideo,0,0,tempCanvas.width,tempCanvas.height);
+
+    loadUserImage(tempCanvas.toDataURL('image/png'));
+    stopCamera();
+  });
+
+  scaleRange.addEventListener('input',()=>{
+    state.scale=parseFloat(scaleRange.value);
+    drawCanvas();
+  });
+
+  xRange.addEventListener('input',()=>{
+    state.x=parseInt(xRange.value,10);
+    drawCanvas();
+  });
+
+  yRange.addEventListener('input',()=>{
+    state.y=parseInt(yRange.value,10);
+    drawCanvas();
+  });
+
+  resetBtn.addEventListener('click',()=>{
+    state.scale=1;
+    state.x=0;
+    state.y=0;
+    scaleRange.value=1;
+    xRange.value=0;
+    yRange.value=0;
+    drawCanvas();
+  });
+
+  downloadBtn.addEventListener('click',()=>{
+    drawCanvas();
+    const link=document.createElement('a');
+    link.download='birthday-twibbon.png';
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  function getPointerPos(evt){
+    const rect=canvas.getBoundingClientRect();
+    const clientX=evt.touches ? evt.touches[0].clientX : evt.clientX;
+    const clientY=evt.touches ? evt.touches[0].clientY : evt.clientY;
+    return {
+      x:clientX-rect.left,
+      y:clientY-rect.top
+    };
+  }
+
+  function startDrag(evt){
+    if(!hasUserImage) return;
+    state.dragging=true;
+    const pos=getPointerPos(evt);
+    state.lastX=pos.x;
+    state.lastY=pos.y;
+  }
+
+  function moveDrag(evt){
+    if(!state.dragging || !hasUserImage) return;
+    evt.preventDefault();
+
+    const pos=getPointerPos(evt);
+    const dx=pos.x-state.lastX;
+    const dy=pos.y-state.lastY;
+
+    state.x += dx*(canvas.width/canvas.getBoundingClientRect().width);
+    state.y += dy*(canvas.height/canvas.getBoundingClientRect().height);
+
+    xRange.value=Math.max(parseInt(xRange.min,10), Math.min(parseInt(xRange.max,10), Math.round(state.x)));
+    yRange.value=Math.max(parseInt(yRange.min,10), Math.min(parseInt(yRange.max,10), Math.round(state.y)));
+
+    state.lastX=pos.x;
+    state.lastY=pos.y;
+    drawCanvas();
+  }
+
+  function endDrag(){
+    state.dragging=false;
+  }
+
+  canvas.addEventListener('mousedown',startDrag);
+  canvas.addEventListener('mousemove',moveDrag);
+  window.addEventListener('mouseup',endDrag);
+
+  canvas.addEventListener('touchstart',startDrag,{passive:true});
+  canvas.addEventListener('touchmove',moveDrag,{passive:false});
+  window.addEventListener('touchend',endDrag);
+
+  drawCanvas();
 
 });
 </script>

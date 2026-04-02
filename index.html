@@ -409,6 +409,147 @@ body::after{
   font-size:14px;
 }
 
+
+.carousel-shell{
+  width:min(980px, 100%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+}
+.carousel{
+  position:relative;
+  width:min(940px, 100%);
+  height:480px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.photo-frame{
+  position:absolute;
+  width:min(320px, 72vw);
+  aspect-ratio:4/5;
+  border-radius:30px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.10);
+  box-shadow:0 28px 60px rgba(0,0,0,0.24);
+  transition:transform .75s ease, opacity .75s ease, filter .75s ease;
+}
+.photo-frame.is-active{
+  transform:translateX(0) scale(1);
+  opacity:1;
+  z-index:4;
+  filter:none;
+}
+.photo-frame.is-prev{
+  transform:translateX(-260px) scale(0.84);
+  opacity:.58;
+  z-index:3;
+  filter:blur(.4px);
+}
+.photo-frame.is-next{
+  transform:translateX(260px) scale(0.84);
+  opacity:.58;
+  z-index:3;
+  filter:blur(.4px);
+}
+.photo-frame.is-hidden-left{
+  transform:translateX(-520px) scale(0.7);
+  opacity:0;
+  z-index:1;
+}
+.photo-frame.is-hidden-right{
+  transform:translateX(520px) scale(0.7);
+  opacity:0;
+  z-index:1;
+}
+.photo-visual{
+  position:relative;
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,122,200,0.18), transparent 32%),
+    radial-gradient(circle at 78% 18%, rgba(255,184,77,0.16), transparent 24%),
+    linear-gradient(180deg, rgba(14,24,52,0.96), rgba(7,18,45,0.98));
+}
+.photo-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.photo-placeholder{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,122,200,0.12), transparent 34%),
+    radial-gradient(circle at 78% 18%, rgba(255,184,77,0.12), transparent 24%),
+    linear-gradient(180deg, rgba(14,24,52,0.96), rgba(7,18,45,0.98));
+}
+.photo-placeholder span{
+  font-size:120px;
+  line-height:1;
+  font-weight:800;
+  letter-spacing:-0.08em;
+  background:linear-gradient(180deg, #ff9fdf 0%, #ff6fc3 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.photo-placeholder small{
+  color:var(--muted);
+  font-size:15px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+}
+.photo-frame.has-image .photo-placeholder{
+  display:none;
+}
+.carousel-controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+.carousel-btn{
+  width:46px;
+  height:46px;
+  border:none;
+  border-radius:50%;
+  background:rgba(255,255,255,0.06);
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,0.10);
+  transition:transform .18s ease, background .18s ease;
+}
+.carousel-btn:hover{
+  transform:translateY(-1px);
+  background:rgba(255,255,255,0.10);
+}
+.carousel-dots{
+  display:flex;
+  gap:10px;
+}
+.carousel-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.18);
+  transition:transform .25s ease, background .25s ease;
+}
+.carousel-dot.active{
+  background:var(--pink);
+  transform:scale(1.18);
+}
+
 .twibbon-layout{
   width:min(1080px,100%);
   display:grid;
@@ -532,12 +673,22 @@ body::after{
 @media (max-width: 900px){
   .twibbon-layout{grid-template-columns:1fr}
   .gifts{grid-template-columns:1fr}
+  .photo-frame.is-prev{transform:translateX(-180px) scale(0.82)}
+  .photo-frame.is-next{transform:translateX(180px) scale(0.82)}
+  .photo-frame.is-hidden-left{transform:translateX(-360px) scale(0.7)}
+  .photo-frame.is-hidden-right{transform:translateX(360px) scale(0.7)}
 }
 @media (max-width: 760px){
   .hero .eyebrow{font-size:58px}
   .hero .name{font-size:78px}
   .section-head h1{font-size:36px}
   .grid{grid-template-columns:1fr}
+  .carousel{height:420px}
+  .photo-frame{width:min(280px, 74vw)}
+  .photo-frame.is-prev{transform:translateX(-140px) scale(0.78)}
+  .photo-frame.is-next{transform:translateX(140px) scale(0.78)}
+  .photo-frame.is-hidden-left{transform:translateX(-280px) scale(0.65)}
+  .photo-frame.is-hidden-right{transform:translateX(280px) scale(0.65)}
 }
 @media (max-width: 520px){
   .slide{padding:18px}
@@ -549,6 +700,11 @@ body::after{
   .section-head h1{font-size:31px}
   .section-head p{font-size:15px}
   .pw-box{padding:22px}
+  .carousel{height:360px}
+  .photo-frame{width:min(236px, 76vw)}
+  .photo-frame.is-prev{transform:translateX(-102px) scale(0.74)}
+  .photo-frame.is-next{transform:translateX(102px) scale(0.74)}
+  .carousel-controls{gap:10px}
 }
 </style>
 </head>
@@ -557,11 +713,11 @@ body::after{
 
 <div id="pw-overlay" aria-hidden="false">
   <div class="pw-box" role="dialog" aria-labelledby="pw-title">
-    <h2 id="pw-title">Private page for Rut</h2>
-    <p>Masukkan kata sandi untuk membuka halaman ulang tahun ini.</p>
+    <h2 id="pw-title">Untuk Rut</h2>
+    <p>Masukkan kata sandi.</p>
     <input id="pw-input" class="pw-input" placeholder="Masukkan kata sandi" autocomplete="off">
     <div class="pw-actions">
-      <button id="pw-submit" class="btn btn-primary">Buka halaman</button>
+      <button id="pw-submit" class="btn btn-primary">Buka</button>
     </div>
     <div id="pw-error" class="pw-error">Password salah. Coba lagi ya.</div>
   </div>
@@ -572,9 +728,9 @@ body::after{
     <div class="shell hero">
       <div class="eyebrow">Hi</div>
       <div class="name">Rut</div>
-      <div class="sub">I really like your name btw.</div>
+      <div class="sub">Today is about you.</div>
       <div class="btn-row" style="margin-top:18px;">
-        <button class="btn btn-primary" id="to2">Open the message</button>
+        <button class="btn btn-primary" id="to2">Buka</button>
       </div>
     </div>
   </section>
@@ -582,9 +738,9 @@ body::after{
   <section id="slide2" class="slide">
     <div class="shell">
       <div class="section-head">
-        <div class="label">Birthday note</div>
+        <div class="label">Untuk Rut</div>
         <h1 class="typewriter" data-typewriter data-speed="42">Selamat ulang tahun, Rut</h1>
-        <p class="typewriter" data-typewriter data-speed="20" data-delay="220">Aku ubah tampilannya jadi lebih clean, gelap, dan fokus ke teks. Jadi kesannya lebih elegan dan lebih dekat dengan referensi yang kamu tunjukkan.</p>
+        <p class="typewriter" data-typewriter data-speed="20" data-delay="220">Semoga hari ini terasa hangat, tenang, dan penuh hal baik untukmu.</p>
       </div>
       <div class="panel type-block">
         <p class="typewriter" data-typewriter data-speed="18" data-delay="650">Selamat bertambah usia ya. Semoga umur yang baru ini bawa lebih banyak tenang, lebih banyak hal baik, dan lebih banyak hari yang terasa ringan buat kamu.</p>
@@ -592,8 +748,8 @@ body::after{
         <p class="typewriter" data-typewriter data-speed="24" data-delay="5650">Happy birthday, Rut. Wish you all the best.</p>
       </div>
       <div class="btn-row">
-        <button class="btn btn-secondary" id="backTo1">Back</button>
-        <button class="btn btn-primary" id="to3">Next</button>
+        <button class="btn btn-secondary" id="backTo1">Kembali</button>
+        <button class="btn btn-primary" id="to3">Lanjut</button>
       </div>
     </div>
   </section>
@@ -601,9 +757,9 @@ body::after{
   <section id="slide3" class="slide">
     <div class="shell">
       <div class="section-head">
-        <div class="label">Little things</div>
+        <div class="label">Kenangan kecil</div>
         <h1>Hal-hal kecil yang tetap terasa</h1>
-        <p>Bagian ini tetap aku pertahankan, tapi layout-nya aku buat lebih rapi dan lebih premium.</p>
+        <p>Ada hal-hal kecil yang sederhana, tapi tetap tinggal di ingatan.</p>
       </div>
       <div class="grid">
         <div class="info-card">
@@ -624,8 +780,8 @@ body::after{
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-secondary" id="backTo2">Back</button>
-        <button class="btn btn-primary" id="to4">Next</button>
+        <button class="btn btn-secondary" id="backTo2">Kembali</button>
+        <button class="btn btn-primary" id="to4">Lanjut</button>
       </div>
     </div>
   </section>
@@ -633,9 +789,9 @@ body::after{
   <section id="slide4" class="slide">
     <div class="shell">
       <div class="section-head">
-        <div class="label">Good wish</div>
+        <div class="label">Doa</div>
         <h1>Doa baik untukmu</h1>
-        <p>Masih sama seperti versi awal, hanya tampilannya dibuat lebih halus dan lebih fokus.</p>
+        <p>Semoga yang baik-baik datang lebih dekat di tahun ini.</p>
       </div>
       <div class="panel">
         <p>Di usia yang baru ini, aku berharap kamu selalu dikelilingi orang-orang yang tulus, diberi kekuatan saat capek, dan diberi ketenangan saat pikiran lagi penuh.</p>
@@ -643,8 +799,8 @@ body::after{
         <p>Once again, happy birthday ya, Rut. Semoga tahun ini baik sekali ke kamu.</p>
       </div>
       <div class="btn-row">
-        <button class="btn btn-secondary" id="backTo3">Back</button>
-        <button class="btn btn-primary" id="to5">Next</button>
+        <button class="btn btn-secondary" id="backTo3">Kembali</button>
+        <button class="btn btn-primary" id="to5">Lanjut</button>
       </div>
     </div>
   </section>
@@ -652,9 +808,68 @@ body::after{
   <section id="slide5" class="slide">
     <div class="shell">
       <div class="section-head">
-        <div class="label">Gift</div>
+        <div class="label">Momen</div>
+        <h1>Beberapa frame manis untukmu</h1>
+        <p>Potongan kecil yang bikin hari ini terasa lebih hangat.</p>
+      </div>
+      <div class="carousel-shell">
+        <div class="carousel" data-carousel>
+          <div class="photo-frame is-active">
+            <div class="photo-visual">
+              <img data-base="foto1" alt="Rut 1">
+              <div class="photo-placeholder"><span>R</span><small>Happy Birthday</small></div>
+            </div>
+          </div>
+          <div class="photo-frame is-next">
+            <div class="photo-visual">
+              <img data-base="foto2" alt="Rut 2">
+              <div class="photo-placeholder"><span>R</span><small>Happy Birthday</small></div>
+            </div>
+          </div>
+          <div class="photo-frame is-hidden-right">
+            <div class="photo-visual">
+              <img data-base="foto3" alt="Rut 3">
+              <div class="photo-placeholder"><span>R</span><small>Happy Birthday</small></div>
+            </div>
+          </div>
+          <div class="photo-frame is-hidden-left">
+            <div class="photo-visual">
+              <img data-base="foto4" alt="Rut 4">
+              <div class="photo-placeholder"><span>R</span><small>Happy Birthday</small></div>
+            </div>
+          </div>
+          <div class="photo-frame is-prev">
+            <div class="photo-visual">
+              <img data-base="foto5" alt="Rut 5">
+              <div class="photo-placeholder"><span>R</span><small>Happy Birthday</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="photoPrev" aria-label="Foto sebelumnya">‹</button>
+          <div class="carousel-dots">
+            <span class="carousel-dot active"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+          </div>
+          <button class="carousel-btn" id="photoNext" aria-label="Foto berikutnya">›</button>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="backTo4">Kembali</button>
+        <button class="btn btn-primary" id="to6">Lanjut</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="slide6" class="slide">
+    <div class="shell">
+      <div class="section-head">
+        <div class="label">Kejutan</div>
         <h1>Hadiah kecil yang seru</h1>
-        <p>Klik gift box untuk membuka hadiahnya.</p>
+        <p>Ada sedikit kejutan untukmu.</p>
       </div>
       <div class="gift-stage">
         <div class="gift-box-wrap" id="gift-box-wrapper">
@@ -669,74 +884,74 @@ body::after{
           <div class="gift-item">
             <div class="gift-icon">💸</div>
             <div class="gift-title">Rp 1,5M</div>
-            <div class="gift-desc">Versi hadiah yang terlalu indah untuk jadi nyata, tapi tetap lucu buat dibuka.</div>
+            <div class="gift-desc">Karena membayangkan hal manis juga bisa jadi bagian dari kejutan.</div>
           </div>
           <div class="gift-item">
             <div class="gift-icon">🇨🇭</div>
             <div class="gift-title">Tiket ke Swiss</div>
-            <div class="gift-desc">Karena beberapa hadiah memang lebih bagus kalau dibayangkan dengan gaya elegan.</div>
+            <div class="gift-desc">Sedikit mimpi manis untuk ikut merayakan hari ini.</div>
           </div>
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-secondary" id="backTo4">Back</button>
-        <button class="btn btn-primary" id="to6">Twibbon</button>
+        <button class="btn btn-secondary" id="backTo5">Kembali</button>
+        <button class="btn btn-primary" id="to7">Foto</button>
       </div>
     </div>
   </section>
 
-  <section id="slide6" class="slide">
+  <section id="slide7" class="slide">
     <div class="shell">
       <div class="section-head">
-        <div class="label">Twibbon</div>
-        <h1>Birthday twibbon</h1>
-        <p>Fitur lama tetap dipakai. Visualnya saja yang disamakan dengan tema dark elegant.</p>
+        <div class="label">Foto</div>
+        <h1>Foto spesial untuk hari ini</h1>
+        <p>Simpan satu foto manis untuk hari istimewa ini.</p>
       </div>
       <div class="twibbon-layout">
         <div class="tool-box">
-          <h3>Kontrol</h3>
-          <p>Upload foto dari galeri atau ambil langsung dari kamera. Lalu atur posisi fotonya.</p>
+          <h3>Foto</h3>
+          
 
-          <label for="uploadPhoto">Upload foto</label>
+          <label for="uploadPhoto">Galeri</label>
           <input type="file" id="uploadPhoto" accept="image/*">
 
           <div class="btn-row" style="justify-content:flex-start; margin-top:14px;">
-            <button class="btn btn-gold" id="openCameraBtn">Buka kamera</button>
-            <button class="btn btn-secondary" id="closeCameraBtn" style="display:none;">Tutup kamera</button>
+            <button class="btn btn-gold" id="openCameraBtn">Kamera</button>
+            <button class="btn btn-secondary" id="closeCameraBtn" style="display:none;">Tutup</button>
           </div>
 
           <div class="camera-wrap" id="cameraWrap">
             <video id="cameraVideo" autoplay playsinline></video>
-            <button class="btn btn-primary" id="captureBtn">Ambil foto</button>
+            <button class="btn btn-primary" id="captureBtn">Ambil</button>
           </div>
 
-          <label for="scaleRange">Zoom foto</label>
+          <label for="scaleRange">Zoom</label>
           <input type="range" id="scaleRange" min="0.5" max="3" step="0.01" value="1">
 
-          <label for="xRange">Geser kiri kanan</label>
+          <label for="xRange">Posisi X</label>
           <input type="range" id="xRange" min="-400" max="400" step="1" value="0">
 
-          <label for="yRange">Geser atas bawah</label>
+          <label for="yRange">Posisi Y</label>
           <input type="range" id="yRange" min="-400" max="400" step="1" value="0">
 
           <div class="btn-row" style="justify-content:flex-start; margin-top:16px;">
-            <button class="btn btn-green" id="downloadBtn">Download hasil</button>
-            <button class="btn btn-secondary" id="resetBtn">Reset posisi</button>
+            <button class="btn btn-green" id="downloadBtn">Simpan</button>
+            <button class="btn btn-secondary" id="resetBtn">Ulang</button>
           </div>
 
-          <p class="note" style="margin-top:14px;">Agar frame twibbon muncul, simpan file twibbon.png di folder yang sama dengan file HTML ini.</p>
+          
         </div>
 
         <div class="preview-box">
-          <h3>Preview</h3>
+          <h3>Untuk Rut</h3>
           <div class="canvas-wrap">
             <canvas id="twibbonCanvas" width="1080" height="1080"></canvas>
           </div>
-          <p class="note" style="margin-top:12px;">Foto juga bisa digeser langsung dengan klik lalu tarik pada preview.</p>
+          
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-secondary" id="backTo5">Back</button>
+        <button class="btn btn-secondary" id="backTo6">Kembali</button>
       </div>
     </div>
   </section>
@@ -744,14 +959,14 @@ body::after{
 
 <div id="music-control">
   <button id="music-toggle">♫</button>
-  <span id="music-label">Music off</span>
+  <span id="music-label" style="display:none"></span>
 </div>
 
 <audio id="bg-audio" src="natal.mp3" loop preload="auto"></audio>
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-  const slides=['slide1','slide2','slide3','slide4','slide5','slide6'];
+  const slides=['slide1','slide2','slide3','slide4','slide5','slide6','slide7'];
   const audio=document.getElementById('bg-audio');
   const musicControl=document.getElementById('music-control');
   let current=0;
@@ -857,11 +1072,13 @@ document.addEventListener('DOMContentLoaded',()=>{
   bind('to4',()=>showSlide(3));
   bind('to5',()=>showSlide(4));
   bind('to6',()=>showSlide(5));
+  bind('to7',()=>showSlide(6));
   bind('backTo1',()=>showSlide(0));
   bind('backTo2',()=>showSlide(1));
   bind('backTo3',()=>showSlide(2));
   bind('backTo4',()=>showSlide(3));
   bind('backTo5',()=>showSlide(4));
+  bind('backTo6',()=>showSlide(5));
 
   const pwOverlay=document.getElementById('pw-overlay');
   const pwInput=document.getElementById('pw-input');
@@ -899,10 +1116,10 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   function updateMusicUI(){
     if(audio.paused){
-      musicLabel.textContent='Music off';
+      musicLabel.textContent='';
       musicToggle.textContent='♫';
     }else{
-      musicLabel.textContent='Music on';
+      musicLabel.textContent='';
       musicToggle.textContent='❚❚';
     }
   }
@@ -934,6 +1151,105 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   }
   makeSparks();
+
+
+  const photoFrames=[...document.querySelectorAll('.photo-frame')];
+  const photoDots=[...document.querySelectorAll('.carousel-dot')];
+  const photoPrev=document.getElementById('photoPrev');
+  const photoNext=document.getElementById('photoNext');
+  let photoIndex=0;
+  let photoTimer=null;
+
+  const allowedPhotoFormats=['jpg','jpeg','png','webp','gif','avif'];
+
+  function loadCarouselImage(img, frame){
+    const base=img.dataset.base;
+    if(!base) return;
+
+    let attempt=0;
+
+    function tryNextFormat(){
+      if(attempt>=allowedPhotoFormats.length){
+        frame.classList.remove('has-image');
+        img.removeAttribute('src');
+        return;
+      }
+
+      const ext=allowedPhotoFormats[attempt++];
+      img.src=`${base}.${ext}`;
+    }
+
+    img.addEventListener('load',()=>frame.classList.add('has-image'));
+    img.addEventListener('error',tryNextFormat);
+    tryNextFormat();
+  }
+
+  photoFrames.forEach(frame=>{
+    const img=frame.querySelector('img');
+    if(!img) return;
+    loadCarouselImage(img, frame);
+  });
+
+  function renderPhotoCarousel(){
+    if(!photoFrames.length) return;
+    const total=photoFrames.length;
+
+    photoFrames.forEach((frame,i)=>{
+      frame.classList.remove('is-active','is-prev','is-next','is-hidden-left','is-hidden-right');
+      const diff=(i - photoIndex + total) % total;
+
+      if(diff===0) frame.classList.add('is-active');
+      else if(diff===1) frame.classList.add('is-next');
+      else if(diff===total-1) frame.classList.add('is-prev');
+      else if(diff < total/2) frame.classList.add('is-hidden-right');
+      else frame.classList.add('is-hidden-left');
+    });
+
+    photoDots.forEach((dot,i)=>{
+      dot.classList.toggle('active', i===photoIndex);
+    });
+  }
+
+  function movePhoto(step){
+    if(!photoFrames.length) return;
+    photoIndex=(photoIndex + step + photoFrames.length) % photoFrames.length;
+    renderPhotoCarousel();
+  }
+
+  function startPhotoAutoplay(){
+    if(photoTimer || !photoFrames.length) return;
+    photoTimer=setInterval(()=>movePhoto(1), 3400);
+  }
+
+  function stopPhotoAutoplay(){
+    if(photoTimer){
+      clearInterval(photoTimer);
+      photoTimer=null;
+    }
+  }
+
+  if(photoPrev) photoPrev.addEventListener('click',()=>{
+    movePhoto(-1);
+    stopPhotoAutoplay();
+    startPhotoAutoplay();
+  });
+
+  if(photoNext) photoNext.addEventListener('click',()=>{
+    movePhoto(1);
+    stopPhotoAutoplay();
+    startPhotoAutoplay();
+  });
+
+  const photoCarousel=document.querySelector('[data-carousel]');
+  if(photoCarousel){
+    photoCarousel.addEventListener('mouseenter',stopPhotoAutoplay);
+    photoCarousel.addEventListener('mouseleave',startPhotoAutoplay);
+    photoCarousel.addEventListener('touchstart',stopPhotoAutoplay,{passive:true});
+    photoCarousel.addEventListener('touchend',startPhotoAutoplay);
+  }
+
+  renderPhotoCarousel();
+  startPhotoAutoplay();
 
   const giftBoxWrapper=document.getElementById('gift-box-wrapper');
   const giftBox=document.getElementById('gift-box');
@@ -997,14 +1313,19 @@ document.addEventListener('DOMContentLoaded',()=>{
     ctx.arc(canvas.width/2, canvas.height/2 - 40, 220, 0, Math.PI*2);
     ctx.fill();
 
+    ctx.fillStyle='rgba(255,255,255,0.08)';
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2, 170, 0, Math.PI*2);
+    ctx.fill();
+
     ctx.fillStyle='#ff7ac8';
-    ctx.font='700 56px Inter';
+    ctx.font='800 180px Inter';
     ctx.textAlign='center';
-    ctx.fillText('Upload foto dulu', canvas.width/2, canvas.height/2 + 36);
+    ctx.fillText('R', canvas.width/2, canvas.height/2 + 58);
 
     ctx.fillStyle='#b7bfd6';
-    ctx.font='400 30px Inter';
-    ctx.fillText('atau buka kamera', canvas.width/2, canvas.height/2 + 92);
+    ctx.font='500 32px Inter';
+    ctx.fillText('Happy Birthday', canvas.width/2, canvas.height/2 + 190);
   }
 
   function drawCanvas(){

@@ -480,6 +480,38 @@ body::after{
   background:#000;
 }
 
+
+.type-block{
+  position:relative;
+}
+.typewriter{
+  min-height:1.4em;
+}
+.typewriter.typing::after{
+  content:'';
+  display:inline-block;
+  width:2px;
+  height:1em;
+  margin-left:4px;
+  vertical-align:-0.12em;
+  background:currentColor;
+  border-radius:999px;
+  animation:blinkCaret .9s ease-in-out infinite;
+}
+.panel .typewriter{
+  min-height:5.8em;
+}
+.section-head h1.typewriter{
+  min-height:1.2em;
+}
+.section-head p.typewriter{
+  min-height:3.8em;
+}
+@keyframes blinkCaret{
+  0%,45%{opacity:1}
+  46%,100%{opacity:0}
+}
+
 .spark{
   position:fixed;
   width:4px;
@@ -551,13 +583,13 @@ body::after{
     <div class="shell">
       <div class="section-head">
         <div class="label">Birthday note</div>
-        <h1>Selamat ulang tahun, Rut</h1>
-        <p>Aku ubah tampilannya jadi lebih clean, gelap, dan fokus ke teks. Jadi kesannya lebih elegan dan lebih dekat dengan referensi yang kamu tunjukkan.</p>
+        <h1 class="typewriter" data-typewriter data-speed="42">Selamat ulang tahun, Rut</h1>
+        <p class="typewriter" data-typewriter data-speed="20" data-delay="220">Aku ubah tampilannya jadi lebih clean, gelap, dan fokus ke teks. Jadi kesannya lebih elegan dan lebih dekat dengan referensi yang kamu tunjukkan.</p>
       </div>
-      <div class="panel">
-        <p>Selamat bertambah usia ya. Semoga umur yang baru ini bawa lebih banyak tenang, lebih banyak hal baik, dan lebih banyak hari yang terasa ringan buat kamu.</p>
-        <p>Semoga semua yang sedang kamu usahakan pelan-pelan menemukan jalannya. Semoga kamu tetap sehat, tetap kuat, dan tetap jadi pribadi yang hangat seperti yang selama ini orang lain rasakan dari kamu.</p>
-        <p>Happy birthday, Rut. Wish you all the best.</p>
+      <div class="panel type-block">
+        <p class="typewriter" data-typewriter data-speed="18" data-delay="650">Selamat bertambah usia ya. Semoga umur yang baru ini bawa lebih banyak tenang, lebih banyak hal baik, dan lebih banyak hari yang terasa ringan buat kamu.</p>
+        <p class="typewriter" data-typewriter data-speed="18" data-delay="2550">Semoga semua yang sedang kamu usahakan pelan-pelan menemukan jalannya. Semoga kamu tetap sehat, tetap kuat, dan tetap jadi pribadi yang hangat seperti yang selama ini orang lain rasakan dari kamu.</p>
+        <p class="typewriter" data-typewriter data-speed="24" data-delay="5650">Happy birthday, Rut. Wish you all the best.</p>
       </div>
       <div class="btn-row">
         <button class="btn btn-secondary" id="backTo1">Back</button>
@@ -724,10 +756,79 @@ document.addEventListener('DOMContentLoaded',()=>{
   const musicControl=document.getElementById('music-control');
   let current=0;
 
+
+  const typeTimers=[];
+
+  function clearTypeTimers(){
+    while(typeTimers.length){
+      clearTimeout(typeTimers.pop());
+    }
+  }
+
+  function animateTypeSection(slideEl){
+    if(!slideEl) return;
+    const targets=[...slideEl.querySelectorAll('[data-typewriter]')];
+    if(!targets.length || slideEl.dataset.typed==='done') return;
+
+    targets.forEach(el=>{
+      if(!el.dataset.fulltext){
+        el.dataset.fulltext=el.textContent.trim();
+      }
+      el.textContent='';
+      el.classList.remove('typing');
+    });
+
+    targets.forEach(el=>{
+      const full=el.dataset.fulltext || '';
+      const chars=Array.from(full);
+      const baseSpeed=parseInt(el.dataset.speed || '22', 10);
+      const startDelay=parseInt(el.dataset.delay || '0', 10);
+
+      const starter=setTimeout(()=>{
+        el.classList.add('typing');
+        let i=0;
+
+        function step(){
+          if(i>=chars.length){
+            el.textContent=full;
+            el.classList.remove('typing');
+            return;
+          }
+
+          el.textContent += chars[i];
+          const char=chars[i];
+          i += 1;
+
+          let nextDelay=baseSpeed;
+          if(/[.,!?]/.test(char)) nextDelay += 120;
+          else if(/[\s]/.test(char)) nextDelay -= 6;
+
+          const timer=setTimeout(step, Math.max(12, nextDelay));
+          typeTimers.push(timer);
+        }
+
+        step();
+      }, startDelay);
+
+      typeTimers.push(starter);
+    });
+
+    const finishedMark=setTimeout(()=>{
+      slideEl.dataset.typed='done';
+      targets.forEach(el=>{
+        el.textContent=el.dataset.fulltext || el.textContent;
+        el.classList.remove('typing');
+      });
+    }, 8200);
+
+    typeTimers.push(finishedMark);
+  }
+
   function showSlide(index){
     if(index<0) index=0;
     if(index>=slides.length) index=slides.length-1;
     current=index;
+    clearTypeTimers();
 
     slides.forEach((id,i)=>{
       const el=document.getElementById(id);
@@ -740,6 +841,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
 
     musicControl.style.display='flex';
+
+    if(index===1){
+      animateTypeSection(document.getElementById('slide2'));
+    }
   }
 
   function bind(id, handler){

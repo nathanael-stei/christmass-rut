@@ -2,18 +2,74 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Selamat Ulang Tahun, Rut</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hi Rut</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#06122d;
+  --bg-2:#091736;
+  --surface:rgba(14, 24, 52, 0.72);
+  --surface-2:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.10);
+  --text:#f7f9ff;
+  --muted:#b7bfd6;
+  --pink:#ff7ac8;
+  --pink-2:#ff9ed8;
+  --gold:#ffb84d;
+  --shadow:0 30px 80px rgba(0,0,0,0.35);
+  --radius:24px;
+}
 
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{
-  height:100%;
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#ffdbe7,#ffe9c7,#d9ecff);
-  color:#222;
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255,122,200,0.10), transparent 28%),
+    radial-gradient(circle at 82% 16%, rgba(255,184,77,0.10), transparent 22%),
+    radial-gradient(circle at 50% 120%, rgba(78,124,255,0.20), transparent 40%),
+    linear-gradient(180deg, #07142f 0%, #051027 100%);
   overflow:hidden;
+}
+
+body::before,
+body::after{
+  content:'';
+  position:fixed;
+  inset:auto;
+  border-radius:999px;
+  filter:blur(80px);
+  pointer-events:none;
+  z-index:0;
+}
+body::before{
+  width:340px;
+  height:340px;
+  left:-60px;
+  top:-60px;
+  background:rgba(255,122,200,0.12);
+}
+body::after{
+  width:380px;
+  height:380px;
+  right:-80px;
+  bottom:-80px;
+  background:rgba(110,132,255,0.14);
+}
+
+.ambient-dot{
+  position:fixed;
+  right:28px;
+  top:24px;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #ffd26f, #ff9f1a);
+  box-shadow:0 0 18px rgba(255,184,77,0.45);
+  z-index:4;
 }
 
 #pw-overlay{
@@ -22,500 +78,650 @@ html,body{
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.30));
-  z-index:9999;
+  background:rgba(3,8,20,0.74);
+  backdrop-filter:blur(12px);
+  z-index:20;
 }
 .pw-box{
-  width:min(420px,92%);
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(6px);
+  width:min(440px, 92vw);
+  background:rgba(9, 18, 43, 0.90);
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:var(--shadow);
+  border-radius:28px;
   padding:28px;
-  border-radius:16px;
-  box-shadow:0 12px 40px rgba(0,0,0,.25);
-  text-align:center;
 }
 .pw-box h2{
-  font-family:'Sacramento',cursive;
-  font-size:42px;
-  color:#d81b60;
-  margin-bottom:8px;
+  font-size:34px;
+  line-height:1.1;
+  font-weight:800;
+  letter-spacing:-0.03em;
+  margin-bottom:10px;
 }
-.pw-box p{color:#444;margin-bottom:14px}
+.pw-box p{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:18px;
+}
 .pw-input{
   width:100%;
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid #e0e0e0;
-  font-size:16px;
-  margin-bottom:12px;
+  height:52px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.10);
+  outline:none;
+  background:rgba(255,255,255,0.04);
+  color:var(--text);
+  padding:0 16px;
+  font-size:15px;
 }
-.pw-btn{
-  padding:10px 18px;
-  border-radius:10px;
-  border:none;
-  background:#d81b60;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
+.pw-input::placeholder{color:#8390b3}
+.pw-actions{
+  display:flex;
+  gap:12px;
+  margin-top:14px;
 }
 .pw-error{
-  color:#b71c1c;
-  margin-top:8px;
-  font-size:14px;
   display:none;
+  margin-top:10px;
+  color:#ff9ab6;
+  font-size:14px;
 }
 
 .container{
   position:relative;
   width:100vw;
   height:100vh;
-  overflow:hidden;
+  z-index:1;
 }
+
 .slide{
   position:absolute;
   inset:0;
   display:none;
-  flex-direction:column;
   align-items:center;
-  justify-content:flex-start;
-  padding:20px;
-  padding-bottom:110px;
-  overflow-y:auto;
-  min-height:100vh;
-  transition:opacity .45s ease,transform .45s ease;
-  transform:scale(1);
+  justify-content:center;
+  padding:28px;
+  overflow:auto;
 }
 .slide.active{
   display:flex;
-  opacity:1;
 }
-.slide.enter{
-  animation:fadeZoom .45s ease both;
+.slide.enter .shell{
+  animation:enter .55s ease both;
 }
-@keyframes fadeZoom{
-  from{opacity:0;transform:scale(.985)}
-  to{opacity:1;transform:scale(1)}
-}
-
-h1.title{
-  font-family:'Sacramento',cursive;
-  font-size:58px;
-  color:#d81b60;
-  margin:20px 0 10px;
-  text-align:center;
-}
-.subtitle{
-  font-size:16px;
-  color:#6b6b6b;
-  margin-bottom:10px;
-  text-align:center;
+@keyframes enter{
+  from{opacity:0;transform:translateY(18px) scale(0.99)}
+  to{opacity:1;transform:translateY(0) scale(1)}
 }
 
-.card{
-  width:min(820px,94%);
-  background:rgba(255,255,255,.80);
-  backdrop-filter:blur(8px);
-  border-radius:16px;
-  padding:22px 24px;
-  margin:8px 0;
-  box-shadow:0 10px 30px rgba(0,0,0,.08);
+.shell{
+  width:min(1040px, 100%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:22px;
 }
-.card p{
+
+.hero{
+  min-height:78vh;
+  justify-content:center;
+}
+.hero .eyebrow{
+  color:rgba(255,255,255,0.84);
+  font-size:76px;
+  font-weight:800;
+  letter-spacing:-0.05em;
+  line-height:0.95;
+}
+.hero .name{
+  font-size:96px;
+  font-weight:800;
+  letter-spacing:-0.06em;
+  line-height:0.95;
+  background:linear-gradient(180deg, #ff9fdf 0%, #ff6fc3 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 10px 30px rgba(255,122,200,0.12);
+}
+.hero .sub{
+  margin-top:4px;
+  color:var(--muted);
   font-size:18px;
+  text-align:center;
+}
+
+.panel{
+  width:min(880px, 100%);
+  background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04));
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  backdrop-filter:blur(18px);
+  box-shadow:var(--shadow);
+  padding:26px;
+}
+.panel p{
+  color:#edf1ff;
+  font-size:17px;
+  line-height:1.8;
+}
+.panel p + p{margin-top:12px}
+
+.section-head{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.section-head .label{
+  color:var(--pink-2);
+  font-size:14px;
+  text-transform:uppercase;
+  letter-spacing:0.24em;
+  font-weight:700;
+}
+.section-head h1{
+  font-size:44px;
+  line-height:1.05;
+  letter-spacing:-0.04em;
+}
+.section-head p{
+  color:var(--muted);
+  max-width:720px;
+  font-size:16px;
   line-height:1.7;
-  color:#222;
+}
+
+.grid{
+  width:min(980px, 100%);
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:16px;
+}
+.info-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:22px;
+  padding:20px;
+  min-height:168px;
+  box-shadow:0 18px 40px rgba(0,0,0,0.18);
+}
+.info-card .date{
+  font-size:13px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:#ffbddf;
+  font-weight:700;
   margin-bottom:10px;
 }
-.card p:last-child{margin-bottom:0}
-
-.mini-grid{
-  width:min(820px,94%);
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-  margin-top:14px;
-}
-.mini-card{
-  background:rgba(255,255,255,.86);
-  padding:14px;
-  border-radius:12px;
-  box-shadow:0 6px 18px rgba(0,0,0,.06);
-  text-align:left;
-}
-.mini-card p{
-  font-size:15.5px;
-  line-height:1.55;
-  color:#222;
-  margin:0;
+.info-card p{
+  color:#eef2ff;
+  line-height:1.7;
+  font-size:15px;
 }
 
 .btn-row{
   display:flex;
-  gap:12px;
-  margin-top:18px;
   flex-wrap:wrap;
   justify-content:center;
+  gap:12px;
 }
 .btn{
-  padding:12px 20px;
-  border-radius:12px;
+  appearance:none;
   border:none;
-  background:#d81b60;
+  outline:none;
+  height:48px;
+  padding:0 18px;
+  border-radius:999px;
   color:#fff;
-  font-weight:600;
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:0.01em;
   cursor:pointer;
-  font-size:15px;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
 }
-.btn.secondary{background:#6b6b6b}
-.btn.alt{background:#ff9800}
-.btn.green{background:#2e7d32}
-.btn:active{transform:translateY(1px)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{
+  background:linear-gradient(180deg, #ff8bd3 0%, #ff6fc3 100%);
+  box-shadow:0 14px 30px rgba(255,111,195,0.28);
+}
+.btn-secondary{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.10);
+  color:#edf1ff;
+}
+.btn-gold{
+  background:linear-gradient(180deg, #ffc56b 0%, #ffab31 100%);
+  color:#231500;
+  box-shadow:0 14px 30px rgba(255,171,49,0.22);
+}
+.btn-green{
+  background:linear-gradient(180deg, #72d6a0 0%, #2ebd77 100%);
+  color:#022010;
+  box-shadow:0 14px 30px rgba(46,189,119,0.22);
+}
 
 #music-control{
   position:fixed;
-  right:12px;
-  bottom:12px;
-  background:rgba(255,255,255,.92);
-  padding:8px 12px;
-  border-radius:999px;
-  box-shadow:0 6px 18px rgba(0,0,0,.12);
-  z-index:999;
-  display:flex;
+  right:22px;
+  bottom:22px;
+  display:none;
   align-items:center;
-  gap:8px;
+  gap:10px;
+  z-index:10;
+  padding:10px 14px;
+  background:rgba(11, 20, 45, 0.82);
+  border:1px solid rgba(255,255,255,0.09);
+  border-radius:999px;
+  backdrop-filter:blur(18px);
+  box-shadow:0 14px 40px rgba(0,0,0,0.28);
 }
 #music-control button{
+  width:34px;
+  height:34px;
   border:none;
-  background:transparent;
-  font-size:18px;
+  border-radius:50%;
   cursor:pointer;
+  background:rgba(255,255,255,0.06);
+  color:#fff;
 }
+#music-label{color:var(--muted);font-size:13px}
 
-.confetti{
-  position:fixed;
-  top:-10vh;
-  pointer-events:none;
-  z-index:2;
-  opacity:.9;
-  border-radius:4px;
-}
-
-.balloon-wrap{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:1;
-}
-.balloon{
-  position:absolute;
-  width:42px;
-  height:54px;
-  border-radius:50% 50% 45% 45%;
-  opacity:.75;
-  animation:floaty 4s ease-in-out infinite;
-}
-.balloon::after{
-  content:'';
-  position:absolute;
-  left:50%;
-  top:52px;
-  width:1.5px;
-  height:60px;
-  background:rgba(80,80,80,.35);
-}
-@keyframes floaty{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
-
-.gift-item{
-  text-align:center;
-  opacity:0;
-  transform:translateY(0);
-  transition:transform .8s ease,opacity .8s ease;
-}
-.gift-item p{
-  margin-top:8px;
-  font-weight:600;
-}
-
-.twibbon-layout{
-  width:min(980px,96%);
-  display:grid;
-  grid-template-columns:320px 1fr;
-  gap:20px;
-  align-items:start;
-}
-.tool-box{
-  background:rgba(255,255,255,.86);
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 8px 22px rgba(0,0,0,.08);
-}
-.tool-box h3{
-  margin-bottom:12px;
-  color:#d81b60;
-  font-size:20px;
-}
-.tool-box p{
-  font-size:14px;
-  color:#555;
-  line-height:1.6;
-  margin-bottom:10px;
-}
-.tool-box label{
-  display:block;
-  font-size:14px;
-  margin:10px 0 6px;
-  font-weight:600;
-}
-.tool-box input[type="range"]{
-  width:100%;
-}
-.tool-box input[type="file"]{
-  width:100%;
-  padding:10px;
-  background:#fff;
-  border-radius:10px;
-  border:1px solid #eee;
-}
-
-.preview-box{
-  background:rgba(255,255,255,.86);
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 8px 22px rgba(0,0,0,.08);
+.gift-stage{
+  width:min(980px, 100%);
   display:flex;
   flex-direction:column;
   align-items:center;
+  gap:24px;
 }
-.preview-box h3{
-  margin-bottom:12px;
-  color:#d81b60;
-  font-size:20px;
-}
-.canvas-wrap{
-  width:min(100%,620px);
-  aspect-ratio:1/1;
-  background:#f7f7f7;
-  border-radius:14px;
-  overflow:hidden;
+.gift-box-wrap{
+  width:190px;
+  height:190px;
   display:flex;
   align-items:center;
   justify-content:center;
-  border:2px dashed #ddd;
+  cursor:pointer;
+}
+.gift-box{
+  width:150px;
+  height:150px;
+  border-radius:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:54px;
+  background:linear-gradient(180deg, #ff8ed5 0%, #ff68bf 100%);
+  box-shadow:0 30px 80px rgba(255,111,195,0.28);
   position:relative;
+  transition:transform .35s ease, opacity .35s ease;
+}
+.gift-box::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  margin:auto;
+  width:28px;
+  height:100%;
+  background:rgba(255,255,255,0.22);
+}
+.gift-box::after{
+  content:'';
+  position:absolute;
+  left:0;
+  right:0;
+  top:calc(50% - 14px);
+  height:28px;
+  background:rgba(255,255,255,0.22);
+}
+.gifts{
+  width:min(980px,100%);
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:16px;
+}
+.gift-item{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .5s ease, transform .5s ease;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  padding:24px 18px;
+  text-align:center;
+  min-height:200px;
+}
+.gift-item.show{
+  opacity:1;
+  transform:translateY(0);
+}
+.gift-icon{
+  font-size:42px;
+  margin-bottom:14px;
+}
+.gift-title{
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+.gift-desc{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+}
+
+.twibbon-layout{
+  width:min(1080px,100%);
+  display:grid;
+  grid-template-columns:340px minmax(0,1fr);
+  gap:18px;
+}
+.tool-box,
+.preview-box{
+  background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04));
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:26px;
+  padding:22px;
+  backdrop-filter:blur(18px);
+  box-shadow:var(--shadow);
+}
+.tool-box h3,
+.preview-box h3{
+  font-size:22px;
+  letter-spacing:-0.03em;
+  margin-bottom:10px;
+}
+.tool-box p,
+.note{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+.tool-box label{
+  display:block;
+  margin:14px 0 8px;
+  color:#eef2ff;
+  font-size:14px;
+  font-weight:600;
+}
+.tool-box input[type="file"]{
+  width:100%;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.09);
+  background:rgba(255,255,255,0.04);
+  color:var(--text);
+  padding:12px;
+}
+.tool-box input[type="range"]{width:100%}
+.tool-box input[type="range"]{
+  accent-color:#ff7ac8;
+}
+.canvas-wrap{
+  width:min(100%, 640px);
+  aspect-ratio:1/1;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.04);
 }
 #twibbonCanvas{
   width:100%;
   height:100%;
   display:block;
-  background:#fafafa;
 }
 .camera-wrap{
-  width:100%;
-  margin-top:14px;
   display:none;
   flex-direction:column;
   gap:12px;
-  align-items:center;
+  margin-top:14px;
 }
 #cameraVideo{
-  width:min(100%,380px);
-  border-radius:14px;
+  width:100%;
+  border-radius:20px;
   background:#000;
 }
-.note{
-  font-size:13px;
-  color:#666;
-  text-align:center;
-  margin-top:8px;
+
+.spark{
+  position:fixed;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.65);
+  box-shadow:0 0 12px rgba(255,255,255,0.4);
+  pointer-events:none;
+  z-index:0;
+  animation:floatSpark linear infinite;
+}
+@keyframes floatSpark{
+  from{transform:translateY(0);opacity:0}
+  10%{opacity:1}
+  to{transform:translateY(-120vh);opacity:0}
 }
 
-@media (max-width:900px){
-  .twibbon-layout{
-    grid-template-columns:1fr;
-  }
+@media (max-width: 900px){
+  .twibbon-layout{grid-template-columns:1fr}
+  .gifts{grid-template-columns:1fr}
 }
-@media (max-width:720px){
-  h1.title{font-size:44px}
-  .card p{font-size:16px}
-  .mini-card p{font-size:15px}
-  .mini-grid{grid-template-columns:1fr}
+@media (max-width: 760px){
+  .hero .eyebrow{font-size:58px}
+  .hero .name{font-size:78px}
+  .section-head h1{font-size:36px}
+  .grid{grid-template-columns:1fr}
 }
-@media (max-width:420px){
-  h1.title{font-size:36px}
-  .pw-box h2{font-size:32px}
-  .pw-input{font-size:15px}
-  .pw-btn{font-size:15px}
-  .slide{padding-bottom:130px}
+@media (max-width: 520px){
+  .slide{padding:18px}
+  .hero{min-height:72vh}
+  .hero .eyebrow{font-size:48px}
+  .hero .name{font-size:64px}
+  .hero .sub{font-size:16px}
+  .panel{padding:20px}
+  .section-head h1{font-size:31px}
+  .section-head p{font-size:15px}
+  .pw-box{padding:22px}
 }
 </style>
 </head>
 <body>
-
-<div class="balloon-wrap" aria-hidden="true">
-  <div class="balloon" style="left:6%;top:12%;background:#ff8fab;"></div>
-  <div class="balloon" style="left:16%;top:7%;background:#ffd166;animation-delay:.7s;"></div>
-  <div class="balloon" style="right:12%;top:10%;background:#90caf9;animation-delay:1.2s;"></div>
-  <div class="balloon" style="right:4%;top:18%;background:#c3f0ca;animation-delay:.3s;"></div>
-</div>
+<div class="ambient-dot" aria-hidden="true"></div>
 
 <div id="pw-overlay" aria-hidden="false">
   <div class="pw-box" role="dialog" aria-labelledby="pw-title">
-    <h2 id="pw-title">Happy Birthday</h2>
-    <p>Masukkan kata sandi untuk membuka ucapan spesial ini.</p>
-    <input id="pw-input" class="pw-input" placeholder="masukkan kata sandi.." autocomplete="off">
-    <div style="display:flex;gap:10px;justify-content:center">
-      <button id="pw-submit" class="pw-btn">Buka</button>
+    <h2 id="pw-title">Private page for Rut</h2>
+    <p>Masukkan kata sandi untuk membuka halaman ulang tahun ini.</p>
+    <input id="pw-input" class="pw-input" placeholder="Masukkan kata sandi" autocomplete="off">
+    <div class="pw-actions">
+      <button id="pw-submit" class="btn btn-primary">Buka halaman</button>
     </div>
-    <div id="pw-error" class="pw-error">Password salah, coba lagi ya.</div>
+    <div id="pw-error" class="pw-error">Password salah. Coba lagi ya.</div>
   </div>
 </div>
 
 <div class="container" id="app">
-
   <section id="slide1" class="slide">
-    <h1 class="title">Selamat Ulang Tahun, Rut 🎂✨</h1>
-    <div class="subtitle">Hari ini tentang kamu</div>
-    <div class="card">
-      <p>Selamat bertambah usia yaa. Semoga di umur yang baru ini, kamu dipenuhi banyak hal baik, hati yang lebih tenang, langkah yang lebih ringan, dan hari-hari yang lebih membahagiakan.</p>
-      <p>Semoga semua hal yang sedang kamu usahakan pelan-pelan menemukan jalannya. Semoga kamu tetap sehat, tetap kuat, dan tetap jadi pribadi yang hangat seperti yang selama ini orang lain rasakan dari kamu.</p>
-      <p><strong>Happy Birthday, Rut. Wish you all the best. 🤍</strong></p>
-    </div>
-    <div class="btn-row">
-      <button class="btn" id="to2">Lanjut ➜</button>
+    <div class="shell hero">
+      <div class="eyebrow">Hi</div>
+      <div class="name">Rut</div>
+      <div class="sub">I really like your name btw.</div>
+      <div class="btn-row" style="margin-top:18px;">
+        <button class="btn btn-primary" id="to2">Open the message</button>
+      </div>
     </div>
   </section>
 
   <section id="slide2" class="slide">
-    <h1 class="title">Terima Kasih, yaa 💐</h1>
-    <div class="card">
-      <p>Aku mau pakai hari spesial ini buat bilang kalau kehadiran kamu, kata-kata kamu, dan perhatian kecil yang kamu kasih itu selalu punya arti.</p>
-      <p>Ada banyak hal yang mungkin terlihat sederhana, tapi tetap tersimpan baik sampai sekarang.</p>
-    </div>
-
-    <div class="mini-grid">
-      <div class="mini-card">
-        <p><strong>27 November 2025</strong><br>abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang, manusia emang sering punya perasaan kaya gitu. tapi jangan sampe perasaan yang kaya gitu ngebuat abang ga percaya diri ya</p>
+    <div class="shell">
+      <div class="section-head">
+        <div class="label">Birthday note</div>
+        <h1>Selamat ulang tahun, Rut</h1>
+        <p>Aku ubah tampilannya jadi lebih clean, gelap, dan fokus ke teks. Jadi kesannya lebih elegan dan lebih dekat dengan referensi yang kamu tunjukkan.</p>
       </div>
-      <div class="mini-card">
-        <p><strong>3 Desember 2025</strong><br>bang enjoy the process ya, it will pass. enjoy bukan berarti dibiarkan gitu aja bang, tapi tetap dikerjakan, walaupun penuh dengan arah yang lagi linglung. tapi dibalik itu semua tetap waras ya bang. push boleh, tapi harus bisa diimbangin dengan jaga kesehatan dan pola hidup juga. semangat yaa bang, sehat. God bless u more 💪</p>
+      <div class="panel">
+        <p>Selamat bertambah usia ya. Semoga umur yang baru ini bawa lebih banyak tenang, lebih banyak hal baik, dan lebih banyak hari yang terasa ringan buat kamu.</p>
+        <p>Semoga semua yang sedang kamu usahakan pelan-pelan menemukan jalannya. Semoga kamu tetap sehat, tetap kuat, dan tetap jadi pribadi yang hangat seperti yang selama ini orang lain rasakan dari kamu.</p>
+        <p>Happy birthday, Rut. Wish you all the best.</p>
       </div>
-      <div class="mini-card">
-        <p><strong>Lewat gojek wkwk</strong><br>bang nael jangan malas makan, dijaga kesehatannya, harus sayang sama diri sendiri, harus minum air putih yang cukup jugaaa</p>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="backTo1">Back</button>
+        <button class="btn btn-primary" id="to3">Next</button>
       </div>
-      <div class="mini-card">
-        <p><strong>Dan masih banyak lagi</strong><br>hal-hal kecil seperti nyuruh makan, tidur yang cukup, dan perhatian lain yang mungkin terlihat sederhana, tapi tetap terasa.</p>
-      </div>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn secondary" id="backTo1">⬅ Kembali</button>
-      <button class="btn" id="to3">Lanjut ➜</button>
     </div>
   </section>
 
   <section id="slide3" class="slide">
-    <h1 class="title">Doa Baik untukmu 🌷</h1>
-    <div class="card">
-      <p>Di usia yang baru ini, aku berharap kamu selalu dikelilingi orang-orang yang tulus, diberi kekuatan saat capek, dan diberi ketenangan saat pikiran lagi penuh.</p>
-      <p>Kalau suatu hari kamu merasa lelah, semoga kamu selalu ingat kalau kamu sudah berjalan sejauh ini dan itu bukan hal kecil. Semoga kamu tetap percaya bahwa akan ada banyak hal baik yang menunggu kamu di depan.</p>
-      <p>Semoga kamu semakin bertumbuh, semakin bahagia, dan semakin dekat dengan semua hal yang kamu doakan selama ini.</p>
-      <p><strong>Once again, happy birthday ya, Rut. Semoga tahun ini baik sekali ke kamu. ✨</strong></p>
-    </div>
-    <div class="btn-row">
-      <button class="btn secondary" id="backTo2">⬅ Kembali</button>
-      <button class="btn" id="to4">Lanjut ➜</button>
+    <div class="shell">
+      <div class="section-head">
+        <div class="label">Little things</div>
+        <h1>Hal-hal kecil yang tetap terasa</h1>
+        <p>Bagian ini tetap aku pertahankan, tapi layout-nya aku buat lebih rapi dan lebih premium.</p>
+      </div>
+      <div class="grid">
+        <div class="info-card">
+          <div class="date">27 November 2025</div>
+          <p>Abang pesimis itu atau kadang ngerasa ga cukup buat semuanya wajar kok bang. Manusia emang sering punya perasaan kayak gitu. Tapi jangan sampai itu bikin abang ga percaya diri ya.</p>
+        </div>
+        <div class="info-card">
+          <div class="date">3 Desember 2025</div>
+          <p>Bang enjoy the process ya, it will pass. Tetap dikerjakan walaupun lagi linglung. Push boleh, tapi harus diimbangin dengan jaga kesehatan dan pola hidup juga.</p>
+        </div>
+        <div class="info-card">
+          <div class="date">Lewat gojek</div>
+          <p>Bang nael jangan malas makan. Dijaga kesehatannya. Harus sayang sama diri sendiri. Harus minum air putih yang cukup juga.</p>
+        </div>
+        <div class="info-card">
+          <div class="date">Dan masih banyak lagi</div>
+          <p>Hal-hal kecil seperti nyuruh makan, tidur yang cukup, dan perhatian lain yang mungkin terlihat sederhana, tapi tetap terasa.</p>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="backTo2">Back</button>
+        <button class="btn btn-primary" id="to4">Next</button>
+      </div>
     </div>
   </section>
 
   <section id="slide4" class="slide">
-    <h1 class="title">Hadiah Khusus untukmu 🎉</h1>
-    <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:350px;">
-      <div id="gift-box-wrapper" style="width:220px;height:220px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-        <div id="gift-box" style="width:120px;height:120px;background:red;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.3);font-size:36px;">🎁</div>
+    <div class="shell">
+      <div class="section-head">
+        <div class="label">Good wish</div>
+        <h1>Doa baik untukmu</h1>
+        <p>Masih sama seperti versi awal, hanya tampilannya dibuat lebih halus dan lebih fokus.</p>
       </div>
-
-      <div id="gifts" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;gap:20px;flex-wrap:wrap;justify-content:center;">
-        <div class="gift-item"><img src="eskrim.jpg" style="width:100px"><p>5 Es Krim 🍦</p></div>
-        <div class="gift-item"><img src="uang.jpg" style="width:100px"><p>Rp 1,5M 💸</p></div>
-        <div class="gift-item"><img src="swiss.jpg" style="width:100px"><p>Tiket ke Swiss 🇨🇭✈️</p></div>
+      <div class="panel">
+        <p>Di usia yang baru ini, aku berharap kamu selalu dikelilingi orang-orang yang tulus, diberi kekuatan saat capek, dan diberi ketenangan saat pikiran lagi penuh.</p>
+        <p>Kalau suatu hari kamu merasa lelah, semoga kamu tetap ingat kalau kamu sudah berjalan sejauh ini dan itu bukan hal kecil. Semoga kamu tetap percaya bahwa akan ada banyak hal baik yang menunggu kamu di depan.</p>
+        <p>Once again, happy birthday ya, Rut. Semoga tahun ini baik sekali ke kamu.</p>
       </div>
-    </div>
-    <div class="btn-row">
-      <button class="btn secondary" id="backTo3">⬅ Kembali</button>
-      <button class="btn" id="to5">Bikin Foto Twibbon ➜</button>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="backTo3">Back</button>
+        <button class="btn btn-primary" id="to5">Next</button>
+      </div>
     </div>
   </section>
 
   <section id="slide5" class="slide">
-    <h1 class="title">Birthday Twibbon 📸</h1>
-    <div class="subtitle">Upload foto atau ambil langsung dari kamera</div>
-
-    <div class="twibbon-layout">
-      <div class="tool-box">
-        <h3>Kontrol</h3>
-        <p>Pilih salah satu cara. Upload foto dari galeri atau ambil foto langsung dari kamera.</p>
-
-        <label for="uploadPhoto">Upload foto</label>
-        <input type="file" id="uploadPhoto" accept="image/*">
-
-        <div class="btn-row" style="justify-content:flex-start;margin-top:14px;">
-          <button class="btn alt" id="openCameraBtn">Buka Kamera</button>
-          <button class="btn secondary" id="closeCameraBtn" style="display:none;">Tutup Kamera</button>
-        </div>
-
-        <div class="camera-wrap" id="cameraWrap">
-          <video id="cameraVideo" autoplay playsinline></video>
-          <button class="btn" id="captureBtn">Ambil Foto</button>
-        </div>
-
-        <label for="scaleRange">Zoom foto</label>
-        <input type="range" id="scaleRange" min="0.5" max="3" step="0.01" value="1">
-
-        <label for="xRange">Geser kiri kanan</label>
-        <input type="range" id="xRange" min="-400" max="400" step="1" value="0">
-
-        <label for="yRange">Geser atas bawah</label>
-        <input type="range" id="yRange" min="-400" max="400" step="1" value="0">
-
-        <div class="btn-row" style="justify-content:flex-start;">
-          <button class="btn green" id="downloadBtn">Download Hasil</button>
-          <button class="btn secondary" id="resetBtn">Reset Posisi</button>
-        </div>
-
-        <div class="note">Kalau twibbon tidak muncul, cek apakah file twibbon.png sudah ada di folder yang sama dengan index.html.</div>
+    <div class="shell">
+      <div class="section-head">
+        <div class="label">Gift</div>
+        <h1>Hadiah kecil yang seru</h1>
+        <p>Klik gift box untuk membuka hadiahnya.</p>
       </div>
-
-      <div class="preview-box">
-        <h3>Preview</h3>
-        <div class="canvas-wrap">
-          <canvas id="twibbonCanvas" width="1080" height="1080"></canvas>
+      <div class="gift-stage">
+        <div class="gift-box-wrap" id="gift-box-wrapper">
+          <div class="gift-box" id="gift-box">🎁</div>
         </div>
-        <div class="note">Anda juga bisa geser foto langsung dengan klik dan tarik pada preview.</div>
+        <div class="gifts">
+          <div class="gift-item">
+            <div class="gift-icon">🍦</div>
+            <div class="gift-title">5 Es Krim</div>
+            <div class="gift-desc">Karena hadiah kecil tetap menyenangkan kalau datang di hari yang tepat.</div>
+          </div>
+          <div class="gift-item">
+            <div class="gift-icon">💸</div>
+            <div class="gift-title">Rp 1,5M</div>
+            <div class="gift-desc">Versi hadiah yang terlalu indah untuk jadi nyata, tapi tetap lucu buat dibuka.</div>
+          </div>
+          <div class="gift-item">
+            <div class="gift-icon">🇨🇭</div>
+            <div class="gift-title">Tiket ke Swiss</div>
+            <div class="gift-desc">Karena beberapa hadiah memang lebih bagus kalau dibayangkan dengan gaya elegan.</div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn secondary" id="backTo4">⬅ Kembali</button>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="backTo4">Back</button>
+        <button class="btn btn-primary" id="to6">Twibbon</button>
+      </div>
     </div>
   </section>
 
+  <section id="slide6" class="slide">
+    <div class="shell">
+      <div class="section-head">
+        <div class="label">Twibbon</div>
+        <h1>Birthday twibbon</h1>
+        <p>Fitur lama tetap dipakai. Visualnya saja yang disamakan dengan tema dark elegant.</p>
+      </div>
+      <div class="twibbon-layout">
+        <div class="tool-box">
+          <h3>Kontrol</h3>
+          <p>Upload foto dari galeri atau ambil langsung dari kamera. Lalu atur posisi fotonya.</p>
+
+          <label for="uploadPhoto">Upload foto</label>
+          <input type="file" id="uploadPhoto" accept="image/*">
+
+          <div class="btn-row" style="justify-content:flex-start; margin-top:14px;">
+            <button class="btn btn-gold" id="openCameraBtn">Buka kamera</button>
+            <button class="btn btn-secondary" id="closeCameraBtn" style="display:none;">Tutup kamera</button>
+          </div>
+
+          <div class="camera-wrap" id="cameraWrap">
+            <video id="cameraVideo" autoplay playsinline></video>
+            <button class="btn btn-primary" id="captureBtn">Ambil foto</button>
+          </div>
+
+          <label for="scaleRange">Zoom foto</label>
+          <input type="range" id="scaleRange" min="0.5" max="3" step="0.01" value="1">
+
+          <label for="xRange">Geser kiri kanan</label>
+          <input type="range" id="xRange" min="-400" max="400" step="1" value="0">
+
+          <label for="yRange">Geser atas bawah</label>
+          <input type="range" id="yRange" min="-400" max="400" step="1" value="0">
+
+          <div class="btn-row" style="justify-content:flex-start; margin-top:16px;">
+            <button class="btn btn-green" id="downloadBtn">Download hasil</button>
+            <button class="btn btn-secondary" id="resetBtn">Reset posisi</button>
+          </div>
+
+          <p class="note" style="margin-top:14px;">Agar frame twibbon muncul, simpan file twibbon.png di folder yang sama dengan file HTML ini.</p>
+        </div>
+
+        <div class="preview-box">
+          <h3>Preview</h3>
+          <div class="canvas-wrap">
+            <canvas id="twibbonCanvas" width="1080" height="1080"></canvas>
+          </div>
+          <p class="note" style="margin-top:12px;">Foto juga bisa digeser langsung dengan klik lalu tarik pada preview.</p>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="backTo5">Back</button>
+      </div>
+    </div>
+  </section>
 </div>
 
-<div id="music-control" style="display:none;">
-  <button id="music-toggle">🔈</button>
-  <span id="music-label" style="font-size:13px;color:#333">Musik</span>
+<div id="music-control">
+  <button id="music-toggle">♫</button>
+  <span id="music-label">Music off</span>
 </div>
 
 <audio id="bg-audio" src="natal.mp3" loop preload="auto"></audio>
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-
-  const slides=['slide1','slide2','slide3','slide4','slide5'];
+  const slides=['slide1','slide2','slide3','slide4','slide5','slide6'];
   const audio=document.getElementById('bg-audio');
+  const musicControl=document.getElementById('music-control');
   let current=0;
 
   function showSlide(index){
@@ -527,39 +733,35 @@ document.addEventListener('DOMContentLoaded',()=>{
       const el=document.getElementById(id);
       if(i===index){
         el.classList.add('active','enter');
-        el.setAttribute('aria-hidden','false');
-        setTimeout(()=>el.classList.remove('enter'),650);
+        setTimeout(()=>el.classList.remove('enter'),600);
       }else{
         el.classList.remove('active','enter');
-        el.setAttribute('aria-hidden','true');
       }
     });
 
-    document.getElementById('music-control').style.display='flex';
-
-    if(index===0){
-      burstConfetti(20);
-    }
+    musicControl.style.display='flex';
   }
 
-  document.getElementById('to2').addEventListener('click',()=>showSlide(1));
-  document.getElementById('to3').addEventListener('click',()=>showSlide(2));
-  document.getElementById('to4').addEventListener('click',()=>showSlide(3));
-  document.getElementById('to5').addEventListener('click',()=>showSlide(4));
-  document.getElementById('backTo1').addEventListener('click',()=>showSlide(0));
-  document.getElementById('backTo2').addEventListener('click',()=>showSlide(1));
-  document.getElementById('backTo3').addEventListener('click',()=>showSlide(2));
-  document.getElementById('backTo4').addEventListener('click',()=>showSlide(3));
+  function bind(id, handler){
+    const el=document.getElementById(id);
+    if(el) el.addEventListener('click', handler);
+  }
+
+  bind('to2',()=>showSlide(1));
+  bind('to3',()=>showSlide(2));
+  bind('to4',()=>showSlide(3));
+  bind('to5',()=>showSlide(4));
+  bind('to6',()=>showSlide(5));
+  bind('backTo1',()=>showSlide(0));
+  bind('backTo2',()=>showSlide(1));
+  bind('backTo3',()=>showSlide(2));
+  bind('backTo4',()=>showSlide(3));
+  bind('backTo5',()=>showSlide(4));
 
   const pwOverlay=document.getElementById('pw-overlay');
   const pwInput=document.getElementById('pw-input');
   const pwSubmit=document.getElementById('pw-submit');
   const pwError=document.getElementById('pw-error');
-
-  pwSubmit.addEventListener('click',tryPassword);
-  pwInput.addEventListener('keypress',e=>{
-    if(e.key==='Enter') tryPassword();
-  });
 
   function tryPassword(){
     const v=pwInput.value.trim();
@@ -567,123 +769,80 @@ document.addEventListener('DOMContentLoaded',()=>{
       pwError.style.display='none';
       pwOverlay.style.display='none';
       showSlide(0);
-      audio.muted=false;
-      audio.volume=0.5;
-      audio.play().catch(err=>console.log(err));
+      audio.volume=0.45;
+      audio.play().then(()=>updateMusicUI()).catch(()=>updateMusicUI());
     }else{
       pwError.style.display='block';
       document.querySelector('.pw-box').animate(
         [
-          {transform:'translateX(-6px)'},
-          {transform:'translateX(6px)'},
+          {transform:'translateX(-8px)'},
+          {transform:'translateX(8px)'},
           {transform:'translateX(0)'}
         ],
-        {duration:240}
+        {duration:220}
       );
     }
   }
+
+  pwSubmit.addEventListener('click',tryPassword);
+  pwInput.addEventListener('keypress',e=>{
+    if(e.key==='Enter') tryPassword();
+  });
 
   const musicToggle=document.getElementById('music-toggle');
   const musicLabel=document.getElementById('music-label');
 
+  function updateMusicUI(){
+    if(audio.paused){
+      musicLabel.textContent='Music off';
+      musicToggle.textContent='♫';
+    }else{
+      musicLabel.textContent='Music on';
+      musicToggle.textContent='❚❚';
+    }
+  }
+
   musicToggle.addEventListener('click',()=>{
     if(audio.paused){
-      audio.play();
-      musicToggle.textContent='🔊';
-      musicLabel.textContent='Musik (on)';
+      audio.play().catch(()=>{});
     }else{
       audio.pause();
-      musicToggle.textContent='🔈';
-      musicLabel.textContent='Musik (off)';
     }
+    updateMusicUI();
   });
 
-  const confettiColors=['#ff6b6b','#ffd166','#06d6a0','#4cc9f0','#f72585','#bdb2ff'];
-
-  function makeConfetti(){
-    const count=Math.min(Math.round(window.innerWidth/14),90);
+  function makeSparks(){
+    const count = window.innerWidth < 700 ? 16 : 24;
     for(let i=0;i<count;i++){
-      const c=document.createElement('div');
-      c.className='confetti';
-      const size=8+Math.random()*10;
-      c.style.width=size+'px';
-      c.style.height=(size*1.4)+'px';
-      c.style.left=Math.random()*100+'vw';
-      c.style.background=confettiColors[Math.floor(Math.random()*confettiColors.length)];
-      c.style.transform='rotate('+Math.random()*360+'deg)';
-      document.body.appendChild(c);
-
-      const duration=5+Math.random()*6;
-      c.animate(
-        [
-          {transform:'translateY(-10vh) rotate(0deg)',opacity:1},
-          {transform:'translateY(110vh) translateX('+(Math.random()*200-100).toFixed(0)+'px) rotate(720deg)',opacity:.9}
-        ],
-        {
-          duration:duration*1000,
-          iterations:Infinity,
-          easing:'linear',
-          delay:Math.random()*1200
-        }
-      );
+      const s=document.createElement('div');
+      s.className='spark';
+      const size=2 + Math.random()*3.5;
+      const duration=8 + Math.random()*10;
+      s.style.width=size+'px';
+      s.style.height=size+'px';
+      s.style.left=(Math.random()*100)+'vw';
+      s.style.bottom=(-10 - Math.random()*30)+'px';
+      s.style.opacity=Math.random()*0.9;
+      s.style.animationDuration=duration+'s';
+      s.style.animationDelay=(Math.random()*8)+'s';
+      document.body.appendChild(s);
     }
   }
-
-  function burstConfetti(amount=16){
-    for(let i=0;i<amount;i++){
-      const c=document.createElement('div');
-      c.className='confetti';
-      const size=8+Math.random()*10;
-      c.style.width=size+'px';
-      c.style.height=(size*1.2)+'px';
-      c.style.left=(45+Math.random()*10)+'vw';
-      c.style.top='28vh';
-      c.style.background=confettiColors[Math.floor(Math.random()*confettiColors.length)];
-      document.body.appendChild(c);
-
-      const x=(Math.random()*300-150).toFixed(0);
-      const y=(120+Math.random()*220).toFixed(0);
-      const r=(Math.random()*900-450).toFixed(0);
-
-      c.animate(
-        [
-          {transform:'translate(0,0) rotate(0deg)',opacity:1},
-          {transform:`translate(${x}px, ${y}px) rotate(${r}deg)`,opacity:0}
-        ],
-        {
-          duration:1400,
-          easing:'cubic-bezier(.2,.8,.2,1)',
-          fill:'forwards'
-        }
-      );
-
-      setTimeout(()=>c.remove(),1500);
-    }
-  }
-
-  makeConfetti();
-
-  window.addEventListener('resize',()=>{
-    document.querySelectorAll('.confetti').forEach(n=>n.remove());
-    makeConfetti();
-  });
+  makeSparks();
 
   const giftBoxWrapper=document.getElementById('gift-box-wrapper');
-  const gifts=document.querySelectorAll('.gift-item');
+  const giftBox=document.getElementById('gift-box');
+  const giftItems=[...document.querySelectorAll('.gift-item')];
+  let giftOpened=false;
 
   giftBoxWrapper.addEventListener('click',()=>{
-    const giftBox=document.getElementById('gift-box');
-    giftBox.style.transform='scale(0)';
-    giftBox.style.transition='transform .4s ease';
-
-    gifts.forEach((el,i)=>{
-      setTimeout(()=>{
-        el.style.opacity=1;
-        el.style.transform='translateY(-150px) rotate('+(Math.random()*720-360)+'deg)';
-      },i*200);
+    if(giftOpened) return;
+    giftOpened=true;
+    giftBox.style.transform='scale(0.84) rotate(-8deg)';
+    giftBox.style.opacity='0.2';
+    giftItems.forEach((item,i)=>{
+      setTimeout(()=>item.classList.add('show'), 140*i);
     });
-
-    burstConfetti(24);
   });
 
   const canvas=document.getElementById('twibbonCanvas');
@@ -722,55 +881,42 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   function drawPlaceholder(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle='#f8f8f8';
+    const g=ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+    g.addColorStop(0,'#091736');
+    g.addColorStop(1,'#0b1f48');
+    ctx.fillStyle=g;
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
-    const gradient=ctx.createLinearGradient(0,0,canvas.width,canvas.height);
-    gradient.addColorStop(0,'#ffe3ec');
-    gradient.addColorStop(1,'#e3f2fd');
-    ctx.fillStyle=gradient;
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle='rgba(0,0,0,.08)';
+    ctx.fillStyle='rgba(255,255,255,0.05)';
     ctx.beginPath();
-    ctx.arc(canvas.width/2, canvas.height/2 - 50, 150, 0, Math.PI*2);
+    ctx.arc(canvas.width/2, canvas.height/2 - 40, 220, 0, Math.PI*2);
     ctx.fill();
 
-    ctx.fillStyle='#ffffff';
-    ctx.beginPath();
-    ctx.arc(canvas.width/2, canvas.height/2 - 90, 110, 0, Math.PI*2);
-    ctx.fill();
-
-    ctx.fillStyle='#d81b60';
-    ctx.font='bold 48px Poppins';
+    ctx.fillStyle='#ff7ac8';
+    ctx.font='700 56px Inter';
     ctx.textAlign='center';
-    ctx.fillText('Pilih foto dulu', canvas.width/2, canvas.height/2 + 80);
+    ctx.fillText('Upload foto dulu', canvas.width/2, canvas.height/2 + 36);
 
-    ctx.fillStyle='#666';
-    ctx.font='32px Poppins';
-    ctx.fillText('Upload foto atau buka kamera', canvas.width/2, canvas.height/2 + 140);
+    ctx.fillStyle='#b7bfd6';
+    ctx.font='400 30px Inter';
+    ctx.fillText('atau buka kamera', canvas.width/2, canvas.height/2 + 92);
   }
 
   function drawCanvas(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle='#ffffff';
+    ctx.fillStyle='#091736';
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
     if(hasUserImage){
       const img=userImage;
       const iw=img.width;
       const ih=img.height;
-
       const baseScale=Math.max(canvas.width/iw, canvas.height/ih);
       const finalScale=baseScale*state.scale;
-
       const drawW=iw*finalScale;
       const drawH=ih*finalScale;
-
       const x=(canvas.width-drawW)/2 + state.x;
       const y=(canvas.height-drawH)/2 + state.y;
-
       ctx.drawImage(img,x,y,drawW,drawH);
     }else{
       drawPlaceholder();
@@ -779,15 +925,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(twibbonImage.complete && twibbonImage.naturalWidth>0){
       ctx.drawImage(twibbonImage,0,0,canvas.width,canvas.height);
     }else{
-      ctx.strokeStyle='rgba(216,27,96,.35)';
-      ctx.lineWidth=24;
-      ctx.strokeRect(12,12,canvas.width-24,canvas.height-24);
-      ctx.fillStyle='rgba(216,27,96,.15)';
-      ctx.fillRect(0,canvas.height-140,canvas.width,140);
-      ctx.fillStyle='#d81b60';
-      ctx.font='bold 54px Poppins';
+      ctx.strokeStyle='rgba(255,122,200,0.30)';
+      ctx.lineWidth=28;
+      ctx.strokeRect(18,18,canvas.width-36,canvas.height-36);
+      ctx.fillStyle='rgba(255,255,255,0.06)';
+      ctx.fillRect(50, canvas.height-180, canvas.width-100, 110);
+      ctx.fillStyle='#ff7ac8';
+      ctx.font='700 56px Inter';
       ctx.textAlign='center';
-      ctx.fillText('Birthday Frame', canvas.width/2, canvas.height-60);
+      ctx.fillText('Birthday Frame', canvas.width/2, canvas.height-107);
     }
   }
 
@@ -803,38 +949,27 @@ document.addEventListener('DOMContentLoaded',()=>{
   uploadPhoto.addEventListener('change',e=>{
     const file=e.target.files[0];
     if(!file) return;
-
     const reader=new FileReader();
-    reader.onload=ev=>{
-      loadUserImage(ev.target.result);
-    };
+    reader.onload=ev=>loadUserImage(ev.target.result);
     reader.readAsDataURL(file);
   });
 
   openCameraBtn.addEventListener('click',async()=>{
     try{
       stream=await navigator.mediaDevices.getUserMedia({
-        video:{
-          facingMode:'user',
-          width:{ideal:1080},
-          height:{ideal:1080}
-        },
+        video:{facingMode:'user', width:{ideal:1080}, height:{ideal:1080}},
         audio:false
       });
-
       cameraVideo.srcObject=stream;
       cameraWrap.style.display='flex';
-      closeCameraBtn.style.display='inline-block';
+      closeCameraBtn.style.display='inline-flex';
       openCameraBtn.style.display='none';
     }catch(err){
-      alert('Kamera tidak bisa dibuka. Pastikan izin kamera sudah diberikan dan website dibuka lewat browser yang mendukung.');
-      console.error(err);
+      alert('Kamera tidak bisa dibuka. Pastikan izin kamera sudah diberikan.');
     }
   });
 
-  closeCameraBtn.addEventListener('click',()=>{
-    stopCamera();
-  });
+  closeCameraBtn.addEventListener('click',stopCamera);
 
   function stopCamera(){
     if(stream){
@@ -844,18 +979,16 @@ document.addEventListener('DOMContentLoaded',()=>{
     cameraVideo.srcObject=null;
     cameraWrap.style.display='none';
     closeCameraBtn.style.display='none';
-    openCameraBtn.style.display='inline-block';
+    openCameraBtn.style.display='inline-flex';
   }
 
   captureBtn.addEventListener('click',()=>{
     if(!cameraVideo.videoWidth || !cameraVideo.videoHeight) return;
-
     const tempCanvas=document.createElement('canvas');
     tempCanvas.width=cameraVideo.videoWidth;
     tempCanvas.height=cameraVideo.videoHeight;
     const tempCtx=tempCanvas.getContext('2d');
     tempCtx.drawImage(cameraVideo,0,0,tempCanvas.width,tempCanvas.height);
-
     loadUserImage(tempCanvas.toDataURL('image/png'));
     stopCamera();
   });
@@ -864,12 +997,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     state.scale=parseFloat(scaleRange.value);
     drawCanvas();
   });
-
   xRange.addEventListener('input',()=>{
     state.x=parseInt(xRange.value,10);
     drawCanvas();
   });
-
   yRange.addEventListener('input',()=>{
     state.y=parseInt(yRange.value,10);
     drawCanvas();
@@ -897,10 +1028,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const rect=canvas.getBoundingClientRect();
     const clientX=evt.touches ? evt.touches[0].clientX : evt.clientX;
     const clientY=evt.touches ? evt.touches[0].clientY : evt.clientY;
-    return {
-      x:clientX-rect.left,
-      y:clientY-rect.top
-    };
+    return {x:clientX-rect.left, y:clientY-rect.top};
   }
 
   function startDrag(evt){
@@ -914,17 +1042,13 @@ document.addEventListener('DOMContentLoaded',()=>{
   function moveDrag(evt){
     if(!state.dragging || !hasUserImage) return;
     evt.preventDefault();
-
     const pos=getPointerPos(evt);
     const dx=pos.x-state.lastX;
     const dy=pos.y-state.lastY;
-
     state.x += dx*(canvas.width/canvas.getBoundingClientRect().width);
     state.y += dy*(canvas.height/canvas.getBoundingClientRect().height);
-
     xRange.value=Math.max(parseInt(xRange.min,10), Math.min(parseInt(xRange.max,10), Math.round(state.x)));
     yRange.value=Math.max(parseInt(yRange.min,10), Math.min(parseInt(yRange.max,10), Math.round(state.y)));
-
     state.lastX=pos.x;
     state.lastY=pos.y;
     drawCanvas();
@@ -937,13 +1061,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   canvas.addEventListener('mousedown',startDrag);
   canvas.addEventListener('mousemove',moveDrag);
   window.addEventListener('mouseup',endDrag);
-
   canvas.addEventListener('touchstart',startDrag,{passive:true});
   canvas.addEventListener('touchmove',moveDrag,{passive:false});
   window.addEventListener('touchend',endDrag);
 
   drawCanvas();
-
+  updateMusicUI();
 });
 </script>
 </body>

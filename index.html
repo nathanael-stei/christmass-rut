@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hi Rut</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Great+Vibes&family=Cormorant+Garamond:wght@600;700&display=swap');
 
 :root{
   --bg:#06122d;
@@ -596,9 +596,19 @@ body::after{
 .tool-box input[type="range"]{
   accent-color:#ff7ac8;
 }
+.tool-box input[type="text"]{
+  width:100%;
+  height:48px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.09);
+  background:rgba(255,255,255,0.04);
+  color:var(--text);
+  padding:0 14px;
+  font-size:15px;
+}
 .canvas-wrap{
   width:min(100%, 640px);
-  aspect-ratio:1/1;
+  aspect-ratio:4/5;
   border-radius:24px;
   overflow:hidden;
   border:1px solid rgba(255,255,255,0.08);
@@ -910,7 +920,6 @@ body::after{
       <div class="twibbon-layout">
         <div class="tool-box">
           <h3>Foto</h3>
-          
 
           <label for="uploadPhoto">Galeri</label>
           <input type="file" id="uploadPhoto" accept="image/*">
@@ -926,13 +935,13 @@ body::after{
           </div>
 
           <label for="scaleRange">Zoom</label>
-          <input type="range" id="scaleRange" min="0.5" max="3" step="0.01" value="1">
+          <input type="range" id="scaleRange" min="0.5" max="4" step="0.01" value="1">
 
           <label for="xRange">Posisi X</label>
-          <input type="range" id="xRange" min="-400" max="400" step="1" value="0">
+          <input type="range" id="xRange" min="-500" max="500" step="1" value="0">
 
           <label for="yRange">Posisi Y</label>
-          <input type="range" id="yRange" min="-400" max="400" step="1" value="0">
+          <input type="range" id="yRange" min="-500" max="500" step="1" value="0">
 
           <div class="btn-row" style="justify-content:flex-start; margin-top:16px;">
             <button class="btn btn-green" id="downloadBtn">Simpan</button>
@@ -943,9 +952,9 @@ body::after{
         </div>
 
         <div class="preview-box">
-          <h3>Untuk Rut</h3>
+          <h3>Birthday Card</h3>
           <div class="canvas-wrap">
-            <canvas id="twibbonCanvas" width="1080" height="1080"></canvas>
+            <canvas id="twibbonCanvas" width="1080" height="1350"></canvas>
           </div>
           
         </div>
@@ -1296,71 +1305,77 @@ document.addEventListener('DOMContentLoaded',()=>{
     lastY:0
   };
 
-  twibbonImage.src='twibbon.png';
+  twibbonImage.src='twibbon_canva_rut_philia_overlay_v2.png';
   twibbonImage.onload=drawCanvas;
   twibbonImage.onerror=drawCanvas;
 
-  function drawPlaceholder(){
+  const frameConfig={
+    photoX:268,
+    photoY:400,
+    photoW:537,
+    photoH:510,
+    radius:0
+  };
+
+  function addRoundedRectPath(x,y,w,h,r){
+    const radius=Math.max(0, Math.min(r, Math.min(w,h)/2));
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+  }
+
+  function drawBackground(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    const g=ctx.createLinearGradient(0,0,canvas.width,canvas.height);
-    g.addColorStop(0,'#091736');
-    g.addColorStop(1,'#0b1f48');
-    ctx.fillStyle=g;
+    ctx.fillStyle='#ffffff';
     ctx.fillRect(0,0,canvas.width,canvas.height);
+    if(twibbonImage.complete && twibbonImage.naturalWidth>0){
+      ctx.drawImage(twibbonImage,0,0,canvas.width,canvas.height);
+    }
+  }
 
-    ctx.fillStyle='rgba(255,255,255,0.05)';
-    ctx.beginPath();
-    ctx.arc(canvas.width/2, canvas.height/2 - 40, 220, 0, Math.PI*2);
-    ctx.fill();
-
-    ctx.fillStyle='rgba(255,255,255,0.08)';
-    ctx.beginPath();
-    ctx.arc(canvas.width/2, canvas.height/2, 170, 0, Math.PI*2);
-    ctx.fill();
-
-    ctx.fillStyle='#ff7ac8';
-    ctx.font='800 180px Inter';
-    ctx.textAlign='center';
-    ctx.fillText('R', canvas.width/2, canvas.height/2 + 58);
-
-    ctx.fillStyle='#b7bfd6';
-    ctx.font='500 32px Inter';
-    ctx.fillText('Happy Birthday', canvas.width/2, canvas.height/2 + 190);
+  function drawPlaceholder(){
+    drawBackground();
   }
 
   function drawCanvas(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle='#091736';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    drawBackground();
 
-    if(hasUserImage){
-      const img=userImage;
-      const iw=img.width;
-      const ih=img.height;
-      const baseScale=Math.max(canvas.width/iw, canvas.height/ih);
-      const finalScale=baseScale*state.scale;
-      const drawW=iw*finalScale;
-      const drawH=ih*finalScale;
-      const x=(canvas.width-drawW)/2 + state.x;
-      const y=(canvas.height-drawH)/2 + state.y;
-      ctx.drawImage(img,x,y,drawW,drawH);
-    }else{
-      drawPlaceholder();
+    if(!hasUserImage){
+      return;
     }
 
-    if(twibbonImage.complete && twibbonImage.naturalWidth>0){
-      ctx.drawImage(twibbonImage,0,0,canvas.width,canvas.height);
-    }else{
-      ctx.strokeStyle='rgba(255,122,200,0.30)';
-      ctx.lineWidth=28;
-      ctx.strokeRect(18,18,canvas.width-36,canvas.height-36);
-      ctx.fillStyle='rgba(255,255,255,0.06)';
-      ctx.fillRect(50, canvas.height-180, canvas.width-100, 110);
-      ctx.fillStyle='#ff7ac8';
-      ctx.font='700 56px Inter';
-      ctx.textAlign='center';
-      ctx.fillText('Birthday Frame', canvas.width/2, canvas.height-107);
-    }
+    const img=userImage;
+    const iw=img.width;
+    const ih=img.height;
+    const baseScale=Math.max(frameConfig.photoW/iw, frameConfig.photoH/ih);
+    const finalScale=baseScale*state.scale;
+    const drawW=iw*finalScale;
+    const drawH=ih*finalScale;
+    const x=frameConfig.photoX + (frameConfig.photoW-drawW)/2 + state.x;
+    const y=frameConfig.photoY + (frameConfig.photoH-drawH)/2 + state.y;
+
+    ctx.save();
+    ctx.shadowColor='rgba(0,0,0,0.18)';
+    ctx.shadowBlur=18;
+    ctx.shadowOffsetY=8;
+    addRoundedRectPath(frameConfig.photoX, frameConfig.photoY, frameConfig.photoW, frameConfig.photoH, frameConfig.radius);
+    ctx.fillStyle='rgba(255,255,255,0.01)';
+    ctx.fill();
+    ctx.restore();
+
+    ctx.save();
+    addRoundedRectPath(frameConfig.photoX, frameConfig.photoY, frameConfig.photoW, frameConfig.photoH, frameConfig.radius);
+    ctx.clip();
+    ctx.drawImage(img, x, y, drawW, drawH);
+    ctx.restore();
   }
 
   function loadUserImage(src){
@@ -1383,7 +1398,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   openCameraBtn.addEventListener('click',async()=>{
     try{
       stream=await navigator.mediaDevices.getUserMedia({
-        video:{facingMode:'user', width:{ideal:1080}, height:{ideal:1080}},
+        video:{facingMode:'user', width:{ideal:1080}, height:{ideal:1350}},
         audio:false
       });
       cameraVideo.srcObject=stream;
@@ -1445,7 +1460,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   downloadBtn.addEventListener('click',()=>{
     drawCanvas();
     const link=document.createElement('a');
-    link.download='birthday-twibbon.png';
+    link.download='birthday-card-rut.png';
     link.href=canvas.toDataURL('image/png');
     link.click();
   });

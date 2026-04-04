@@ -643,7 +643,7 @@
     function makeStars(){
       const stars = document.getElementById('stars');
       stars.innerHTML = '';
-      const total = Math.min(120, Math.floor((window.innerWidth * window.innerHeight) / 14000));
+      const total = Math.min(70, Math.floor((window.innerWidth * window.innerHeight) / 22000));
       for(let i = 0; i < total; i++){
         const s = document.createElement('span');
         s.className = 'star';
@@ -688,11 +688,11 @@
       for(const item of steps){
         if(token !== runToken) return;
         countNum.classList.remove('show');
-        await sleep(140);
+        await sleep(80);
         if(token !== runToken) return;
         countNum.textContent = item;
         countNum.classList.add('show');
-        await sleep(item === 'Go' ? 850 : 900);
+        await sleep(item === 'Go' ? 550 : 650);
       }
     }
 
@@ -705,11 +705,11 @@
         bubble.className = `bubble ${msg.side === 'right' ? 'right' : 'left'}`;
         bubble.textContent = msg.text;
         chatStack.appendChild(bubble);
-        await sleep(90);
+        await sleep(60);
         bubble.classList.add('show');
-        await sleep(1150);
+        await sleep(780);
       }
-      await sleep(1200);
+      await sleep(700);
     }
 
     async function typeLine(el, text, speed, token){
@@ -734,11 +734,11 @@
         const p = document.createElement('p');
         p.className = 'letter-line';
         letterBox.appendChild(p);
-        const ok = await typeLine(p, line, 22, token);
+        const ok = await typeLine(p, line, 14, token);
         if(!ok) return;
-        await sleep(260);
+        await sleep(140);
       }
-      await sleep(1600);
+      await sleep(900);
     }
 
     const PHOTO_EXTENSIONS = ['jpg','jpeg','png','webp','avif','gif'];
@@ -754,18 +754,38 @@
     function setImageWithFallback(img, source, card){
       const candidates = getPhotoCandidates(source);
       let index = 0;
+      let settled = false;
+
+      function usePlaceholder(){
+        img.removeAttribute('src');
+        card.classList.remove('has-image');
+      }
 
       function tryNext(){
         if(index >= candidates.length){
-          img.removeAttribute('src');
-          card.classList.remove('has-image');
+          settled = true;
+          usePlaceholder();
           return;
         }
         img.src = candidates[index++];
       }
 
-      img.onload = () => card.classList.add('has-image');
-      img.onerror = tryNext;
+      const failSafe = setTimeout(() => {
+        if(!settled){
+          settled = true;
+          usePlaceholder();
+        }
+      }, 1200);
+
+      img.onload = () => {
+        settled = true;
+        clearTimeout(failSafe);
+        card.classList.add('has-image');
+      };
+      img.onerror = () => {
+        if(settled) return;
+        tryNext();
+      };
       tryNext();
     }
 
@@ -777,6 +797,7 @@
 
         const img = document.createElement('img');
         img.alt = `${CONFIG.name} ${idx + 1}`;
+        img.loading = 'eager';
         setImageWithFallback(img, source, card);
 
         const placeholder = document.createElement('div');
@@ -809,11 +830,13 @@
     async function playGallery(token){
       showScene(scenes.gallery);
       buildGallery();
-      carouselInterval = setInterval(() => {
-        photoIndex = (photoIndex + 1) % photoCards.length;
-        paintGallery();
-      }, 2200);
-      await sleep(9200);
+      if(photoCards.length > 1){
+        carouselInterval = setInterval(() => {
+          photoIndex = (photoIndex + 1) % photoCards.length;
+          paintGallery();
+        }, 1500);
+      }
+      await sleep(5200);
       if(token !== runToken) return;
       clearInterval(carouselInterval);
     }
@@ -902,8 +925,8 @@
           return;
         }
         spawnFirework();
-      }, 850);
-      await sleep(9000);
+      }, 1000);
+      await sleep(5200);
       clearInterval(fireworkLoop);
       if(token !== runToken) return;
       confettiActive = false;
@@ -913,7 +936,7 @@
       const token = ++runToken;
       clearSceneContent();
       showScene(scenes.intro);
-      await sleep(3200);
+      await sleep(1400);
       if(token !== runToken) return;
       await playCountdown(token);
       if(token !== runToken) return;
@@ -948,7 +971,7 @@
     startBtn.addEventListener('click', async () => {
       startOverlay.classList.add('hidden');
       musicControl.style.display = 'flex';
-      music.volume = 0.5;
+      music.volume = 0.35;
       try{ await music.play(); }catch(e){}
       updateMusicUI();
       runShow();

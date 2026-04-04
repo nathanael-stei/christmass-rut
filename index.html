@@ -485,7 +485,7 @@
       <h1>Untuk <span class="grad" id="overlayName">Rut</span></h1>
       <p>Ini versi satu halaman penuh. Konsepnya dibuat seperti video. Tinggal ganti nama, teks, musik, dan foto kalau perlu.</p>
       <button class="btn btn-primary" id="startBtn">Mulai</button>
-      <div class="hint" style="margin-top:14px">Taruh file musik dengan nama musik.mp3 dan foto dengan nama foto1.jpg sampai foto5.jpg di folder yang sama.</div>
+      <div class="hint" style="margin-top:14px">Taruh file musik dengan nama musik.mp3. Untuk foto, Anda bisa pakai nama foto1 sampai foto5 dengan format jpg, jpeg, png, webp, avif, atau gif.</div>
     </div>
   </div>
 
@@ -528,7 +528,7 @@
       <div class="wrap">
         <div class="badge">Little frames</div>
         <div class="title-lg">Beberapa momen manis</div>
-        <p class="subtitle">Foto-foto ini bisa Anda ganti dengan foto yang Anda mau.</p>
+        <p class="subtitle">Foto-foto ini bisa Anda ganti dengan berbagai format seperti jpg, jpeg, png, webp, avif, atau gif.</p>
         <div class="carousel" id="carousel"></div>
       </div>
     </section>
@@ -576,7 +576,7 @@
       ],
       finalNote: "Semoga hari-harimu dipenuhi hal baik, hati yang tenang, dan banyak alasan untuk tersenyum.",
       finalSign: "Made specially for you",
-      photos: ["foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg","foto5.jpg"],
+      photos: ["foto1","foto2","foto3","foto4","foto5"],
       musicFile: "musik.mp3"
     };
 
@@ -741,17 +741,43 @@
       await sleep(1600);
     }
 
+    const PHOTO_EXTENSIONS = ['jpg','jpeg','png','webp','avif','gif'];
+
+    function getPhotoCandidates(source){
+      if(!source) return [];
+      if(/^https?:\/\//i.test(source) || source.startsWith('data:') || /\.[a-zA-Z0-9]{2,5}(\?|#|$)/.test(source)){
+        return [source];
+      }
+      return PHOTO_EXTENSIONS.map(ext => `${source}.${ext}`);
+    }
+
+    function setImageWithFallback(img, source, card){
+      const candidates = getPhotoCandidates(source);
+      let index = 0;
+
+      function tryNext(){
+        if(index >= candidates.length){
+          img.removeAttribute('src');
+          card.classList.remove('has-image');
+          return;
+        }
+        img.src = candidates[index++];
+      }
+
+      img.onload = () => card.classList.add('has-image');
+      img.onerror = tryNext;
+      tryNext();
+    }
+
     function buildGallery(){
       carousel.innerHTML = '';
-      photoCards = CONFIG.photos.map((src, idx) => {
+      photoCards = CONFIG.photos.map((source, idx) => {
         const card = document.createElement('div');
         card.className = 'photo-card';
 
         const img = document.createElement('img');
         img.alt = `${CONFIG.name} ${idx + 1}`;
-        img.src = src;
-        img.addEventListener('load', () => card.classList.add('has-image'));
-        img.addEventListener('error', () => card.classList.remove('has-image'));
+        setImageWithFallback(img, source, card);
 
         const placeholder = document.createElement('div');
         placeholder.className = 'placeholder';
